@@ -1,0 +1,68 @@
+body, html {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  font-size: 18px;
+}
+header.landing img {
+  width: 278px;
+  float: right;
+}
+header.landing {
+  height: 487px;
+  background: #000 url(img/landing-background.jpg) no-repeat top center;
+}
+header.landing .container {
+  padding: 88px 0 0 0;
+  margin: 0 auto;
+  max-width: 730px;
+}
+header.landing h1 {
+  padding: 66px 0 0 0;
+  font-size: 56px;
+  font-family: 'Open Sans', sans-serif;
+  line-height: 50px;
+  text-transform: uppercase;
+  font-weight: 800;
+  float: left;
+  color: #FFF;
+}
+body, html, header.landing h1 {
+  margin: 0;
+}
+header.landing, header.landing img {
+  display: block;
+}
+header.landing:before, header.landing:after {
+  display: table;
+  content: " ";
+  clear: both;
+}
+@media all and (max-width: 730px) {
+header.landing .container {
+  padding: 0;
+  text-align: center;
+}
+header.landing h1 {
+  padding: 20px 0 0 0;
+}
+header.landing h1, header.landing img {
+  float: none;
+}
+header.landing img {
+  display: inline-block;
+  margin-left: -32px;
+}
+}
+@media all and (max-width: 440px) {
+header.landing h1 {
+  font-size: 32px;
+  line-height: 32px;
+  padding: 48px 0 0 0;
+}
+}
+@media all and (max-width: 250px) {
+header.landing img {
+  width: 220px;
+}
+}

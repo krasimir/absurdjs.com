@@ -11,12 +11,12 @@ module.exports = function () {
     function transform (file, enc, next) {
         var self = this;
 
-        if (file.isNull()) {
+        if(file.isNull()) {
             this.push(file); // pass along
             return next();
         }
 
-        if (file.isStream()) {
+        if(file.isStream()) {
             this.emit('error', new PluginError('page', 'Streaming not supported'));
             return next();
         }
