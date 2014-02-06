@@ -1,0 +1,27 @@
+{
+  "name": "absurdjs-site",
+  "version": "0.0.1",
+  "homepage": "http://absurdjs.com",
+  "description": "Official site of AbsurdJS",
+  "author": {
+    "name": "Krasimir Tsonev",
+    "email": "info@krasimirtsonev.com",
+    "url": "http://krasimirtsonev.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    
+  },
+  "devDependencies": {
+    "absurd": "0.2.75",
+    "gulp": "3.5.2",
+    "gulp-absurd": "0.0.1",
+    "through2": "0.4.1",
+    "gulp-util": "2.2.14",
+    "markdown": "0.5.0"
+  },
+  "keywords": [
+    "absurd",
+    "site"
+  ]
+}
