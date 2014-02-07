@@ -5,6 +5,7 @@ var PluginError = gutil.PluginError;
 var path = require('path');
 var fs = require("fs");
 var markdown = require("markdown").markdown;
+var base = fs.readFileSync(__dirname + "/../layout.html").toString('utf8')
 
 module.exports = function () {
 
@@ -21,19 +22,12 @@ module.exports = function () {
             return next();
         }
 
-        var page = require(file.path);
         var root = __dirname + "/../";
         var fileRoot = path.dirname(file.path);
-        var url = fileRoot.replace(path.resolve(root), '').replace('\\pages\\', '');
+        var htmlFile = path.basename(file.path).replace(".md", ".html");
         
-        var html = fs.readFileSync(root + page.base).toString('utf8');
-        html = html.replace('{content}', markdown.toHTML(fs.readFileSync(fileRoot + '/page.md').toString('utf8')));
-        
-        if(!fs.existsSync(root + 'site/' + url)) {
-            fs.mkdirSync(root + 'site/' + url, '0777');
-        }
-
-        fs.writeFileSync(root + 'site/' + url + '/index.html', html);
+        html = base.replace('{content}', markdown.toHTML(fs.readFileSync(file.path).toString('utf8')));
+        fs.writeFileSync(fileRoot + '/' + htmlFile, html);
 
         next();
 

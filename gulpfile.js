@@ -6,7 +6,7 @@ var uglify = require('gulp-uglify');
 var page = require("./tasks/page");
 
 gulp.task('pages', function() {
-	gulp.src('./pages/**/index.js')
+	gulp.src('./pages/**/*.md')
 	.pipe(page());
 });
 
@@ -20,7 +20,7 @@ gulp.task('js', function() {
 });
 
 gulp.task('css', function() {
-	gulp.src('./src/css/styles.css')
+	gulp.src('./src/css/styles.js')
     .pipe(absurd({
         minify: true
     }))

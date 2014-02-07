@@ -5,18 +5,47 @@
         <title>AbsurdJS - JavaScript library with superpowers</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/public/styles.css">
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,700' rel='stylesheet' type='text/css'>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,700' type='text/css'>
         <link rel="stylesheet" href="/public/font-awesome-4.0.3/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/public/prism/prism.css" />
     </head>
     <body>
+
+        <!-- facebook -->
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=130923167067801";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
 
         <header class="landing">
             <div class="container">
                 <h1>A JavaScript<br />library with<br />superpowers</h1>
                 <img src="/public/img/logo.png" alt="AbsurdJS logo" />
+                <nav>
+                    <ul>
+                        <li><i class="fa fa-check-circle-o"></i> <a href="#features">Features</a></li>
+                        <li><i class="fa fa-laptop"></i> <a href="#installation">Installation</a></li>
+                        <li><i class="fa fa-code"></i> <a href="#quick-use">Quick-use</a></li>
+                        <li><hr /></li>
+                        <li>
+                            <i class="fa fa-github-square"></i> 
+                            <a href="https://github.com/krasimir/absurd" target="_blank">GitHub repo</a>
+                            <!-- GitHub -->
+                            <div class="github-stars">
+                                <iframe src="http://ghbtns.com/github-btn.html?user=krasimir&repo=absurd&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20"></iframe>
+                            </div>
+                        </li>
+                    </ul>                    
+                </nav>
             </div>
         </header>
 
+        <!-- ---------------------------------------------------------------- features -->
+        <a name="features"></a>
         <div class="landing-content">
 
             <section>
@@ -26,7 +55,7 @@
                 <div class="description">
                     <h2>CSS<br />preprocessing</h2>
                     <p>Boost your productivity by using CSS preprocessor</p>
-                    <p>Available for:<br /><img src="/public/img/nodejs.jpg" alt="nodejs" /> <img src="/public/img/browsers.jpg" alt="browsers" /></p>
+                    <p>Available for:<br /><img src="/public/img/nodejs.png" alt="nodejs" /> <img src="/public/img/browsers.png" alt="browsers" /></p>
                     <p><a href="#"><i class="fa fa-check-circle-o"></i> Read more</a></p>
                 </div>
             </section>
@@ -38,7 +67,7 @@
                 <div class="description">
                     <h2>HTML<br />preprocessing</h2>
                     <p>Make your templates dynamic.</p>
-                    <p>Available for:<br /><img src="/public/img/nodejs.jpg" alt="nodejs" /> <img src="/public/img/browsers.jpg" alt="browsers" /></p>
+                    <p>Available for:<br /><img src="/public/img/nodejs.png" alt="nodejs" /> <img src="/public/img/browsers.png" alt="browsers" /></p>
                     <p><a href="#"><i class="fa fa-check-circle-o"></i> Read more</a></p>
                 </div>
             </section>
@@ -50,7 +79,7 @@
                 <div class="description">
                     <h2>Client-side<br />components</h2>
                     <p>Modulize your front-end.</p>
-                    <p>Available for:<br /><img src="/public/img/browsers.jpg" alt="browsers" /></p>
+                    <p>Available for:<br /><img src="/public/img/browsers.png" alt="browsers" /></p>
                     <p><a href="#"><i class="fa fa-check-circle-o"></i> Read more</a></p>
                 </div>
             </section>
@@ -62,18 +91,131 @@
                 <div class="description">
                     <h2>Organic CSS<br />development</h2>
                     <p>Follow Atomic design principle.</p>
-                    <p>Available for:<br /><img src="/public/img/nodejs.jpg" alt="nodejs" /> <img src="/public/img/browsers.jpg" alt="browsers" /></p>
+                    <p>Available for:<br /><img src="/public/img/nodejs.png" alt="nodejs" /> <img src="/public/img/browsers.png" alt="browsers" /></p>
                     <p><a href="#"><i class="fa fa-check-circle-o"></i> Read more</a></p>
                 </div>
             </section>
 
         </div>
 
+        <!-- ---------------------------------------------------------------- installation -->
+        <a name="installation"></a>
+        <div class="quick-tips">
+            <h3>Installation</h3>
+            <div class="grid-container">
+                <div>
+                    <img src="/public/img/nodejs.png" alt="nodejs" />
+                    <pre><code class="language-javascript">npm install -g absurd</code></pre>
+                </div>
+                <div>
+                    <img src="/public/img/browsers.png" alt="browsers" />
+                    <pre><code class="language-javascript">&lt;script src="absurd.min.js">&lt;/script></code></pre>
+                    <p>
+                        <a href="https://raw.github.com/krasimir/absurd/master/client-side/build/absurd.js" target="_blank"><i class="fa fa-download"></i> absurd.js</a><br />
+                        <a href="https://raw.github.com/krasimir/absurd/master/client-side/build/absurd.min.js" target="_blank"><i class="fa fa-download"></i> absurd.min.js (minified version)</a>
+                    </p>
+                    <p>
+                        Organic framework:<br />
+                        <a href="https://raw.github.com/krasimir/absurd/master/client-side/build/absurd.organic.js" target="_blank"><i class="fa fa-download"></i> absurd.organic.js</a><br />
+                        <a href="https://raw.github.com/krasimir/absurd/master/client-side/build/absurd.organic.min.js" target="_blank"><i class="fa fa-download"></i> absurd.organic.min.js</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ---------------------------------------------------------------- quick-use -->
+        <a name="quick-use"></a>
+        <div class="quick-tips second-color">
+            <h3>Quick-use</h3>
+            <div class="grid-container">
+                <div>
+                    <img src="/public/img/nodejs.png" alt="nodejs" />
+                    <pre><code class="language-javascript">var absurd = require('absurd')();
+absurd.add({
+    section: {
+        width: '960px',
+        padding: '20px 0 0 0',
+        a: {
+            fontSize: '12px'
+        }
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});</code></pre>
+                <p>The result:</p>
+                <pre><code class="language-css">section {
+  width: 960px;
+  padding: 20px 0 0 0;
+}
+section a {
+  font-size: 12px;
+}</code></pre>
+                </div>
+                <div>
+                    <img src="/public/img/browsers.png" alt="browsers" />
+                    <pre><code class="language-javascript">var absurd = Absurd();
+absurd.add({
+    body: {
+        fontSize: '20px',
+        lineHeight: '30px',
+        p: {
+            '-wm-box-sizing': 'border-box'
+        }
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});</code></pre>
+                <p>The result:</p>
+                <pre><code class="language-css">body {
+  font-size: 20px;
+  line-height: 30px;
+}
+body p {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}</code></pre>
+                </div>
+            </div>
+        </div>
+
         <footer>
-            a
+            <div class="grid-container">
+                <div>A</div>
+                <div>A</div>
+                <div>A</div>
+                <div>A</div>
+            </div>
+            <div class="social">
+
+                <!-- Twitter -->
+                <!--<a href="https://twitter.com/share" class="twitter-share-button" data-via="KrasimirTsonev" data-hashtags="AbsurdJS" data-counturl="http://krasimir.github.io/absurd/">Tweet</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>-->
+
+                <!-- GitHub -->
+                <!-- <iframe src="http://ghbtns.com/github-btn.html?user=krasimir&repo=absurd&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20"></iframe> -->
+
+                <!-- Google plus -->
+                <!-- Place this tag where you want the +1 button to render. -->
+                <!-- <div class="g-plusone" data-size="medium" data-annotation="inline" data-width="120"></div> -->
+
+                <!-- Place this tag after the last +1 button tag. -->
+                <!-- <script>
+                  (function() {
+                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                    po.src = 'https://apis.google.com/js/plusone.js';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                  })();
+                </script>-->
+
+                <!-- Facebook -->
+                <!-- <div class="fb-like" data-href="http://absurdjs.com" data-width="80" data-height="The pixel height of the plugin" data-colorscheme="light" data-layout="standard" data-action="like" data-show-faces="false" data-send="false"></div> -->
+
+            </div>
         </footer>
 
         <script src="/public/scripts.js"></script>
+        <script src="/public/prism/prism.js"></script>
         
     </body>
 </html>

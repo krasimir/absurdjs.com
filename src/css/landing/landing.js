@@ -2,7 +2,7 @@ module.exports = function(api) {
 	api.add({
 		'header.landing': {
 			d: 'b',
-			hei: '487px',
+			hei: '100%',
 			bg: '#000 url(img/landing-background.jpg) no-repeat top center',
 			cf: 'both',
 			'.container': {
@@ -45,6 +45,39 @@ module.exports = function(api) {
 				},
 				'@media all and (max-width: 250px)': {
 					wid: '220px'
+				}
+			},
+			nav: {
+				cf: 'both',
+				ul: {
+					mar: 0,
+					pad: 0,
+					lis: 'n',
+					li: {
+						mar: '0 0 14px 0',
+						pad: 0,
+						a: {
+							color: api.darken('#fff', 30),
+							fz: '24px'		
+						},
+						'i.fa': {
+							wid: '26px',
+							color: api.darken('#fff', 30)
+						},
+						hr: {
+							bdb: 'n',
+							bdt: 'dotted 1px ' + api.darken('#fff', 70)	
+						},
+						'.github-stars': {
+							fl: 'r',
+							d: 'b',
+							mar: '2px -14px 0 0',
+							opacity: '0.5',
+							'&:hover': {
+								opacity: 1
+							}
+						}
+					}
 				}
 			}
 		}

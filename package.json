@@ -13,7 +13,7 @@
     
   },
   "devDependencies": {
-    "absurd": "0.2.75",
+    "absurd": "latest",
     "gulp": "3.5.2",
     "gulp-absurd": "0.0.1",
     "gulp-concat": "2.1.7",
