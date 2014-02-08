@@ -5,7 +5,6 @@ var PluginError = gutil.PluginError;
 var path = require('path');
 var fs = require("fs");
 var markdown = require("markdown").markdown;
-var base = fs.readFileSync(__dirname + "/../layout.html").toString('utf8')
 
 module.exports = function () {
 
@@ -22,6 +21,7 @@ module.exports = function () {
             return next();
         }
 
+        var base = fs.readFileSync(__dirname + "/../layout.html").toString('utf8');
         var root = __dirname + "/../";
         var fileRoot = path.dirname(file.path);
         var htmlFile = path.basename(file.path).replace(".md", ".html");

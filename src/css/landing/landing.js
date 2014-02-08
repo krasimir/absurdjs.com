@@ -57,8 +57,14 @@ module.exports = function(api) {
 						mar: '0 0 14px 0',
 						pad: 0,
 						a: {
+							d: 'ib',
 							color: api.darken('#fff', 30),
-							fz: '24px'		
+							fz: '24px',
+							'-w-trs': 'all 400ms',
+							'&:hover': { 
+								color: '#FFF',
+								moveto: '10px/0'
+							}
 						},
 						'i.fa': {
 							wid: '26px',
@@ -69,9 +75,9 @@ module.exports = function(api) {
 							bdt: 'dotted 1px ' + api.darken('#fff', 70)	
 						},
 						'.github-stars': {
-							fl: 'r',
-							d: 'b',
-							mar: '2px -14px 0 0',
+							d: 'ib',
+							mar: '0 0 0 18px',
+							moveto: '0/3px',
 							opacity: '0.5',
 							'&:hover': {
 								opacity: 1

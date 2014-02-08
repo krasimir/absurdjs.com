@@ -4,10 +4,16 @@ var concat = require('gulp-concat');
 var jshint = require('gulp-jshint');
 var uglify = require('gulp-uglify');
 var page = require("./tasks/page");
+var builds = require("./tasks/builds");
 
 gulp.task('pages', function() {
 	gulp.src('./pages/**/*.md')
 	.pipe(page());
+});
+
+gulp.task('builds', function() {
+	gulp.src('./builds/*.js')
+	.pipe(builds());
 });
 
 gulp.task('js', function() {
@@ -28,9 +34,9 @@ gulp.task('css', function() {
 });
 
 gulp.task('watchers', function() {
-	gulp.watch('pages/**/*.*', ['pages']);
+	gulp.watch(['pages/**/*.*', 'layout.html'], ['pages']);
 	gulp.watch('src/js/**/*.js', ['js']);
 	gulp.watch('src/css/**/*.*', ['css']);
 });
 
-gulp.task('default', ['pages', 'js', 'css', 'watchers']);
+gulp.task('default', ['pages', 'builds', 'js', 'css', 'watchers']);

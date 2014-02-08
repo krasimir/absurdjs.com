@@ -27,13 +27,15 @@
                 <img src="/public/img/logo.png" alt="AbsurdJS logo" />
                 <nav>
                     <ul>
-                        <li><i class="fa fa-check-circle-o"></i> <a href="#features">Features</a></li>
-                        <li><i class="fa fa-laptop"></i> <a href="#installation">Installation</a></li>
-                        <li><i class="fa fa-code"></i> <a href="#quick-use">Quick-use</a></li>
+                        <li><a href="#features"><i class="fa fa-check-circle-o"></i>&nbsp;&nbsp;Features</a></li>
+                        <li><a href="#installation"><i class="fa fa-laptop"></i>&nbsp;&nbsp;Installation</a></li>
+                        <li><a href="#quick-use"><i class="fa fa-code"></i>&nbsp;&nbsp;Quick-use</a></li>
+                        <li><a href="/pages/guides"><i class="fa fa-plane"></i>&nbsp;&nbsp;Guides</a></li>
+                        <li><a href="/pages/api"><i class="fa fa-sort-amount-desc"></i>&nbsp;&nbsp;API</a></li>
+                        <li><a href="/pages/builds"><i class="fa fa-truck"></i>&nbsp;&nbsp;Builds</a></li>
                         <li><hr /></li>
                         <li>
-                            <i class="fa fa-github-square"></i> 
-                            <a href="https://github.com/krasimir/absurd" target="_blank">GitHub repo</a>
+                            <a href="https://github.com/krasimir/absurd" target="_blank"><i class="fa fa-github-square"></i>&nbsp;&nbsp;GitHub repo</a>
                             <!-- GitHub -->
                             <div class="github-stars">
                                 <iframe src="http://ghbtns.com/github-btn.html?user=krasimir&repo=absurd&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20"></iframe>
@@ -111,13 +113,13 @@
                     <img src="/public/img/browsers.png" alt="browsers" />
                     <pre><code class="language-javascript">&lt;script src="absurd.min.js">&lt;/script></code></pre>
                     <p>
-                        <a href="https://raw.github.com/krasimir/absurd/master/client-side/build/absurd.js" target="_blank"><i class="fa fa-download"></i> absurd.js</a><br />
-                        <a href="https://raw.github.com/krasimir/absurd/master/client-side/build/absurd.min.js" target="_blank"><i class="fa fa-download"></i> absurd.min.js (minified version)</a>
+                        <a href="/builds/absurd.js" target="_blank"><i class="fa fa-download"></i> absurd.js</a><br />
+                        <a href="/builds/absurd.min.js" target="_blank"><i class="fa fa-download"></i> absurd.min.js (minified version)</a>
                     </p>
                     <p>
                         Organic framework:<br />
-                        <a href="https://raw.github.com/krasimir/absurd/master/client-side/build/absurd.organic.js" target="_blank"><i class="fa fa-download"></i> absurd.organic.js</a><br />
-                        <a href="https://raw.github.com/krasimir/absurd/master/client-side/build/absurd.organic.min.js" target="_blank"><i class="fa fa-download"></i> absurd.organic.min.js</a>
+                        <a href="/builds/absurd.organic.js" target="_blank"><i class="fa fa-download"></i> absurd.organic.js</a><br />
+                        <a href="/builds/absurd.organic.min.js" target="_blank"><i class="fa fa-download"></i> absurd.organic.min.js</a>
                     </p>
                 </div>
             </div>
@@ -181,36 +183,50 @@ body p {
 
         <footer>
             <div class="grid-container">
-                <div>A</div>
-                <div>A</div>
-                <div>A</div>
-                <div>A</div>
+                <div class="col">
+                    <h3><i class="fa fa-github-square"></i>&nbsp;&nbsp;Contribute</h3>
+                    <hr />
+                    <p>The address of the official repository is <a href="https://github.com/krasimir/absurd" target="_blank">github.com/krasimir/absurd</a>. Feel free to fork it, make new <a href="https://github.com/krasimir/absurd/issues" target="_blank">issues</a> or <a href="https://github.com/krasimir/absurd/pulls" target="_blank">pull</a> requests.</p>
+                    <p>The code of this site is also open source. Its repository is <a href="https://github.com/krasimir/absurdjs.com" target="_blank">here</a>. If you have an ideas for a new article, new entry in the documentation or something else use GitHub.</p>
+                </div>
+                <div class="col">
+                    <h3><i class="fa fa-share-square"></i>&nbsp;&nbsp;Share</h3>
+                    <hr />
+                    <!-- Twitter -->
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-via="KrasimirTsonev" data-hashtags="AbsurdJS" data-counturl="http://krasimir.github.io/absurd/">Tweet</a>
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                    <br />
+                    <!-- GitHub -->
+                    <iframe src="http://ghbtns.com/github-btn.html?user=krasimir&repo=absurd&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20"></iframe>
+                    <br />
+                    <!-- Google plus -->
+                    <!-- Place this tag where you want the +1 button to render. -->
+                    <div class="g-plusone" data-annotation="inline" data-width="120"></div>
+                    <br />
+                    <!-- Place this tag after the last +1 button tag. -->
+                    <script type="text/javascript">
+                      (function() {
+                        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                        po.src = 'https://apis.google.com/js/platform.js';
+                        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                      })();
+                    </script>
+                    <!-- Facebook -->
+                    <div class="fb-like" data-href="http://absurdjs.com/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+                    <br /><br /><hr />
+                    <a href="https://twitter.com/AbsurdJS" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @AbsurdJS</a><br />
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                </div>
             </div>
-            <div class="social">
-
-                <!-- Twitter -->
-                <!--<a href="https://twitter.com/share" class="twitter-share-button" data-via="KrasimirTsonev" data-hashtags="AbsurdJS" data-counturl="http://krasimir.github.io/absurd/">Tweet</a>
-                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>-->
-
-                <!-- GitHub -->
-                <!-- <iframe src="http://ghbtns.com/github-btn.html?user=krasimir&repo=absurd&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20"></iframe> -->
-
-                <!-- Google plus -->
-                <!-- Place this tag where you want the +1 button to render. -->
-                <!-- <div class="g-plusone" data-size="medium" data-annotation="inline" data-width="120"></div> -->
-
-                <!-- Place this tag after the last +1 button tag. -->
-                <!-- <script>
-                  (function() {
-                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-                    po.src = 'https://apis.google.com/js/plusone.js';
-                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-                  })();
-                </script>-->
-
-                <!-- Facebook -->
-                <!-- <div class="fb-like" data-href="http://absurdjs.com" data-width="80" data-height="The pixel height of the plugin" data-colorscheme="light" data-layout="standard" data-action="like" data-show-faces="false" data-send="false"></div> -->
-
+            <div class="about-the-author">
+                <h3>About the author</h3>
+                <p>
+                    <a href="http://krasimirtsonev.com" target="_blank"><i class="fa fa-coffee"></i> Krasimir Tsonev</a>
+                </p>
+                <p class="follow">
+                    <a href="https://twitter.com/KrasimirTsonev" class="twitter-follow-button" data-show-count="true" data-lang="en">Follow @KrasimirTsonev</a>
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                </p>
             </div>
         </footer>
 

@@ -1,7 +1,7 @@
 module.exports = function(api) {
 	api.colors = {
 		brandColor1: '#F0F0F0',
-		brandColor2: '#F0F0F0'
+		brandColor2: '#DDD'
 	};
 	api.add({
 		'body, html': {
@@ -11,8 +11,9 @@ module.exports = function(api) {
 			mar: 0,
 			fz: '18px',
 			lh: '24px',
-			ff: "'Open Sans', sans-serif",
-			color: '#393939'
+			ff: "'Average Sans', sans-serif",
+			color: '#393939',
+			'-w-font-smoothing': 'antialiased'
 		},
 		a: {
 			fw: 'b',
@@ -30,6 +31,12 @@ module.exports = function(api) {
 		},
 		'pre': {
 			'-wm-bxsh': '0 0 2px 1px #ccc'
+		},
+		'.left': {
+			fl: 'l'
+		},
+		'.right': {
+			fl: 'r'
 		}
 	});
 }
