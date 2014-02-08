@@ -8,21 +8,30 @@ absurd.component("SiteMap", {
 			right: 0,
 			pos: 'f',
 			hei: '100%',
+			'&.open': {
+				wid: '400px'
+			},
 			'@media all and (max-width: 700px)': {
-				wid: '100%'
+				'&.open': {
+					wid: '100%'
+				}
 			}
 		}
 	},
 	sitemapOpen: function() {
 		this.dispatch('updateContentWidth', {isSiteMapOpen: true, diff: this.sitemapWidth});
-		this.css['.sitemap'].wid = this.sitemapWidth + 'px';
 		this.css['.sitemap'].hei = this.getStyle('height', this.qs('.content'));
-		this.populate();
+		this.populate().addClass('open');
 	},
 	sitemapClose: function() {
 		this.dispatch('updateContentWidth', {isSiteMapOpen: false, diff: this.sitemapWidth});
 		this.css['.sitemap'].wid = '0px';
-		this.populate();
+		this.populate().removeClass('open');
+	},
+	close: function(e) {
+		if(e) e.preventDefault();
+		this.sitemapClose();
+		SiteMapButton.open = false;
 	},
 	ready: function() {
 		this.populate();
@@ -31,7 +40,7 @@ absurd.component("SiteMap", {
 	}
 })();
 
-absurd.component("SiteMapButton", {
+var SiteMapButton = absurd.component("SiteMapButton", {
 	html: '.sitemap-button',
 	open: false,
 	clicked: function(e) {

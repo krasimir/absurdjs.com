@@ -13,8 +13,10 @@ Install AbsurdJS globally:
 
 ## Client-side port
 
-<i class="fa fa-download"></i> [absurd.js](/builds/absurd.js) ([minified version](/builds/absurd.min.js))
-<br /><small>AbsurdJS (CSS and HTML preprocessor + client side components)</small>
+<i class="fa fa-download"></i>&nbsp;&nbsp;AbsurdJS (CSS and HTML preprocessor + client side components)
+<br />
+[absurd.js](/builds/absurd.js) ([minified version](/builds/absurd.min.js))
 
-<i class="fa fa-download"></i> [absurd.organic.js](/builds/absurd.organic.js) ([minified version](/builds/absurd.organic.min.js))
-<br /><small>Organic CSS</small>
+<i class="fa fa-download"></i>&nbsp;&nbsp;Organic CSS
+<br />
+[absurd.organic.js](/builds/absurd.organic.js) ([minified version](/builds/absurd.organic.min.js))
