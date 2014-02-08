@@ -4,7 +4,8 @@ var gutil = require('gulp-util');
 var PluginError = gutil.PluginError;
 var path = require('path');
 var fs = require("fs");
-var markdown = require("markdown").markdown;
+var md = require("node-markdown").Markdown;
+var absurdVersion = require(__dirname + '/../node_modules/absurd/package.json').version;
 
 module.exports = function () {
 
@@ -21,13 +22,23 @@ module.exports = function () {
             return next();
         }
 
-        var base = fs.readFileSync(__dirname + "/../layout.html").toString('utf8');
+        var layoutHTML = fs.readFileSync(__dirname + "/../layout.html").toString('utf8');
         var root = __dirname + "/../";
         var fileRoot = path.dirname(file.path);
         var htmlFile = path.basename(file.path).replace(".md", ".html");
-        
-        html = base.replace('{content}', markdown.toHTML(fs.readFileSync(file.path).toString('utf8')));
-        fs.writeFileSync(fileRoot + '/' + htmlFile, html);
+
+        var contentHTML = md(fs.readFileSync(file.path).toString('utf8'));
+        contentHTML = contentHTML.replace(/<code>/g, '<code class="language-javascript">');
+        layoutHTML = layoutHTML.replace('<content>', contentHTML);
+        layoutHTML = layoutHTML.replace(/&lt;%/g, '<%');
+
+        var partials = {
+            version: absurdVersion
+        }
+
+        absurd.flush().morph("html").add(layoutHTML).compile(function(err, html) {
+            fs.writeFileSync(fileRoot + '/' + htmlFile, html);    
+        }, partials);        
 
         next();
 

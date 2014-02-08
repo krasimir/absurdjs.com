@@ -21,19 +21,45 @@
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
 
-        <nav class="content-nav">
-        	<ul>
-        		<li class="left"><a href="/"><i class="fa fa-home"></i> <span>Home</span></a></li>
-        		<li class="right"><a href="/"><span>Menu</span> <i class="fa fa-sitemap"></i></a></li>
-        	</ul>			
-        </nav>
-
-		<div class="content-container">
-			{content}
+        <div class="sitemap">
+			<ul>
+				<li><a href="/">Home</a>
+			</ul>
 		</div>
 
-		<script src="/public/scripts.js"></script>
+		<div class="content">
+			
+	        <nav class="content-nav">
+	        	<ul>
+	        		<li class="left"><a href="/"><i class="fa fa-home"></i> <span>Home</span></a></li>
+	        		<li class="right sitemap-button" data-absurd-event="click:clicked"><a href="/"><span>Sitemap</span> <i class="fa fa-sitemap"></i></a></li>
+	        	</ul>			
+	        </nav>
+
+			<div class="content-container">
+				<content>
+				<br /><br />
+				<hr />
+			    <div id="disqus_thread"></div>
+			    <script type="text/javascript">
+			        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+			        var disqus_shortname = 'absurdjs'; // required: replace example with your forum shortname
+			        (function() {
+			            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			        })();
+			    </script>
+			    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+			    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>			    
+			</div>
+
+		</div>
+
         <script src="/public/prism/prism.js"></script>
+        <script src="/builds/absurd.organic.min.js"></script>
+        <script src="/builds/absurd.min.js"></script>
+		<script src="/public/scripts.js"></script>
 
     </body>
 </html>

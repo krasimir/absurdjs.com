@@ -1,41 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>AbsurdJS - JavaScript library with superpowers</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/public/styles.css">
-        <link href='http://fonts.googleapis.com/css?family=Average+Sans' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="/public/font-awesome-4.0.3/css/font-awesome.min.css">
-        <link rel="stylesheet" href="/public/prism/prism.css" />
-    </head>
-    <body>
 
-		<!-- facebook -->
-        <div id="fb-root"></div>
-        <script>(function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=130923167067801";
-          fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
+<head>
+    <meta charset="utf-8">
+    <title>AbsurdJS - JavaScript library with superpowers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/styles.css">
+    <link href='http://fonts.googleapis.com/css?family=Average+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/public/font-awesome-4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/public/prism/prism.css" />
+</head>
 
+<body>
+    <!-- facebook -->
+    <div id="fb-root"></div>
+    <script>
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=130923167067801";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <div class="sitemap">
+        <ul>
+            <li><a href="/">Home</a>
+        </ul>
+    </div>
+    <div class="content">
         <nav class="content-nav">
-        	<ul>
-        		<li class="left"><a href="/"><i class="fa fa-home"></i> <span>Home</span></a></li>
-        		<li class="right"><a href="/"><span>Menu</span> <i class="fa fa-sitemap"></i></a></li>
-        	</ul>			
+            <ul>
+                <li class="left"><a href="/"><i class="fa fa-home"></i> <span>Home</span></a>
+                </li>
+                <li class="right sitemap-button" data-absurd-event="click:clicked"><a href="/"><span>Sitemap</span> <i class="fa fa-sitemap"></i></a>
+                </li>
+            </ul>
         </nav>
+        <div class="content-container">
+            <h1>Builds</h1>
+            <h2>Node.js</h2>
+            <p>Install AbsurdJS globally:</p><pre><code class="language-javascript">npm install -g absurd</code></pre>
+            <ul>
+                <li>NPM package: <a href="https://npmjs.org/package/absurd">absurd</a>
+                </li>
+                <li>Current version: 0.2.78</li>
+            </ul>
+            <hr />
+            <h2>Client-side port</h2>
+            <p><i class="fa fa-download"></i>  <a href="/builds/absurd.js">absurd.js</a> (<a href="/builds/absurd.min.js">minified version</a>)
+                <br /><small>AbsurdJS (CSS and HTML preprocessor + client side components)</small>
+            </p>
+            <p><i class="fa fa-download"></i>  <a href="/builds/absurd.organic.js">absurd.organic.js</a> (<a href="/builds/absurd.organic.min.js">minified version</a>)
+                <br /><small>Organic CSS</small>
+            </p>
+            <br />
+            <br />
+            <hr />
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'absurdjs'; // required: replace example with your forum shortname        (function() {            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);        })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+            </noscript> <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> 
+        </div>
+    </div>
+    <script src="/public/prism/prism.js"></script>
+    <script src="/builds/absurd.organic.min.js"></script>
+    <script src="/builds/absurd.min.js"></script>
+    <script src="/public/scripts.js"></script>
+</body>
 
-		<div class="content-container">
-			<h1>Builds</h1>
-
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, vitae, aliquid itaque voluptas hic quam inventore laborum accusamus. Quo doloribus velit recusandae deleniti cupiditate tempore eveniet dolorem eum at exercitationem.</p>
-		</div>
-
-		<script src="/public/scripts.js"></script>
-        <script src="/public/prism/prism.js"></script>
-
-    </body>
 </html>

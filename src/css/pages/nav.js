@@ -39,6 +39,20 @@ module.exports = function(api) {
 					}
 				}
 			}
+		},
+		'.sitemap': {
+			bg: '#000',
+			color: '#FFF',
+			'-w-trs': 'all 600ms',
+			'z-index': 100,
+			ul: {
+				mar: 0,
+				pad: 0,
+				lis: 'n'
+			},
+			a: {
+				color: '#FFF'
+			}
 		}
 	})
 }

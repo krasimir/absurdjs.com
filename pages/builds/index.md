@@ -1,3 +1,20 @@
 # Builds
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, vitae, aliquid itaque voluptas hic quam inventore laborum accusamus. Quo doloribus velit recusandae deleniti cupiditate tempore eveniet dolorem eum at exercitationem.
+## Node.js
+
+Install AbsurdJS globally:
+
+	npm install -g absurd
+
+* NPM package: [absurd](https://npmjs.org/package/absurd)
+* Current version: <% this.version %>
+
+- - -
+
+## Client-side port
+
+<i class="fa fa-download"></i> [absurd.js](/builds/absurd.js) ([minified version](/builds/absurd.min.js))
+<br /><small>AbsurdJS (CSS and HTML preprocessor + client side components)</small>
+
+<i class="fa fa-download"></i> [absurd.organic.js](/builds/absurd.organic.js) ([minified version](/builds/absurd.organic.min.js))
+<br /><small>Organic CSS</small>
