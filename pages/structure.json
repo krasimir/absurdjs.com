@@ -1,0 +1,5 @@
+[
+	{ "name": "Home", "path": "/"},
+	{ "name": "Builds", "path": "/pages/builds"},
+	{ "name": "Installation", "path": "/pages/installation"}
+]

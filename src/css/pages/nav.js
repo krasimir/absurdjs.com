@@ -18,7 +18,6 @@ module.exports = function(api) {
 						d: 'ib',
 						opacity: '0.5',
 						ov: 'h',
-
 						'&:hover': {
 							opacity: 1,
 							bdb: 'n',
@@ -38,36 +37,6 @@ module.exports = function(api) {
 						}
 					}
 				}
-			}
-		},
-		'.sitemap': {
-			bg: '#000',
-			color: '#FFF',
-			'-w-trs': 'all 600ms',
-			'z-index': 100,
-			'.close': {
-				hei: '84px',
-				bdb: 'dotted 1px #999',
-				mar: '0 0 20px 0',
-				a: {
-					fz: '30px',
-					d: 'ib',
-					color: '#999',
-					fl: 'r',
-					mar: '30px 25px 0 0',
-					'&:hover': {
-						bdb: 'n',
-						color: '#fff'
-					}
-				}
-			},
-			ul: {
-				mar: '0 0 0 22px',
-				pad: 0,
-				lis: 'n'
-			},
-			a: {
-				color: '#FFF'
 			}
 		}
 	})

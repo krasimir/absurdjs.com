@@ -11,6 +11,9 @@ absurd.component("SiteMap", {
 			'&.open': {
 				wid: '400px'
 			},
+			'.links': {
+				hei: 'auto'
+			},
 			'@media all and (max-width: 700px)': {
 				'&.open': {
 					wid: '100%'
@@ -20,7 +23,9 @@ absurd.component("SiteMap", {
 	},
 	sitemapOpen: function() {
 		this.dispatch('updateContentWidth', {isSiteMapOpen: true, diff: this.sitemapWidth});
-		this.css['.sitemap'].hei = this.getStyle('height', this.qs('.content'));
+		var contentHeight = this.qs('.content', false).offsetHeight;
+		this.css['.sitemap'].hei = contentHeight + 'px';
+		this.css['.sitemap']['.links'].hei = (contentHeight - 128) + 'px';
 		this.populate().addClass('open');
 	},
 	sitemapClose: function() {

@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>AbsurdJS - JavaScript library with superpowers</title>
+        <title><% this.pageTitle %></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/public/styles.css">
         <link href='http://fonts.googleapis.com/css?family=Average+Sans' rel='stylesheet' type='text/css'>
@@ -25,19 +25,9 @@
         	<div class="close">
         		<a href="#" data-absurd-event="click:close"><i class="fa fa-times-circle-o"></i></a>
         	</div>
-			<ul>
-				<li><a href="/">Home</a></li>
-				<li><a href="/">Builds</a></li>
-				<li>
-					<ul>
-						<li><a href="/">Home</a></li>
-						<li><a href="/">Builds</a></li>
-						<li>
-							
-						</li>
-					</ul>
-				</li>
-			</ul>
+        	<div class="links">
+				<% this.sitemap %>
+			</div>
 		</div>
 
 		<div class="content">
@@ -53,7 +43,12 @@
 				<content>
 				<br /><br />
 				<hr />
-			    <!-- <div id="disqus_thread"></div>
+				<div class="guide">
+					<a href="<% this.guide.previousPath %>"><% this.guide.previousName %></a>
+					<a href="<% this.guide.nextPath %>"><% this.guide.nextName %></a>
+				</div>
+				<hr />
+			    <div id="disqus_thread"></div>
 			    <script type="text/javascript">
 			        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 			        var disqus_shortname = 'absurdjs'; // required: replace example with your forum shortname
@@ -64,7 +59,7 @@
 			        })();
 			    </script>
 			    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-			    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> -->			    
+			    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>			    
 			</div>
 
 		</div>

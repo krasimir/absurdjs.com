@@ -26,6 +26,18 @@ module.exports = function(api) {
 			hr: {
 				bdb: 'n',
 				bdt: 'solid 4px ' + api.colors.brandColor1
+			},
+			'.guide': {
+				grid: '2/a',
+				a: {
+					d: 'b',
+					'&:hover': {
+						bdb: 'n'
+					},
+					'&:nth-child(2)': {
+						ta: 'r'
+					}
+				}
 			}
 		}
 	});
