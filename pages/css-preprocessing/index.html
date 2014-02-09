@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Installation and compilation</title>
+    <title>CSS preprocessing</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/public/styles.css">
     <link href='http://fonts.googleapis.com/css?family=Average+Sans' rel='stylesheet' type='text/css'>
@@ -33,9 +33,9 @@
                 </li>
                 <li><a href="/pages/builds">Builds</a>
                 </li>
-                <li><a href="/pages/installation" class="active">Installation and compilation</a>
+                <li><a href="/pages/installation">Installation and compilation</a>
                 </li>
-                <li><a href="/pages/css-preprocessing">CSS preprocessing</a>
+                <li><a href="/pages/css-preprocessing" class="active">CSS preprocessing</a>
                 </li>
                 <li>
                     <ul>
@@ -64,19 +64,33 @@
             </ul>
         </nav>
         <div class="content-container">
-            <h1 id="installation">Installation</h1>
-<h2 id="node-js">Node.js</h2>
-<p>Install AbsurdJS globally:</p>
-<pre><code class="language-javascript">npm install -g absurd
-</code></pre><h2 id="client-side-port">Client-side port</h2>
-<pre><code class="language-javascript">&lt;script src=&quot;absurd.organic.min.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;absurd.min.js&quot;&gt;&lt;/script&gt;
-</code></pre><p>* Notice that if you plan to use Organic you should include it<br />before <em>absurd.min.js</em>.</p>
-
+            <h1 id="css-preprocessing">CSS preprocessing</h1>
+<p>AbsurdJS was started as CSS preprocessor. That&#39;s its main purpose. The idea is to compile an input to valid CSS. In the Node.js environment this could be done via the following code:</p>
+<pre><code class="language-javascript">var absurd = require(&quot;absurd&quot;)();
+absurd.add({
+    body: {
+        width: &#39;100%&#39;,
+        fontSize: &#39;20px&#39;,
+        &#39;p.content&#39;: {
+            lineHeight: &#39;34px&#39;
+        }
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});
+</code></pre><p>The result is:</p>
+<pre><code class="language-javascript">body {
+  width: 100%;
+  font-size: 20px;
+}
+body p.content {
+  line-height: 34px;
+}
+</code></pre>
                 <br />
                 <br />
                 <hr />
-                <div class="guide"><a href="/pages/builds"><i class="fa fa-arrow-circle-o-left"></i> Builds</a><a href="/pages/css-preprocessing">CSS preprocessing <i class="fa fa-arrow-circle-o-right"></i></a>
+                <div class="guide"><a href="/pages/installation"><i class="fa fa-arrow-circle-o-left"></i> Installation and compilation</a><a href="/pages/css-preprocessing/organic-css">Organic CSS <i class="fa fa-arrow-circle-o-right"></i></a>
                 </div>
                 <hr />
                 <div id="disqus_thread"></div>

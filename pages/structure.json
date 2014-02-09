@@ -1,5 +1,12 @@
 [
 	{ "name": "Home", "path": "/"},
 	{ "name": "Builds", "path": "/pages/builds"},
-	{ "name": "Installation", "path": "/pages/installation"}
+	{ "name": "Installation and compilation", "path": "/pages/installation"},
+	{ "name": "CSS preprocessing", "path": "/pages/css-preprocessing", "childs": [
+		{ "name": "Organic CSS", "path": "/pages/css-preprocessing/organic-css"}
+	]},
+	{ "name": "HTML preprocessing", "path": "/pages/html-preprocessing"},
+	{ "name": "Client-side components", "path": "/pages/client-side-components"},
+	{ "name": "API", "path": "/pages/api"},
+	{ "name": "Misc", "path": "/pages/misc"}
 ]

@@ -1,5 +1,4 @@
 absurd.component("Content", {
-	html: '.content',
 	css: {
 		'.content': {
 			wid: '100%',
@@ -10,7 +9,7 @@ absurd.component("Content", {
 		}
 	},
 	updateContentWidth: function(options) {
-		var currentWidth = parseInt(this.getStyle('width').replace('px', ''))
+		var currentWidth = parseInt(this.getStyle('width', this.qs('.content', false)).replace('px', ''))
 		this.css['.content'].wid = (currentWidth - (options.isSiteMapOpen ? options.diff : -options.diff)) + 'px';
 		this.populate();
 	},

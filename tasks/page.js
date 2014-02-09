@@ -4,8 +4,19 @@ var gutil = require('gulp-util');
 var PluginError = gutil.PluginError;
 var path = require('path');
 var fs = require("fs");
-var md = require("node-markdown").Markdown;
+var marked = require('marked');
 var absurdVersion = require(__dirname + '/../node_modules/absurd/package.json').version;
+
+marked.setOptions({
+    renderer: new marked.Renderer(),
+    gfm: true,
+    tables: true,
+    breaks: false,
+    pedantic: false,
+    sanitize: false,
+    smartLists: true,
+    smartypants: false
+});
 
 module.exports = function () {
 
@@ -91,22 +102,21 @@ module.exports = function () {
         var root = __dirname + "/../";
         var fileRoot = path.dirname(file.path);
         var htmlFile = path.basename(file.path).replace(".md", ".html");
-        var fileURL = fileRoot.replace(path.resolve(root), '').replace(/\\/g, '/');        
-        var contentHTML = md(fs.readFileSync(file.path).toString('utf8'));
+        var fileURL = fileRoot.replace(path.resolve(root), '').replace(/\\/g, '/');
+        var contentHTML = marked(fs.readFileSync(file.path).toString('utf8'));
         contentHTML = contentHTML.replace(/<code>/g, '<code class="language-javascript">');
-        layoutHTML = layoutHTML.replace('<content>', contentHTML);
-        layoutHTML = layoutHTML.replace(/&lt;%/g, '<%');
-
         var partials = {
             version: absurdVersion,
             sitemap: getSiteMap(sitemap, fileURL),
             pageTitle: getPageTitle(sitemap, fileURL),
-            guide: getGuide(sitemap, fileURL)
+            guide: getGuide(sitemap, fileURL),
+            minify: false
         }
 
         absurd.flush().morph("html").add(layoutHTML).compile(function(err, html) {
-            fs.writeFileSync(fileRoot + '/' + htmlFile, html);    
-        }, partials);        
+            html = html.replace('<content>', contentHTML);
+            fs.writeFileSync(fileRoot + '/' + htmlFile, html, {encoding: 'utf8'});
+        }, partials);
 
         next();
 

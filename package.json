@@ -22,7 +22,7 @@
     "through2": "0.4.1",
     "gulp-util": "2.2.14",
     "request": "2.33.0",
-    "node-markdown": "0.1.1"
+    "marked": "0.3.1"
   },
   "keywords": [
     "absurd",
