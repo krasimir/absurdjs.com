@@ -88,7 +88,247 @@
         </nav>
         <div class="content-container">
             <h1 id="molecules">Molecules</h1>
+<h2 id="size-small-class-prop-values-width-height-small-">size: <small class="prop-values">[width]/[height]</small></h2>
+<blockquote>
+<p>sets the <code class="language-javascript">width</code> and <code class="language-javascript">height</code> of an element </p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>AbsurdJS:</small>
+<pre><code class="language-javascript">api.add({
+    body: {
+        size: 100,
+        p: {
+            size: &#39;300px/40&#39;
+        },
+        section: {
+            size: &#39;/200px&#39;
+        }
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});</code></pre>
+</div>
+<div class="col">
+<small>Result:</small>
+<pre><code class="language-css">body{
+    width: 100%;
+    height: 100%;
+}
+body p {
+    width: 30%;
+    height: 40%;
+}
+body section{
+    height: 200px;
+}</code></pre>
+</div>
+</div>
 
+<h2 id="cf-small-class-prop-values-all-before-after-small-">cf: <small class="prop-values">[all | before | after]</small></h2>
+<blockquote>
+<p>clear fix</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>AbsurdJS:</small>
+<pre><code class="language-javascript">api.add({
+    body: {
+        cf: &#39;all&#39;,
+        p: {
+            cf: &#39;before&#39;
+        },
+        section: {
+            cf: &#39;after&#39;
+        }
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});</code></pre>
+</div>
+<div class="col">
+<small>Result:</small>
+<pre><code class="language-css">body:before, 
+body:after, 
+body p:before, 
+body section:after {
+  content: &quot; &quot;;
+  display: table;
+  clear: both;
+}</code></pre>
+</div>
+</div>
+
+<h2 id="grid-small-class-prop-values-columns-selector-small-">grid: <small class="prop-values">[columns]/[selector]</small></h2>
+<blockquote>
+<p>grid definition</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>AbsurdJS:</small>
+<pre><code class="language-javascript">api.add({
+    &#39;section.container&#39;: {
+        grid: &#39;3/div&#39;
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});</code></pre>
+</div>
+<div class="col">
+<small>Result:</small>
+<pre><code class="language-css">section.container:before, section.container:after {
+  content: &quot; &quot;;
+  display: table;
+  clear: both;
+}
+section.container div {
+  float: left;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  width: 33.33%;
+}</code></pre>
+</div>
+</div>
+
+<h2 id="moveto-small-class-prop-values-x-y-z-small-">moveto: <small class="prop-values">[x]/[y]/[z]</small></h2>
+<blockquote>
+<p>translates an element to x/y/x position</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>AbsurdJS:</small>
+<pre><code class="language-javascript">api.add({
+    p: {
+        moveto: &#39;10/20/30&#39;
+    },
+    div: {
+        moveto: &#39;50px/100px&#39;
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});</code></pre>
+</div>
+<div class="col">
+<small>Result:</small>
+<pre><code class="language-css">p {
+  transform: translate3d(10px,20px,30px);
+  -webkit-transform: translate3d(10px,20px,30px);
+  -ms-transform: translate3d(10px,20px,30px);
+}
+div {
+  transform: translate(50px,100px);
+  -webkit-transform: translate(50px,100px);
+  -ms-transform: translate(50px,100px);
+}</code></pre>
+</div>
+</div>
+
+<h2 id="rotateto-small-class-prop-values-deg-small-">rotateto: <small class="prop-values">[deg]</small></h2>
+<blockquote>
+<p>rotates an element</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>AbsurdJS:</small>
+<pre><code class="language-javascript">api.add({
+    p: {
+        rotateto: &#39;-45&#39;
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});</code></pre>
+</div>
+<div class="col">
+<small>Result:</small>
+<pre><code class="language-css">p {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+}</code></pre>
+</div>
+</div>
+
+<h2 id="scaleto-small-class-prop-values-x-y-small-">scaleto: <small class="prop-values">[x]/[y]</small></h2>
+<blockquote>
+<p>scales an element</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>AbsurdJS:</small>
+<pre><code class="language-javascript">api.add({
+    p: {
+        scaleto: &#39;1.3/1.3&#39;
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});</code></pre>
+</div>
+<div class="col">
+<small>Result:</small>
+<pre><code class="language-css">p {
+  transform: scale(1.3,1.3);
+  -webkit-transform: scale(1.3,1.3);
+  -ms-transform: scale(1.3,1.3);
+}</code></pre>
+</div>
+</div>
+
+<h2 id="animate-small-class-prop-values-type-of-animation-small-">animate: <small class="prop-values">[type of animation]</small></h2>
+<blockquote>
+<p>a shortcut to <a href="http://daneden.github.io/animate.css/">animate.css</a> snippets. Valid values are: bounce, flash, pulse, shake, swing, tada, wobble, bounceIn, bounceInDown, bounceInLeft, bounceInRight, bounceInUp, bounceOut, bounceOutDown, bounceOutLeft, bounceOutRight, bounceOutUp, fadeIn, fadeInDown, fadeInDownBig, fadeInLeft, fadeInLeftBig, fadeInRight, fadeInRightBig, fadeInUp, fadeInUpBig, fadeOut, fadeOutDown, fadeOutDownBig, fadeOutLeft, fadeOutLeftBig, fadeOutRight, fadeOutRightBig, fadeOutUp, fadeOutUpBig, flip, flipInX, flipInY, flipOutX, flipOutY, lightSpeedIn, lightSpeedOut, rotateIn, rotateInDownLeft, rotateInDownRight, rotateInUpLeft, rotateInUpRight, rotateOut, rotateOutDownLeft, rotateOutDownRight, rotateOutUpLeft, rotateOutUpRight, slideInDown, slideInLeft, slideInRight, slideOutLeft, slideOutRight, slideOutUp, hinge, rollIn, rollOut.</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>AbsurdJS:</small>
+<pre><code class="language-javascript">api.add({
+    div: {
+        animate: &#39;rotateInUpLeft&#39;
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});</code></pre>
+</div>
+<div class="col">
+<small>Result:</small>
+<pre><code class="language-css">@keyframes rotateInUpLeft {
+    0% {
+      transform-origin: left bottom;
+      opacity: 0;
+      transform: rotate(90deg);
+      -webkit-transform: rotate(90deg);
+    }
+    100% {
+      transform-origin: left bottom;
+      opacity: 1;
+      transform: rotate(0);
+      -webkit-transform: rotate(0);
+    }
+}
+@-webkit-keyframes rotateInUpLeft {
+    0% {
+      transform-origin: left bottom;
+      opacity: 0;
+      transform: rotate(90deg);
+      -webkit-transform: rotate(90deg);
+    }
+    100% {
+      transform-origin: left bottom;
+      opacity: 1;
+      transform: rotate(0);
+      -webkit-transform: rotate(0);
+    }
+}
+div {
+    animation-duration: 1s;
+    -webkit-animation-duration: 1s;
+    animation-fill-mode: both;
+    -webkit-animation-fill-mode: both;
+    animation-name: rotateInUpLeft;
+    -webkit-animation-name: rotateInUpLeft;
+}</code></pre>
+</div>
+</div>
                 <br />
                 <br />
                 <hr />

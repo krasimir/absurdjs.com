@@ -30,11 +30,12 @@ module.exports = function(api) {
 				color: '#FFF',
 				fw: 'n',
 				'&.active': {
-					td: 'l',
+					ted: 'l',
 					color: '#8F8F8F'
 				}
 			},
 			'.links': {
+				wid: '360px',
 				ovy: 's',
 				ovx: 'h',
 				mar: '0 10px 0 0'

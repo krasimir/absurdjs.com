@@ -141,6 +141,19 @@ api.morph(&quot;html&quot;).add({
 }).compile(function(err, html) {
     console.log(html);
 }, data);
+</code></pre><p>The generated HTML markup:</p>
+<pre><code class="language-javascript">&lt;body&gt;
+    &lt;h1&gt;I&#39;m AbsurdJS!&lt;/h1&gt;
+    &lt;section&gt;
+        &lt;ul&gt;
+            &lt;li&gt;CSS preprocessor&lt;/li&gt;
+            &lt;li&gt;HTML preprocessor&lt;/li&gt;
+            &lt;li&gt;Organic CSS&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/section&gt;
+    &lt;footer&gt;Checkout my website at &lt;a href=&quot;http://absurdjs.com&quot;&gt;AbsurdJS&lt;/a&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
 </code></pre><p>The dynamic parts and the instructions to the template engine are passed between <code class="language-javascript">&lt;%</code> and <code class="language-javascript">%&gt;</code> strings. The interesting thing is that there is no special syntax that you should learn. That&#39;s just a JavaScript. The code which you put there is executed in the context of the passed <code class="language-javascript">data</code>. As you can see you may access a variable directly, create a <em>for</em> loop or even execute a function. </p>
 <blockquote>
 <p>More about the engine and how it is implemented <a href="http://krasimirtsonev.com/blog/article/Javascript-template-engine-in-just-20-line">here</a>. </p>

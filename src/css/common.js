@@ -18,7 +18,7 @@ module.exports = function(api) {
 		a: {
 			fw: 'b',
 			color: '#393939',
-			td: 'n',
+			ted: 'n',
 			'&:hover': {
 				color: '#A21518',
 				bdb: 'dotted 1px #999'

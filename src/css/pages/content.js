@@ -49,6 +49,37 @@ module.exports = function(api) {
 				p: {
 					color: '#999'
 				}
+			},
+			table: {
+				bdsp: 0,
+				td: {
+					bdt: 'solid 1px #B3B3B3',
+					bdl: 'solid 1px #B3B3B3',
+					pad: '6px',
+					'word-wrap': 'break-word'
+				}
+			},
+			'.example': {
+				grid: '2/.col',
+				'.col:nth-child(1)': {
+					pad: '0 10px 0 0'
+				},
+				'.col:nth-child(2)': {
+					pad: '0 0 0 10px'
+				},
+				'.col': {
+					small: {
+						color: '#DDDDDD'
+					},
+					'@media all and (max-width: 600px)': {
+						fl: 'n',
+						wid: '100%'
+					}
+				}
+			},
+			'.prop-values': {
+				color: '#999',
+				fw: 'n'
 			}
 		}
 	});

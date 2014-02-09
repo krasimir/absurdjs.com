@@ -17,56 +17,66 @@ The framework has dozen of predefined atoms which are at your disposal. They are
 
 So, in AbsurdJS you are able to write:
 
-	{
-	    nav: {
-	        mar: 0,
-	        pad: 0,
-	        lis: 'n',
-	        'ul li': {
-	            fl: 'l',
-	            fw: 'b'
-	        }
-	    }
-	}
-
-The result is:
-
-	nav {
-	  margin: 0;
-	  padding: 0;
-	  list-style: none;
-	}
-	nav ul li {
-	  float: left;
-	  font-weight: bold;
-	}
+<div class="example">
+<div class="col">
+<small>AbsurdJS:</small>
+<pre><code class="language-javascript">{
+    nav: {
+        mar: 0,
+        pad: 0,
+        lis: 'n',
+        'ul li': {
+            fl: 'l',
+            fw: 'b'
+        }
+    }
+}</code></pre>
+</div>
+<div class="col">
+<small>Result:</small>
+<pre><code class="language-css">nav {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+nav ul li {
+  float: left;
+  font-weight: bold;
+}</code></pre>
+</div>
+</div>
 
 It's even more interesting if you write in `.css` files. You just have to pass them through the preprocessor.
 
-	.container {
-		d: b;
-		mar: 0;
-		pad: 10px 0 0 0;
-		-w-trs: all 200ms;
-		bg: #ff0;
-	}
-	.container:hover {
-		bg: #ff9;
-	}
-
-At the end the output is:
-
-	.container {
-	  display: block;
-	  margin: 0;
-	  padding: 10px 0 0 0;
-	  transition: all 200ms;
-	  -webkit-transition: all 200ms;
-	  background: #ff0;
-	}
-	.container:hover {
-	  background: #ff9;
-	}
+<div class="example">
+<div class="col">
+<small>AbsurdJS:</small>
+<pre><code class="language-javascript">.container {
+	d: b;
+	mar: 0;
+	pad: 10px 0 0 0;
+	-w-trs: all 200ms;
+	bg: #ff0;
+}
+.container:hover {
+	bg: #ff9;
+}</code></pre>
+</div>
+<div class="col">
+<small>Result:</small>
+<pre><code class="language-css">.container {
+	display: block;
+	margin: 0;
+	padding: 10px 0 0 0;
+	transition: all 200ms;
+	-webkit-transition: all 200ms;
+	background: #ff0;
+}
+.container:hover {
+	background: #ff9;
+}</code></pre>
+</div>
+</div>
 
 Find out the full list of the available atoms [here](/pages/css-preprocessing/organic-css/atoms).
 

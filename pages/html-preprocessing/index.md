@@ -59,6 +59,21 @@ Normally while you are generating HTML layouts you want to fill them with data. 
 		console.log(html);
 	}, data);
 
+The generated HTML markup:
+
+	<body>
+	    <h1>I'm AbsurdJS!</h1>
+	    <section>
+	        <ul>
+	            <li>CSS preprocessor</li>
+	            <li>HTML preprocessor</li>
+	            <li>Organic CSS</li>
+	        </ul>
+	    </section>
+	    <footer>Checkout my website at <a href="http://absurdjs.com">AbsurdJS</a>
+	    </footer>
+	</body>
+
 The dynamic parts and the instructions to the template engine are passed between `<%` and `%>` strings. The interesting thing is that there is no special syntax that you should learn. That's just a JavaScript. The code which you put there is executed in the context of the passed `data`. As you can see you may access a variable directly, create a *for* loop or even execute a function. 
 
 > More about the engine and how it is implemented [here](http://krasimirtsonev.com/blog/article/Javascript-template-engine-in-just-20-line). 
