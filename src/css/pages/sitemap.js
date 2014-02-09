@@ -7,7 +7,7 @@ module.exports = function(api) {
 			'z-index': 100,
 			'.close': {
 				hei: '84px',
-				bdb: 'dotted 1px #999',
+				bdb: 'dotted 1px #3D3D3D',
 				mar: '0 0 20px 0',
 				a: {
 					fz: '30px',

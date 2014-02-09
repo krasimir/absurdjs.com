@@ -9,10 +9,15 @@
 		{ "name": "Plugins", "path": "/pages/css-preprocessing/plugins"},
 		{ "name": "Media queries and raw data", "path": "/pages/css-preprocessing/media-queries-raw-data"},
 		{ "name": "Extending", "path": "/pages/css-preprocessing/extending"},
-		{ "name": "Organic CSS", "path": "/pages/css-preprocessing/organic-css"}
+		{ "name": "Organic CSS", "path": "/pages/css-preprocessing/organic-css", "childs": [
+			{ "name": "Atoms", "path": "/pages/css-preprocessing/organic-css/atoms"},
+			{ "name": "Molecules", "path": "/pages/css-preprocessing/organic-css/molecules"}
+		]}
 	]},
 	{ "name": "HTML preprocessing", "path": "/pages/html-preprocessing"},
-	{ "name": "Client-side components", "path": "/pages/client-side-components"},
+	{ "name": "Client-side components", "path": "/pages/client-side-components", "childs": [
+		
+	]},
 	{ "name": "API", "path": "/pages/api"},
 	{ "name": "Misc", "path": "/pages/misc"}
 ]

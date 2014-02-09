@@ -53,11 +53,22 @@
                         </li>
                         <li><a href="/pages/css-preprocessing/organic-css" class="active">Organic CSS</a>
                         </li>
+                        <li>
+                            <ul>
+                                <li><a href="/pages/css-preprocessing/organic-css/atoms">Atoms</a>
+                                </li>
+                                <li><a href="/pages/css-preprocessing/organic-css/molecules">Molecules</a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 <li><a href="/pages/html-preprocessing">HTML preprocessing</a>
                 </li>
                 <li><a href="/pages/client-side-components">Client-side components</a>
+                </li>
+                <li>
+                    <ul></ul>
                 </li>
                 <li><a href="/pages/api">API</a>
                 </li>
@@ -76,12 +87,152 @@
             </ul>
         </nav>
         <div class="content-container">
-            <h1 id="organic-css">Organic CSS</h1>
+            <h1 id="organic-css-framework">Organic CSS framework</h1>
+<p>That&#39;s a concept which is initially introduced <a href="http://davidwalsh.name/starting-css">here</a>. The idea is to follow the <a href="http://bradfrostweb.com/blog/post/atomic-web-design/">Atomic design principle</a>, but while writing CSS.</p>
+<h2 id="atoms">Atoms</h2>
+<p>As you probably know the atom is the basic building block of matter. In the context of CSS this is a property and its value:</p>
+<pre><code class="language-javascript">font-size: 20px;
+</code></pre><p>The framework has dozen of predefined atoms which are at your disposal. They are actually identical to the <a href="http://peters-playground.com/Emmet-Css-Snippets-for-Sublime-Text-2/">Emmet CSS snipets for Sublime Text 2</a>. It&#39;s a huge collection and you are actually able to write CSS really fast. Here are few of them:</p>
+<pre><code class="language-javascript">fz: 24px -&gt; font-size: 24px
+d: ib -&gt; display: inline-block
+fl: l -&gt; float: left
+td: n -&gt; text-decoration: none
+</code></pre><p>So, in AbsurdJS you are able to write:</p>
+<pre><code class="language-javascript">{
+    nav: {
+        mar: 0,
+        pad: 0,
+        lis: &#39;n&#39;,
+        &#39;ul li&#39;: {
+            fl: &#39;l&#39;,
+            fw: &#39;b&#39;
+        }
+    }
+}
+</code></pre><p>The result is:</p>
+<pre><code class="language-javascript">nav {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+nav ul li {
+  float: left;
+  font-weight: bold;
+}
+</code></pre><p>It&#39;s even more interesting if you write in <code class="language-javascript">.css</code> files. You just have to pass them through the preprocessor.</p>
+<pre><code class="language-javascript">.container {
+    d: b;
+    mar: 0;
+    pad: 10px 0 0 0;
+    -w-trs: all 200ms;
+    bg: #ff0;
+}
+.container:hover {
+    bg: #ff9;
+}
+</code></pre><p>At the end the output is:</p>
+<pre><code class="language-javascript">.container {
+  display: block;
+  margin: 0;
+  padding: 10px 0 0 0;
+  transition: all 200ms;
+  -webkit-transition: all 200ms;
+  background: #ff0;
+}
+.container:hover {
+  background: #ff9;
+}
+</code></pre><p>Find out the full list of the available atoms <a href="/pages/css-preprocessing/organic-css/atoms">here</a>.</p>
+<h2 id="molecules">Molecules</h2>
+<p>Once you try combining atoms you are starting writing a molecule. The purpose of the molecules is to simplify common tasks, like creating gradients, defining animations and so on. Here are some of the most common used:</p>
+<h3 id="size">size</h3>
+<pre><code class="language-javascript">nav: {
+    size: &#39;100px/200px&#39;
+}
+
+// compiles to:
+nav {
+      width: 100px;
+      height: 200px;
+}
+</code></pre><h3 id="cf">cf</h3>
+<pre><code class="language-javascript">ul: {
+    cf: &#39;both&#39;
+}
+
+// compiles to
+ul:before, ul:after {
+    content: &quot; &quot;;
+    display: table;
+    clear: both;
+}
+</code></pre><h3 id="grid">grid</h3>
+<pre><code class="language-javascript">&#39;section.container&#39;: {
+    grid: &#39;3/div&#39;
+}
+
+// compiles to
+section.container:before, section.container:after {
+    content: &quot; &quot;;
+    display: table;
+    clear: both;
+}
+section.container div {
+    float: left;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 33.33%;
+}
+</code></pre><p>AbsurdJS also includes <a href="http://daneden.github.io/animate.css/">animate.css</a> code snippets. This simplifies the process of animating by providing ready-to-use variants.</p>
+<pre><code class="language-javascript">button: {
+    animate: &#39;bounce&#39;
+}
+
+// compiles to
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+      -webkit-transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-30px);
+      -webkit-transform: translateY(-30px);
+    }
+    60% {
+      transform: translateY(-15px);
+      -webkit-transform: translateY(-15px);
+    }
+}
+@-webkit-keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+      -webkit-transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-30px);
+      -webkit-transform: translateY(-30px);
+    }
+    60% {
+      transform: translateY(-15px);
+      -webkit-transform: translateY(-15px);
+    }
+}
+button {
+  animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  animation-fill-mode: both;
+  -webkit-animation-fill-mode: both;
+  animation-name: bounce;
+  -webkit-animation-name: bounce;
+}
+</code></pre><p>A full list of the available animation types could be seen <a href="http://daneden.github.io/animate.css/">here</a>. You may use <code class="language-javascript">flipInX</code>, <code class="language-javascript">slideInRight</code> or <code class="language-javascript">rollOut</code>.</p>
+<p>All the available molecules are available <a href="/pages/css-preprocessing/organic-css/molecules">here</a>.</p>
 
                 <br />
                 <br />
                 <hr />
-                <div class="guide"><a href="/pages/css-preprocessing/extending"><i class="fa fa-arrow-circle-o-left"></i> Extending</a><a href="/pages/html-preprocessing">HTML preprocessing <i class="fa fa-arrow-circle-o-right"></i></a>
+                <div class="guide"><a href="/pages/css-preprocessing/extending"><i class="fa fa-arrow-circle-o-left"></i> Extending</a><a href="/pages/css-preprocessing/organic-css/atoms">Atoms <i class="fa fa-arrow-circle-o-right"></i></a>
                 </div>
                 <hr />
                 <div id="disqus_thread"></div>

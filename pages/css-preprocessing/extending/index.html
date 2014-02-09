@@ -53,11 +53,22 @@
                         </li>
                         <li><a href="/pages/css-preprocessing/organic-css">Organic CSS</a>
                         </li>
+                        <li>
+                            <ul>
+                                <li><a href="/pages/css-preprocessing/organic-css/atoms">Atoms</a>
+                                </li>
+                                <li><a href="/pages/css-preprocessing/organic-css/molecules">Molecules</a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 <li><a href="/pages/html-preprocessing">HTML preprocessing</a>
                 </li>
                 <li><a href="/pages/client-side-components">Client-side components</a>
+                </li>
+                <li>
+                    <ul></ul>
                 </li>
                 <li><a href="/pages/api">API</a>
                 </li>
@@ -77,7 +88,66 @@
         </nav>
         <div class="content-container">
             <h1 id="extending">Extending</h1>
-
+<p>We already convered the <a href="/pages/css-preprocessing/plugins">plugins</a>. That&#39;s how you may extend AbsurdJS and define your own CSS properties. You may also create your own API methods:</p>
+<pre><code class="language-javascript">api.register(&quot;buttonize&quot;, function(selector) {
+    var styles = {};
+    styles[selector] = {
+        cursor: &quot;pointer&quot;,
+        display: &quot;block&quot;,
+        background: &quot;#aaa&quot;,
+        &quot;:hover&quot;: {
+            background: &quot;#ddd&quot;
+        }
+    };
+    api.add(styles);
+});
+api.buttonize(&quot;.header a&quot;);
+</code></pre><p><code class="language-javascript">buttonize</code> is a method which in the above example generates:</p>
+<pre><code class="language-javascript">.header a {
+  cursor: pointer;
+  display: block;
+  background: #aaa;
+}
+.header a:hover {
+  background: #ddd;
+}
+</code></pre><p>Every API method could be overwritten. You are able to run your own function instead of the original one. If your method returns <code class="language-javascript">true</code> then the default behaviour of the method is suppressed and only your implementation works.</p>
+<pre><code class="language-javascript">api.hook(&quot;add&quot;, function(rules) {    
+    if(rules.grid) {
+        var styles = {};
+        styles[rules.grid.parent] = parentStyles = {
+            &quot;:after&quot;: {
+                display: &quot;table&quot;,
+                content: &quot;&quot;,
+                clear: &quot;both&quot;
+            }
+        };
+        parentStyles[rules.grid.child] = {
+            width: (100 / rules.grid.columns) + &quot;%&quot;,
+            float: &quot;left&quot;
+        };
+        api.add(styles);
+        return true;
+    }
+});
+api.add({
+    grid: {
+        parent: &quot;.header .menu&quot;,
+        child: &quot;.link&quot;,
+        columns: 4
+    }
+});
+</code></pre><p>And the result is:</p>
+<pre><code class="language-javascript">.header .menu:after {
+  display: table;
+  content: &quot;&quot;;
+  clear: both;
+}
+.header .menu .link {
+  width: 25%;
+  float: left;
+}
+</code></pre>
                 <br />
                 <br />
                 <hr />

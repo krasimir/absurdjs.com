@@ -28,9 +28,11 @@ module.exports = function(api) {
 				bdb: 'n',
 				bdt: 'solid 4px ' + api.colors.brandColor1
 			},
-			'.guide': {
+			'.guide': {		
+				pad: '20px 0 20px 0',		
 				grid: '2/a',
 				a: {
+					fz: '26px',
 					d: 'b',
 					'&:hover': {
 						bdb: 'n'
