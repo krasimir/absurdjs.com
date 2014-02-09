@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Organic CSS / AbsurdJS</title>
+    <title>Input formats / AbsurdJS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/public/styles.css">
     <link href='http://fonts.googleapis.com/css?family=Average+Sans' rel='stylesheet' type='text/css'>
@@ -35,7 +35,7 @@
                 </li>
                 <li><a href="/pages/installation">Installation and compilation</a>
                 </li>
-                <li><a href="/pages/input-formats">Input formats</a>
+                <li><a href="/pages/input-formats" class="active">Input formats</a>
                 </li>
                 <li><a href="/pages/css-preprocessing">CSS preprocessing</a>
                 </li>
@@ -51,7 +51,7 @@
                         </li>
                         <li><a href="/pages/css-preprocessing/extending">Extending</a>
                         </li>
-                        <li><a href="/pages/css-preprocessing/organic-css" class="active">Organic CSS</a>
+                        <li><a href="/pages/css-preprocessing/organic-css">Organic CSS</a>
                         </li>
                     </ul>
                 </li>
@@ -76,12 +76,105 @@
             </ul>
         </nav>
         <div class="content-container">
-            <h1 id="organic-css">Organic CSS</h1>
+            <h1 id="input-formats">Input formats</h1>
+<h2 id="node-js-modules">Node.js modules</h2>
+<p>To add something for compilation you need to use the AbsurdJS&#39;s API. However, you can&#39;t add everything into one file. You could split your logic into different files and import them one by one. For example:</p>
+<pre><code class="language-javascript">// header.js
+module.exports = function(api) {
+    api.add({
+        &#39;.header&#39;: {
+            marginTop: &#39;10px&#39;
+        }
+    });
+}
 
+// main.js
+module.exports = function(api) {
+    api.add({
+        body: {
+            background: &#39;#000&#39;
+        }
+    }).import([__dirname + &#39;/header.js&#39;]);
+}
+</code></pre><p>If you compile <code class="language-javascript">main.js</code> from the command line with <code class="language-javascript">absurd -s ./main.js</code> you will get:</p>
+<pre><code class="language-javascript">body {
+  background: #000;
+}
+.header {
+  margin-top: 10px;
+}
+</code></pre><h2 id="json-css-and-yaml">JSON, CSS and YAML</h2>
+<p>The library accepts not only JavaScript files, but JSON, normal CSS or YAML files.</p>
+<pre><code class="language-javascript">// header.js
+module.exports = function(api) {
+    api.add({
+        &#39;.header&#39;: {
+            marginTop: &#39;10px&#39;
+        }
+    });
+}
+
+// footer.json
+{
+    &quot;.footer&quot;: {
+        &quot;span&quot;: {
+            &quot;fontSize&quot;: &quot;20px&quot;,
+            &quot;marginTop&quot;: &quot;10px&quot;,
+            &quot;background&quot;: &quot;#000&quot;
+        }
+    }
+}
+
+// links.css
+a {
+    color: #003;
+    text-decoration: none;
+}
+a:hover {
+    color: #009;
+}
+
+// base.yaml
+---
+body:
+  margin: 0
+  padding: 0
+  fontSize: 1em
+</code></pre><p>Having all these files you may write the following:</p>
+<pre><code class="language-javascript">// main.js
+module.exports = function(api) {
+    api.import([
+        __dirname + &#39;/header.js&#39;,
+        __dirname + &#39;/footer.json&#39;,
+        __dirname + &#39;/links.css&#39;,
+        __dirname + &#39;/base.yaml&#39;
+    ]);
+}
+</code></pre><p>The compilation of <code class="language-javascript">main.js</code> will produce the following result:</p>
+<pre><code class="language-javascript">.header, .footer span {
+  margin-top: 10px;
+}
+.footer span {
+  font-size: 20px;
+  background: #000;
+}
+body {
+  font-size: 1em;
+  margin: 0;
+  padding: 0;
+}
+a {
+  color: #003;
+  text-decoration: none;
+}
+a:hover {
+  color: #009;
+}
+</code></pre>
                 <br />
                 <br />
                 <hr />
-                <div class="guide"><a href="/pages/css-preprocessing/extending"><i class="fa fa-arrow-circle-o-left"></i> Extending</a><a href="/pages/html-preprocessing">HTML preprocessing <i class="fa fa-arrow-circle-o-right"></i></a>
+                <div class="guide"><a href="/pages/installation"><i class="fa fa-arrow-circle-o-left"></i> Installation and compilation</a><a href="/pages/css-preprocessing">CSS preprocessing <i class="fa fa-arrow-circle-o-right"></i></a>
                 </div>
                 <hr />
                 <div id="disqus_thread"></div>

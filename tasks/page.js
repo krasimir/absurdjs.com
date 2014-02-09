@@ -47,7 +47,7 @@ module.exports = function () {
         }
         process(sitemap);
         for(var i=0; i<allItems.length; i++) {
-            if(allItems[i].path == path) return allItems[i].name;
+            if(allItems[i].path == path) return allItems[i].name + ' / AbsurdJS';
         }
         return 'AbsurdJS - JavaScript library with superpowers';
     }

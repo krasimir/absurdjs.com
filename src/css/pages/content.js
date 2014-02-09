@@ -17,7 +17,8 @@ module.exports = function(api) {
 				bdb: 'solid 8px ' + api.colors.brandColor1
 			},
 			h2: {
-				fz: '36px'
+				fz: '36px',
+				lh: '40px'
 			},
 			p: {
 				fz: '24px',
@@ -37,6 +38,14 @@ module.exports = function(api) {
 					'&:nth-child(2)': {
 						ta: 'r'
 					}
+				}
+			},
+			blockquote: {
+				bdl: 'solid 4px #999',
+				pad: ' 0 0 0 20px',
+				mar: 0,	
+				p: {
+					color: '#999'
 				}
 			}
 		}

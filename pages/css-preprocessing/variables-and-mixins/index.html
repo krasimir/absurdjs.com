@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Organic CSS / AbsurdJS</title>
+    <title>Variables and Mixins / AbsurdJS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/public/styles.css">
     <link href='http://fonts.googleapis.com/css?family=Average+Sans' rel='stylesheet' type='text/css'>
@@ -43,7 +43,7 @@
                     <ul>
                         <li><a href="/pages/css-preprocessing/basics">Basics</a>
                         </li>
-                        <li><a href="/pages/css-preprocessing/variables-and-mixins">Variables and Mixins</a>
+                        <li><a href="/pages/css-preprocessing/variables-and-mixins" class="active">Variables and Mixins</a>
                         </li>
                         <li><a href="/pages/css-preprocessing/plugins">Plugins</a>
                         </li>
@@ -51,7 +51,7 @@
                         </li>
                         <li><a href="/pages/css-preprocessing/extending">Extending</a>
                         </li>
-                        <li><a href="/pages/css-preprocessing/organic-css" class="active">Organic CSS</a>
+                        <li><a href="/pages/css-preprocessing/organic-css">Organic CSS</a>
                         </li>
                     </ul>
                 </li>
@@ -76,12 +76,32 @@
             </ul>
         </nav>
         <div class="content-container">
-            <h1 id="organic-css">Organic CSS</h1>
-
+            <h1 id="variables-and-mixins">Variables and Mixins</h1>
+<p>You don&#39;t have to do anything special. That&#39;s because you use JavaScript and the language supports variables by default. And not only that, you are able to use loops, conditional statements, functions etc ...</p>
+<pre><code class="language-javascript">var brandColor = &quot;#00F&quot;;
+var size = function(w, h) {
+    return {
+        width: w,
+        height: h
+    }
+}
+api.add({
+    header: [
+        { color: brandColor },
+        size(&#39;900px&#39;, &#39;245px&#39;)
+    ]
+});
+</code></pre><p>You are free to use whatever you know about JavaScript. What it matters is the final object passed to AbsurdJS&#39;s API. As you can see above, we are defining a variable <code class="language-javascript">brandColor</code> and a mixin <code class="language-javascript">size</code> and the result is:</p>
+<pre><code class="language-javascript">header {
+  color: #00F;
+  width: 900px;
+  height: 245px;
+}
+</code></pre>
                 <br />
                 <br />
                 <hr />
-                <div class="guide"><a href="/pages/css-preprocessing/extending"><i class="fa fa-arrow-circle-o-left"></i> Extending</a><a href="/pages/html-preprocessing">HTML preprocessing <i class="fa fa-arrow-circle-o-right"></i></a>
+                <div class="guide"><a href="/pages/css-preprocessing/basics"><i class="fa fa-arrow-circle-o-left"></i> Basics</a><a href="/pages/css-preprocessing/plugins">Plugins <i class="fa fa-arrow-circle-o-right"></i></a>
                 </div>
                 <hr />
                 <div id="disqus_thread"></div>

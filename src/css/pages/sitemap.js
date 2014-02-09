@@ -36,6 +36,7 @@ module.exports = function(api) {
 			},
 			'.links': {
 				ovy: 's',
+				ovx: 'h',
 				mar: '0 10px 0 0'
 			}
 		}

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Installation and compilation</title>
+    <title>Installation and compilation / AbsurdJS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/public/styles.css">
     <link href='http://fonts.googleapis.com/css?family=Average+Sans' rel='stylesheet' type='text/css'>
@@ -35,10 +35,22 @@
                 </li>
                 <li><a href="/pages/installation" class="active">Installation and compilation</a>
                 </li>
+                <li><a href="/pages/input-formats">Input formats</a>
+                </li>
                 <li><a href="/pages/css-preprocessing">CSS preprocessing</a>
                 </li>
                 <li>
                     <ul>
+                        <li><a href="/pages/css-preprocessing/basics">Basics</a>
+                        </li>
+                        <li><a href="/pages/css-preprocessing/variables-and-mixins">Variables and Mixins</a>
+                        </li>
+                        <li><a href="/pages/css-preprocessing/plugins">Plugins</a>
+                        </li>
+                        <li><a href="/pages/css-preprocessing/media-queries-raw-data">Media queries and raw data</a>
+                        </li>
+                        <li><a href="/pages/css-preprocessing/extending">Extending</a>
+                        </li>
                         <li><a href="/pages/css-preprocessing/organic-css">Organic CSS</a>
                         </li>
                     </ul>
@@ -71,12 +83,117 @@
 </code></pre><h2 id="client-side-port">Client-side port</h2>
 <pre><code class="language-javascript">&lt;script src=&quot;absurd.organic.min.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;absurd.min.js&quot;&gt;&lt;/script&gt;
-</code></pre><p>* Notice that if you plan to use Organic you should include it<br />before <em>absurd.min.js</em>.</p>
+</code></pre><blockquote>
+<p>Notice that if you plan to use Organic you should include it<br />before <em>absurd.min.js</em>.</p>
+</blockquote>
+<h1 id="compilation">Compilation</h1>
+<h2 id="node-js">Node.js</h2>
+<h3 id="inline-compilation-">Inline compilation.</h3>
+<p>Use this approach if you want to integrate AbsurdJS into your Node.js app.</p>
+<pre><code class="language-javascript">var Absurd = require(&quot;absurd&quot;);
+Absurd(function(api) {
+    // use the Absurd&#39;s api here
+}).compile(function(err, css) {
+    // do something with the css
+});
+</code></pre><h3 id="inline-compilation-to-a-file-">Inline compilation to a file:</h3>
+<pre><code class="language-javascript">var output = &quot;./css/styles.css&quot;;
+Absurd(&quot;./css/styles.js&quot;).compileFile(output, function(err, css) {
+    // ...
+});
+</code></pre><h3 id="compiling-through-command-line-interface">Compiling through command line interface</h3>
+<pre><code class="language-javascript">// Outputs the css in the console.
+absurd -s [source file] 
+
+// Outputs the css to a file.
+absurd -s [source file] -o [output file]
+
+// Outputs the css to a file and watching 
+// specific directory. If some of the files 
+// there is changed a compilation is fired.
+absurd -s [source file] -o [output file] -w [directory]
+
+// Minify the CSS
+absurd -s [source file] -m true
+
+// Preprocessing html
+absurd -s [source file] -t html
+
+// keep the camel case of the properties
+absurd -s [source file] -k true
+</code></pre><p>Here are two examples uses all the options:</p>
+<pre><code class="language-javascript"># as css parser
+node ./index.js -s ./tests/data/css/index.js -o ./tests/data/result/res.css -w ./tests/data/**/*.js -m true
+
+# as html parser 
+node ./index.js -s ./tests/data/html.json -o ./tests/data/result/code.html -w ./tests/data/**/*.json -m true -t html
+</code></pre><h3 id="using-with-grunt-http-gruntjs-com-">Using with <a href="http://gruntjs.com/">Grunt</a></h3>
+<p>The official Grunt plugin is avaiable <a href="https://github.com/krasimir/grunt-absurd">here</a>.</p>
+<p>Dependencies for your <code class="language-javascript">package.json</code>:</p>
+<pre><code class="language-javascript">&quot;dependencies&quot;: {
+    &quot;grunt&quot;: &quot;~0.4.1&quot;,
+    &quot;grunt-contrib-watch&quot;: &quot;*&quot;,
+    &quot;grunt-absurd&quot;: &quot;*&quot;
+}
+</code></pre><p>Simple <code class="language-javascript">Gruntfile.js</code> file:</p>
+<pre><code class="language-javascript">module.exports = function(grunt) {
+
+    grunt.initConfig({
+        absurd: {
+            task: {
+                src: __dirname + &quot;/css/absurd/index.js&quot;,
+                dest: &#39;css/styles.css&#39;
+            }
+        },
+        watch: {
+            css: {
+                files: [&#39;css/absurd/**/*.js&#39;],
+                tasks: [&#39;absurd&#39;]
+            }
+        }
+    });
+
+    grunt.loadNpmTasks(&#39;grunt-contrib-watch&#39;);
+    grunt.loadNpmTasks(&#39;grunt-absurd&#39;);
+
+    // grunt.registerTask(&#39;default&#39;, [&#39;concat&#39;, &#39;less&#39;]);
+    grunt.registerTask(&#39;default&#39;, [&#39;absurd&#39;, &#39;watch&#39;]);
+
+}
+</code></pre><h3 id="using-with-gulp-http-gulpjs-com-">Using with <a href="http://gulpjs.com/">Gulp</a></h3>
+<p>The official Gulp plugin is avaiable <a href="https://github.com/krasimir/gulp-absurd">here</a>.</p>
+<p>Dependencies for your <code class="language-javascript">package.json</code>:</p>
+<pre><code class="language-javascript">&quot;dependencies&quot;: {
+    &quot;gulp&quot;: &quot;~3.5.0&quot;,
+    &quot;gulp-absurd&quot;: &quot;*&quot;
+}
+</code></pre><p>Simple usage:</p>
+<pre><code class="language-javascript">var gulp = require(&#39;gulp&#39;);
+var absurd = require(&#39;./gulp-absurd&#39;);
+
+gulp.task(&#39;default&#39;, function() {
+    gulp.src(&#39;./data/*.js&#39;)
+    .pipe(absurd({
+        minify: true
+    }))
+    .pipe(gulp.dest(&#39;./result&#39;));
+});
+</code></pre><h2 id="client-side">Client-side</h2>
+<p>In the browser, AbsurdJS is registered globally as <code class="language-javascript">Absurd</code> variable.</p>
+<pre><code class="language-javascript">var absurd = Absurd();
+absurd.add({
+    p: {
+        margin: &#39;0 10px 0 0&#39;
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});
+</code></pre><p>The API is the same. In general, the client-side port of the library has the same capabilities. Only the calls to the files system are not available.</p>
 
                 <br />
                 <br />
                 <hr />
-                <div class="guide"><a href="/pages/builds"><i class="fa fa-arrow-circle-o-left"></i> Builds</a><a href="/pages/css-preprocessing">CSS preprocessing <i class="fa fa-arrow-circle-o-right"></i></a>
+                <div class="guide"><a href="/pages/builds"><i class="fa fa-arrow-circle-o-left"></i> Builds</a><a href="/pages/input-formats">Input formats <i class="fa fa-arrow-circle-o-right"></i></a>
                 </div>
                 <hr />
                 <div id="disqus_thread"></div>

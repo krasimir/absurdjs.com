@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Organic CSS / AbsurdJS</title>
+    <title>Plugins / AbsurdJS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/public/styles.css">
     <link href='http://fonts.googleapis.com/css?family=Average+Sans' rel='stylesheet' type='text/css'>
@@ -45,13 +45,13 @@
                         </li>
                         <li><a href="/pages/css-preprocessing/variables-and-mixins">Variables and Mixins</a>
                         </li>
-                        <li><a href="/pages/css-preprocessing/plugins">Plugins</a>
+                        <li><a href="/pages/css-preprocessing/plugins" class="active">Plugins</a>
                         </li>
                         <li><a href="/pages/css-preprocessing/media-queries-raw-data">Media queries and raw data</a>
                         </li>
                         <li><a href="/pages/css-preprocessing/extending">Extending</a>
                         </li>
-                        <li><a href="/pages/css-preprocessing/organic-css" class="active">Organic CSS</a>
+                        <li><a href="/pages/css-preprocessing/organic-css">Organic CSS</a>
                         </li>
                     </ul>
                 </li>
@@ -76,12 +76,62 @@
             </ul>
         </nav>
         <div class="content-container">
-            <h1 id="organic-css">Organic CSS</h1>
+            <h1 id="plugins">Plugins</h1>
+<p>If you write a lot of CSS, you probably see a lot of patterns. Chunks of CSS which are always together and which you type again and again. Yes, the <a href="/pages/css-preprocessing/variables-and-mixins">mixins</a> are one of the possible solutions, but AbsurdJS offers something better. What if you can define your own CSS property.</p>
+<pre><code class="language-javascript">api.plugin(&quot;moveit&quot;, function(api, value) {
+    value = value.split(/, ?/);
+    var x = value[0];
+    var y = value[1] || 0;
+    return {
+        &quot;-ws-transform&quot;: &quot;translate(&quot; + x + &quot;,&quot; + y + &quot;)&quot;
+    };
+});
+api.add({
+    section: {
+        moveit: &#39;20px, 30px&#39;   
+    }
+});
+</code></pre><p>We are defining a plugin called <code class="language-javascript">moveit</code>. It returns an object which sets <code class="language-javascript">transform</code> property. Every plugin receives a reference to the AbsurdJS&#39;s API and the value of the field. The code above is compiled to:</p>
+<pre><code class="language-javascript">section {
+  transform: translate(20px,30px);
+  -webkit-transform: translate(20px,30px);
+  -ms-transform: translate(20px,30px);
+}
+</code></pre><p>As you <a href="/pages/input-formats/">probably know</a> the library supports importing of pure CSS. So, you may end up with a setup which uses JavaScript only for the plugin definition and CSS for the other things. Following this approach you will continue writing CSS, but take the advantages of AbsurdJS.</p>
+<pre><code class="language-javascript">// plugins.js
+module.exports = function(api) {
+    api.plugin(&quot;moveit&quot;, function(api, value) {
+        value = value.split(/, ?/);
+        var x = value[0];
+        var y = value[1] || 0;
+        return {
+            &quot;-ws-transform&quot;: &quot;translate(&quot; + x + &quot;,&quot; + y + &quot;)&quot;
+        };
+    });
+};
 
+// main.css
+@import &quot;plugins.js&quot;;
+body .header nav {
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: underline;
+    moveit: 10px, -2px;
+}
+</code></pre><p>And if you run <code class="language-javascript">absurd -s ./main.css</code> in your console the result will be:</p>
+<pre><code class="language-javascript">body .header nav {
+    transform: translate(10px,-2px);
+    -webkit-transform: translate(10px,-2px);
+    -ms-transform: translate(10px,-2px);
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+</code></pre>
                 <br />
                 <br />
                 <hr />
-                <div class="guide"><a href="/pages/css-preprocessing/extending"><i class="fa fa-arrow-circle-o-left"></i> Extending</a><a href="/pages/html-preprocessing">HTML preprocessing <i class="fa fa-arrow-circle-o-right"></i></a>
+                <div class="guide"><a href="/pages/css-preprocessing/variables-and-mixins"><i class="fa fa-arrow-circle-o-left"></i> Variables and Mixins</a><a href="/pages/css-preprocessing/media-queries-raw-data">Media queries and raw data <i class="fa fa-arrow-circle-o-right"></i></a>
                 </div>
                 <hr />
                 <div id="disqus_thread"></div>

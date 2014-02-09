@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>CSS preprocessing</title>
+    <title>CSS preprocessing / AbsurdJS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/public/styles.css">
     <link href='http://fonts.googleapis.com/css?family=Average+Sans' rel='stylesheet' type='text/css'>
@@ -35,10 +35,22 @@
                 </li>
                 <li><a href="/pages/installation">Installation and compilation</a>
                 </li>
+                <li><a href="/pages/input-formats">Input formats</a>
+                </li>
                 <li><a href="/pages/css-preprocessing" class="active">CSS preprocessing</a>
                 </li>
                 <li>
                     <ul>
+                        <li><a href="/pages/css-preprocessing/basics">Basics</a>
+                        </li>
+                        <li><a href="/pages/css-preprocessing/variables-and-mixins">Variables and Mixins</a>
+                        </li>
+                        <li><a href="/pages/css-preprocessing/plugins">Plugins</a>
+                        </li>
+                        <li><a href="/pages/css-preprocessing/media-queries-raw-data">Media queries and raw data</a>
+                        </li>
+                        <li><a href="/pages/css-preprocessing/extending">Extending</a>
+                        </li>
                         <li><a href="/pages/css-preprocessing/organic-css">Organic CSS</a>
                         </li>
                     </ul>
@@ -65,32 +77,17 @@
         </nav>
         <div class="content-container">
             <h1 id="css-preprocessing">CSS preprocessing</h1>
-<p>AbsurdJS was started as CSS preprocessor. That&#39;s its main purpose. The idea is to compile an input to valid CSS. In the Node.js environment this could be done via the following code:</p>
-<pre><code class="language-javascript">var absurd = require(&quot;absurd&quot;)();
-absurd.add({
-    body: {
-        width: &#39;100%&#39;,
-        fontSize: &#39;20px&#39;,
-        &#39;p.content&#39;: {
-            lineHeight: &#39;34px&#39;
-        }
-    }
-}).compile(function(err, css) {
-    console.log(css);
-});
-</code></pre><p>The result is:</p>
-<pre><code class="language-javascript">body {
-  width: 100%;
-  font-size: 20px;
-}
-body p.content {
-  line-height: 34px;
-}
-</code></pre>
+<p><i class="fa fa-arrow-right"></i> <a href="/pages/css-preprocessing/basics">Basics</a><br />
+<i class="fa fa-arrow-right"></i> <a href="/pages/css-preprocessing/variables-and-mixins">Variables and Mixins</a><br />
+<i class="fa fa-arrow-right"></i> <a href="/pages/css-preprocessing/plugins">Plugins</a><br />
+<i class="fa fa-arrow-right"></i> <a href="/pages/css-preprocessing/media-queries-raw-data">Media queries and raw data</a><br />
+<i class="fa fa-arrow-right"></i> <a href="/pages/css-preprocessing/extending">Extending</a><br />
+<i class="fa fa-arrow-right"></i> <a href="/pages/css-preprocessing/organic-css">Organic CSS</a></p>
+
                 <br />
                 <br />
                 <hr />
-                <div class="guide"><a href="/pages/installation"><i class="fa fa-arrow-circle-o-left"></i> Installation and compilation</a><a href="/pages/css-preprocessing/organic-css">Organic CSS <i class="fa fa-arrow-circle-o-right"></i></a>
+                <div class="guide"><a href="/pages/input-formats"><i class="fa fa-arrow-circle-o-left"></i> Input formats</a><a href="/pages/css-preprocessing/basics">Basics <i class="fa fa-arrow-circle-o-right"></i></a>
                 </div>
                 <hr />
                 <div id="disqus_thread"></div>
