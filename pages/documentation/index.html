@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>HTML preprocessing / AbsurdJS</title>
+    <title>Documentation / AbsurdJS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/public/styles.css">
     <link href='http://fonts.googleapis.com/css?family=Average+Sans' rel='stylesheet' type='text/css'>
@@ -31,7 +31,7 @@
             <ul>
                 <li><a href="/">Home</a>
                 </li>
-                <li><a href="/pages/documentation">Documentation</a>
+                <li><a href="/pages/documentation" class="active">Documentation</a>
                 </li>
                 <li>
                     <ul>
@@ -67,7 +67,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li><a href="/pages/html-preprocessing" class="active">HTML preprocessing</a>
+                        <li><a href="/pages/html-preprocessing">HTML preprocessing</a>
                         </li>
                         <li><a href="/pages/client-side-components">Client-side components</a>
                         </li>
@@ -96,82 +96,12 @@
             <a href="/pages/documentation" class="doc-home" title="Documentation's Index">
                 <img src="/public/img/logo-small.png" alt="AbsurdJS" />
             </a>
-            <h1 id="html-preprocessing">HTML preprocessing</h1>
-<p>AbsurdJS could also act as a HTML preprocessor. It needs the calling of only one method <code class="language-javascript">morph</code>.</p>
-<pre><code class="language-javascript">api.morph(&quot;html&quot;).add({
-    body: {
-        &#39;section.content#home&#39;: {
-            nav: [
-                { &#39;a[href=&quot;#&quot; class=&quot;link&quot;]&#39;: &#39;A&#39; },
-                { &#39;a[href=&quot;#&quot; class=&quot;link&quot;]&#39;: &#39;B&#39; },
-                { &#39;a[href=&quot;#&quot; class=&quot;link&quot;]&#39;: &#39;C&#39; }
-            ]
-        },
-        footer: {
-            p: &#39;Text in the Footer&#39;
-        }
-    }
-}).compile(function(err, html) {
-    console.log(html);
-});
-</code></pre><p>Every property defines a tag. The attributes of the tag could be defined in <code class="language-javascript">[...]</code> as it is shown above. The HTML markup produced by the example is:</p>
-<pre><code class="language-javascript">&lt;body&gt;
-    &lt;section class=&quot;content&quot; id=&quot;home&quot;&gt;
-        &lt;nav&gt;
-            &lt;a href=&quot;#&quot; class=&quot;link&quot;&gt;A&lt;/a&gt;
-            &lt;a href=&quot;#&quot; class=&quot;link&quot;&gt;B&lt;/a&gt;
-            &lt;a href=&quot;#&quot; class=&quot;link&quot;&gt;C&lt;/a&gt;
-        &lt;/nav&gt;
-    &lt;/section&gt;
-    &lt;footer&gt;
-        &lt;p&gt;Text in the Footer&lt;/p&gt;
-    &lt;/footer&gt;
-&lt;/body&gt;
-</code></pre><p>Normally while you are generating HTML layouts you want to fill them with data. That&#39;s why AbsurdJS has its own template engine integrated. Let&#39;s check the following code:</p>
-<pre><code class="language-javascript">var data = {
-    name: &#39;AbsurdJS&#39;,
-    features: [&#39;CSS preprocessor&#39;, &#39;HTML preprocessor&#39;, &#39;Organic CSS&#39;],
-    link: function() {
-        return &#39;&lt;a href=&quot;http://absurdjs.com&quot;&gt;&#39; + this.name + &#39;&lt;/a&gt;&#39;;
-    }
-}
-api.morph(&quot;html&quot;).add({
-    body: {
-        h1: &#39;I\&#39;m &lt;% this.name %&gt;!&#39;,
-        section: {
-            ul: [
-                &#39;&lt;% for(var i=0; i&lt;this.features.length; i++) { %&gt;&#39;,
-                { li: &#39;&lt;% this.features[i] %&gt;&#39; },
-                &#39;&lt;% } %&gt;&#39;
-            ]
-        },
-        footer: &#39;Checkout my website at &lt;% this.link() %&gt;&#39;
-    }
-}).compile(function(err, html) {
-    console.log(html);
-}, data);
-</code></pre><p>The generated HTML markup:</p>
-<pre><code class="language-javascript">&lt;body&gt;
-    &lt;h1&gt;I&#39;m AbsurdJS!&lt;/h1&gt;
-    &lt;section&gt;
-        &lt;ul&gt;
-            &lt;li&gt;CSS preprocessor&lt;/li&gt;
-            &lt;li&gt;HTML preprocessor&lt;/li&gt;
-            &lt;li&gt;Organic CSS&lt;/li&gt;
-        &lt;/ul&gt;
-    &lt;/section&gt;
-    &lt;footer&gt;Checkout my website at &lt;a href=&quot;http://absurdjs.com&quot;&gt;AbsurdJS&lt;/a&gt;
-    &lt;/footer&gt;
-&lt;/body&gt;
-</code></pre><p>The dynamic parts and the instructions to the template engine are passed between <code class="language-javascript">&lt;%</code> and <code class="language-javascript">%&gt;</code> strings. The interesting thing is that there is no special syntax that you should learn. That&#39;s just a JavaScript. The code which you put there is executed in the context of the passed <code class="language-javascript">data</code>. As you can see you may access a variable directly, create a <em>for</em> loop or even execute a function. </p>
-<blockquote>
-<p>More about the engine and how it is implemented <a href="http://krasimirtsonev.com/blog/article/Javascript-template-engine-in-just-20-line">here</a>. </p>
-</blockquote>
-
+            <h1 id="documentation">Documentation</h1>
+<ul><li><a href="/">Home</a></li><li><a href="/pages/documentation" class="active">Documentation</a></li><li><ul><li><a href="/pages/builds">Builds / Download</a></li><li><a href="/pages/installation">Installation and compilation</a></li><li><a href="/pages/input-formats">Input formats</a></li><li><a href="/pages/css-preprocessing">CSS preprocessing</a></li><li><ul><li><a href="/pages/css-preprocessing/basics">Basics</a></li><li><a href="/pages/css-preprocessing/variables-and-mixins">Variables and Mixins</a></li><li><a href="/pages/css-preprocessing/plugins">Plugins</a></li><li><a href="/pages/css-preprocessing/media-queries-raw-data">Media queries and raw data</a></li><li><a href="/pages/css-preprocessing/extending">Extending</a></li><li><a href="/pages/css-preprocessing/organic-css">Organic CSS</a></li><li><ul><li><a href="/pages/css-preprocessing/organic-css/atoms">Atoms</a></li><li><a href="/pages/css-preprocessing/organic-css/molecules">Molecules</a></li></ul></li></ul></li><li><a href="/pages/html-preprocessing">HTML preprocessing</a></li><li><a href="/pages/client-side-components">Client-side components</a></li><li><ul></ul></li><li><a href="/pages/api">API</a></li><li><a href="/pages/misc">Misc</a></li></ul></li></ul>
                 <br />
                 <br />
                 <hr />
-                <div class="guide"><a href="/pages/css-preprocessing/organic-css/molecules"><i class="fa fa-arrow-circle-o-left"></i> Molecules</a><a href="/pages/client-side-components">Client-side components <i class="fa fa-arrow-circle-o-right"></i></a>
+                <div class="guide"><a href="/"><i class="fa fa-arrow-circle-o-left"></i> Home</a><a href="/pages/builds">Builds / Download <i class="fa fa-arrow-circle-o-right"></i></a>
                 </div>
                 <hr />
                 <div id="disqus_thread"></div>

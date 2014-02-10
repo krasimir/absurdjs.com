@@ -31,48 +31,54 @@
             <ul>
                 <li><a href="/">Home</a>
                 </li>
-                <li><a href="/pages/builds">Builds</a>
-                </li>
-                <li><a href="/pages/installation">Installation and compilation</a>
-                </li>
-                <li><a href="/pages/input-formats">Input formats</a>
-                </li>
-                <li><a href="/pages/css-preprocessing">CSS preprocessing</a>
+                <li><a href="/pages/documentation">Documentation</a>
                 </li>
                 <li>
                     <ul>
-                        <li><a href="/pages/css-preprocessing/basics">Basics</a>
+                        <li><a href="/pages/builds">Builds / Download</a>
                         </li>
-                        <li><a href="/pages/css-preprocessing/variables-and-mixins">Variables and Mixins</a>
+                        <li><a href="/pages/installation">Installation and compilation</a>
                         </li>
-                        <li><a href="/pages/css-preprocessing/plugins">Plugins</a>
+                        <li><a href="/pages/input-formats">Input formats</a>
                         </li>
-                        <li><a href="/pages/css-preprocessing/media-queries-raw-data">Media queries and raw data</a>
-                        </li>
-                        <li><a href="/pages/css-preprocessing/extending">Extending</a>
-                        </li>
-                        <li><a href="/pages/css-preprocessing/organic-css" class="active">Organic CSS</a>
+                        <li><a href="/pages/css-preprocessing">CSS preprocessing</a>
                         </li>
                         <li>
                             <ul>
-                                <li><a href="/pages/css-preprocessing/organic-css/atoms">Atoms</a>
+                                <li><a href="/pages/css-preprocessing/basics">Basics</a>
                                 </li>
-                                <li><a href="/pages/css-preprocessing/organic-css/molecules">Molecules</a>
+                                <li><a href="/pages/css-preprocessing/variables-and-mixins">Variables and Mixins</a>
+                                </li>
+                                <li><a href="/pages/css-preprocessing/plugins">Plugins</a>
+                                </li>
+                                <li><a href="/pages/css-preprocessing/media-queries-raw-data">Media queries and raw data</a>
+                                </li>
+                                <li><a href="/pages/css-preprocessing/extending">Extending</a>
+                                </li>
+                                <li><a href="/pages/css-preprocessing/organic-css" class="active">Organic CSS</a>
+                                </li>
+                                <li>
+                                    <ul>
+                                        <li><a href="/pages/css-preprocessing/organic-css/atoms">Atoms</a>
+                                        </li>
+                                        <li><a href="/pages/css-preprocessing/organic-css/molecules">Molecules</a>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </li>
+                        <li><a href="/pages/html-preprocessing">HTML preprocessing</a>
+                        </li>
+                        <li><a href="/pages/client-side-components">Client-side components</a>
+                        </li>
+                        <li>
+                            <ul></ul>
+                        </li>
+                        <li><a href="/pages/api">API</a>
+                        </li>
+                        <li><a href="/pages/misc">Misc</a>
+                        </li>
                     </ul>
-                </li>
-                <li><a href="/pages/html-preprocessing">HTML preprocessing</a>
-                </li>
-                <li><a href="/pages/client-side-components">Client-side components</a>
-                </li>
-                <li>
-                    <ul></ul>
-                </li>
-                <li><a href="/pages/api">API</a>
-                </li>
-                <li><a href="/pages/misc">Misc</a>
                 </li>
             </ul>
         </div>
@@ -82,11 +88,14 @@
             <ul>
                 <li class="left"><a href="/"><i class="fa fa-home"></i> <span>Home</span></a>
                 </li>
-                <li class="right sitemap-button" data-absurd-event="click:clicked"><a href="/"><span>Sitemap</span> <i class="fa fa-sitemap"></i></a>
+                <li class="right sitemap-button" data-absurd-event="click:clicked"><a href="/"><span>Menu</span> <i class="fa fa-bars"></i></a>
                 </li>
             </ul>
         </nav>
         <div class="content-container">
+            <a href="/pages/documentation" class="doc-home" title="Documentation's Index">
+                <img src="/public/img/logo-small.png" alt="AbsurdJS" />
+            </a>
             <h1 id="organic-css-framework">Organic CSS framework</h1>
 <p>That&#39;s a concept which is initially introduced <a href="http://davidwalsh.name/starting-css">here</a>. The idea is to follow the <a href="http://bradfrostweb.com/blog/post/atomic-web-design/">Atomic design principle</a>, but while writing CSS.</p>
 <h2 id="atoms">Atoms</h2>
@@ -100,7 +109,7 @@ td: n -&gt; text-decoration: none
 </code></pre><p>So, in AbsurdJS you are able to write:</p>
 <div class="example">
 <div class="col">
-<small>AbsurdJS:</small>
+<small>JavaScript:</small>
 <pre><code class="language-javascript">{
     nav: {
         mar: 0,
@@ -111,10 +120,9 @@ td: n -&gt; text-decoration: none
             fw: &#39;b&#39;
         }
     }
-}</code></pre>
-</div>
+}</code></pre></div>
 <div class="col">
-<small>Result:</small>
+<small>CSS:</small>
 <pre><code class="language-css">nav {
   margin: 0;
   padding: 0;
@@ -123,14 +131,13 @@ td: n -&gt; text-decoration: none
 nav ul li {
   float: left;
   font-weight: bold;
-}</code></pre>
-</div>
+}</code></pre></div>
 </div>
 
 <p>It&#39;s even more interesting if you write in <code class="language-javascript">.css</code> files. You just have to pass them through the preprocessor.</p>
 <div class="example">
 <div class="col">
-<small>AbsurdJS:</small>
+<small>JavaScript:</small>
 <pre><code class="language-javascript">.container {
     d: b;
     mar: 0;
@@ -140,10 +147,9 @@ nav ul li {
 }
 .container:hover {
     bg: #ff9;
-}</code></pre>
-</div>
+}</code></pre></div>
 <div class="col">
-<small>Result:</small>
+<small>CSS:</small>
 <pre><code class="language-css">.container {
     display: block;
     margin: 0;
@@ -154,41 +160,53 @@ nav ul li {
 }
 .container:hover {
     background: #ff9;
-}</code></pre>
-</div>
+}</code></pre></div>
 </div>
 
 <p>Find out the full list of the available atoms <a href="/pages/css-preprocessing/organic-css/atoms">here</a>.</p>
 <h2 id="molecules">Molecules</h2>
 <p>Once you try combining atoms you are starting writing a molecule. The purpose of the molecules is to simplify common tasks, like creating gradients, defining animations and so on. Here are some of the most common used:</p>
 <h3 id="size">size</h3>
+<div class="example">
+<div class="col">
+<small>JavaScript:</small>
 <pre><code class="language-javascript">nav: {
     size: &#39;100px/200px&#39;
-}
-
-// compiles to:
-nav {
+}</code></pre></div>
+<div class="col">
+<small>CSS:</small>
+<pre><code class="language-css">nav {
       width: 100px;
       height: 200px;
-}
-</code></pre><h3 id="cf">cf</h3>
+}</code></pre></div>
+</div>
+
+<h3 id="cf">cf</h3>
+<div class="example">
+<div class="col">
+<small>JavaScript:</small>
 <pre><code class="language-javascript">ul: {
     cf: &#39;both&#39;
-}
-
-// compiles to
-ul:before, ul:after {
+}</code></pre></div>
+<div class="col">
+<small>CSS:</small>
+<pre><code class="language-css">ul:before, ul:after {
     content: &quot; &quot;;
     display: table;
     clear: both;
-}
-</code></pre><h3 id="grid">grid</h3>
+}</code></pre></div>
+</div>
+
+<h3 id="grid">grid</h3>
+<div class="example">
+<div class="col">
+<small>JavaScript:</small>
 <pre><code class="language-javascript">&#39;section.container&#39;: {
     grid: &#39;3/div&#39;
-}
-
-// compiles to
-section.container:before, section.container:after {
+}</code></pre></div>
+<div class="col">
+<small>CSS:</small>
+<pre><code class="language-css">section.container:before, section.container:after {
     content: &quot; &quot;;
     display: table;
     clear: both;
@@ -199,8 +217,10 @@ section.container div {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     width: 33.33%;
-}
-</code></pre><p>AbsurdJS also includes <a href="http://daneden.github.io/animate.css/">animate.css</a> code snippets. This simplifies the process of animating by providing ready-to-use variants.</p>
+}</code></pre></div>
+</div>
+
+<p>AbsurdJS also includes <a href="http://daneden.github.io/animate.css/">animate.css</a> code snippets. This simplifies the process of animating by providing ready-to-use variants.</p>
 <pre><code class="language-javascript">button: {
     animate: &#39;bounce&#39;
 }
@@ -242,7 +262,7 @@ button {
   animation-name: bounce;
   -webkit-animation-name: bounce;
 }
-</code></pre><p>A full list of the available animation types could be seen <a href="http://daneden.github.io/animate.css/">here</a>. You may use <code class="language-javascript">flipInX</code>, <code class="language-javascript">slideInRight</code> or <code class="language-javascript">rollOut</code>.</p>
+</code></pre><p>A full list of the available animation types could be seen <a href="/pages/css-preprocessing/organic-css/molecules/#animate-small-class-prop-values-type-of-animation-small-">here</a>. You may use <code class="language-javascript">flipInX</code>, <code class="language-javascript">slideInRight</code> or <code class="language-javascript">rollOut</code>.</p>
 <p>All the available molecules are available <a href="/pages/css-preprocessing/organic-css/molecules">here</a>.</p>
 
                 <br />

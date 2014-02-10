@@ -84,6 +84,16 @@ module.exports = function () {
         return result;
     }
 
+    var applyCodeTags = function(html) {
+        html = html.replace(/\<example\>/g, '<div class="example">');
+        html = html.replace(/\<\/example\>/g, '</div>');
+        html = html.replace(/\<js\>\n/g, '<div class="col">\n<small>JavaScript:</small>\n<pre><code class="language-javascript">');
+        html = html.replace(/\<css\>\n/g, '<div class="col">\n<small>CSS:</small>\n<pre><code class="language-css">');
+        html = html.replace(/\<html\>\n/g, '<div class="col">\n<small>HTML:</small>\n<pre><code class="language-markup">');
+        html = html.replace(/\n\<\/(js|css|html)\>/g, '</code></pre></div>');
+        return html;
+    }
+
     function transform (file, enc, next) {
         var self = this;
 
@@ -105,6 +115,7 @@ module.exports = function () {
         var fileURL = fileRoot.replace(path.resolve(root), '').replace(/\\/g, '/');
         var contentHTML = marked(fs.readFileSync(file.path).toString('utf8'));
         contentHTML = contentHTML.replace(/<code>/g, '<code class="language-javascript">');
+        contentHTML = applyCodeTags(contentHTML);
         var partials = {
             version: absurdVersion,
             sitemap: getSiteMap(sitemap, fileURL),
@@ -115,6 +126,7 @@ module.exports = function () {
 
         absurd.flush().morph("html").add(layoutHTML).compile(function(err, html) {
             html = html.replace('<content>', contentHTML);
+            html = html.replace('<sitemap>', partials.sitemap);
             fs.writeFileSync(fileRoot + '/' + htmlFile, html, {encoding: 'utf8'});
         }, partials);
 

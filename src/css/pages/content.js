@@ -80,6 +80,22 @@ module.exports = function(api) {
 			'.prop-values': {
 				color: '#999',
 				fw: 'n'
+			},
+			'.doc-home': {
+				wid: '40px',
+				pos: 'a',
+				left: '50%',
+				top: '93px',
+				ml: '-449px',
+				opacity: '0.1',
+				'-w-trs': 'all 700ms',
+				'&:hover': {
+					opacity: 1,
+					bdb: 'n'
+				},
+				'@media all and (max-width: 960px)': {
+					d: 'n'
+				}
 			}
 		}
 	});

@@ -31,48 +31,54 @@
             <ul>
                 <li><a href="/">Home</a>
                 </li>
-                <li><a href="/pages/builds">Builds</a>
-                </li>
-                <li><a href="/pages/installation">Installation and compilation</a>
-                </li>
-                <li><a href="/pages/input-formats">Input formats</a>
-                </li>
-                <li><a href="/pages/css-preprocessing">CSS preprocessing</a>
+                <li><a href="/pages/documentation">Documentation</a>
                 </li>
                 <li>
                     <ul>
-                        <li><a href="/pages/css-preprocessing/basics">Basics</a>
+                        <li><a href="/pages/builds">Builds / Download</a>
                         </li>
-                        <li><a href="/pages/css-preprocessing/variables-and-mixins">Variables and Mixins</a>
+                        <li><a href="/pages/installation">Installation and compilation</a>
                         </li>
-                        <li><a href="/pages/css-preprocessing/plugins">Plugins</a>
+                        <li><a href="/pages/input-formats">Input formats</a>
                         </li>
-                        <li><a href="/pages/css-preprocessing/media-queries-raw-data">Media queries and raw data</a>
-                        </li>
-                        <li><a href="/pages/css-preprocessing/extending">Extending</a>
-                        </li>
-                        <li><a href="/pages/css-preprocessing/organic-css">Organic CSS</a>
+                        <li><a href="/pages/css-preprocessing">CSS preprocessing</a>
                         </li>
                         <li>
                             <ul>
-                                <li><a href="/pages/css-preprocessing/organic-css/atoms">Atoms</a>
+                                <li><a href="/pages/css-preprocessing/basics">Basics</a>
                                 </li>
-                                <li><a href="/pages/css-preprocessing/organic-css/molecules">Molecules</a>
+                                <li><a href="/pages/css-preprocessing/variables-and-mixins">Variables and Mixins</a>
+                                </li>
+                                <li><a href="/pages/css-preprocessing/plugins">Plugins</a>
+                                </li>
+                                <li><a href="/pages/css-preprocessing/media-queries-raw-data">Media queries and raw data</a>
+                                </li>
+                                <li><a href="/pages/css-preprocessing/extending">Extending</a>
+                                </li>
+                                <li><a href="/pages/css-preprocessing/organic-css">Organic CSS</a>
+                                </li>
+                                <li>
+                                    <ul>
+                                        <li><a href="/pages/css-preprocessing/organic-css/atoms">Atoms</a>
+                                        </li>
+                                        <li><a href="/pages/css-preprocessing/organic-css/molecules">Molecules</a>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </li>
+                        <li><a href="/pages/html-preprocessing">HTML preprocessing</a>
+                        </li>
+                        <li><a href="/pages/client-side-components" class="active">Client-side components</a>
+                        </li>
+                        <li>
+                            <ul></ul>
+                        </li>
+                        <li><a href="/pages/api">API</a>
+                        </li>
+                        <li><a href="/pages/misc">Misc</a>
+                        </li>
                     </ul>
-                </li>
-                <li><a href="/pages/html-preprocessing">HTML preprocessing</a>
-                </li>
-                <li><a href="/pages/client-side-components" class="active">Client-side components</a>
-                </li>
-                <li>
-                    <ul></ul>
-                </li>
-                <li><a href="/pages/api">API</a>
-                </li>
-                <li><a href="/pages/misc">Misc</a>
                 </li>
             </ul>
         </div>
@@ -82,12 +88,53 @@
             <ul>
                 <li class="left"><a href="/"><i class="fa fa-home"></i> <span>Home</span></a>
                 </li>
-                <li class="right sitemap-button" data-absurd-event="click:clicked"><a href="/"><span>Sitemap</span> <i class="fa fa-sitemap"></i></a>
+                <li class="right sitemap-button" data-absurd-event="click:clicked"><a href="/"><span>Menu</span> <i class="fa fa-bars"></i></a>
                 </li>
             </ul>
         </nav>
         <div class="content-container">
+            <a href="/pages/documentation" class="doc-home" title="Documentation's Index">
+                <img src="/public/img/logo-small.png" alt="AbsurdJS" />
+            </a>
             <h1 id="client-side-components">Client-side components</h1>
+<p>The web development nowadays is all about managing HTML, CSS and JavaScript. AbsurdJS is a JavaScript library and could produce <a href="/pages/css-preprocessing/">CSS</a> and <a href="/pages/html-preprocessing/">HTML</a>. And because it is ported for a client-side usage it was normal to form some kind of web components. Components which are trully build with JavaScript. No external CSS files or HTML templates.</p>
+<pre><code class="language-javascript">var absurd = Absurd();
+var ComponentClass = absurd.component(&quot;ComponentName&quot;, {
+    css: {
+        &#39;.component&#39;: {
+            h1: { color: &#39;#F00&#39; }
+        }
+    },
+    html: {
+        &#39;.component&#39;: {
+            h1: &#39;&lt;% this.name %&gt;&#39;
+        }
+    },
+    constructor: function(name) {
+          this.name = name;
+          this.set(&#39;parent&#39;, this.qs(&#39;body&#39;)).populate();
+    }
+});
+var comp = ComponentClass(&quot;AbsurdJS&quot;);
+</code></pre><p><code class="language-javascript">absurd.component</code> API defines a class, which you later could create instances from. The entry point of every component is its <code class="language-javascript">.constructor</code> method. In the example above we set a local variable <code class="language-javascript">name</code> which is used in the HTML template of the component. <code class="language-javascript">this.set(&#39;parent&#39;, ...)</code> tells to AbsurdJS what will be the parent DOM element and <code class="language-javascript">this.qs</code> is just an alias to <code class="language-javascript">document.querySelector</code>. <code class="language-javascript">populate</code> is the only one long method. It checks for <code class="language-javascript">css</code> and <code class="language-javascript">html</code> properties and launches the proper preprocessors. As a result your page contains a new <code class="language-javascript">&lt;style&gt;</code> tag and a new <code class="language-javascript">&lt;div class=&quot;component&quot;&gt;</code> element into the DOM.</p>
+<div class="example">
+<div class="col">
+<small>HTML:</small>
+<pre><code class="language-markup">&lt;style id=&quot;ComponentName-css&quot; type=&quot;text/css&quot;&gt;
+.component h1 {
+    color: #F00;
+}
+&lt;/style&gt;</code></pre></div>
+<div class="col">
+<small>HTML:</small>
+<pre><code class="language-markup">&lt;div class=&quot;component&quot;&gt;
+    &lt;h1&gt;AbsurdJS&lt;/h1&gt;
+&lt;/div&gt;</code></pre></div>
+</div>
+
+<p>Here is a JSBin to play with:</p>
+<p><a class="jsbin-embed" href="http://jsbin.com/juwap/3/embed?js,output">JS Bin</a><script src="http://static.jsbin.com/js/embed.js"></script></p>
+<p>The main goal of AbsurdJS components are to implement some of the common things which you already know and use. But at the same time to act as a utility, as a helper and not as a framework. For example, every component is actually a event dispatcher, there is dependency injection resolver implemented. You could use the build-in Router or the HTTP request module. What you should remember is that it is up to you to bootstrap the components and wire them into a complete application. Frameworks like Angular, Knockout or Ember provide enormous list of features and if you want to use a framework then you better check them. However, if you need a custom solution or you want to simplify the already started project AbsurdJS is suitable for you. It is a minimalistic collection of helpful JavaScript snippets which main purpose is to avoid the <em>magical</em> moments, by providing transparency.</p>
 
                 <br />
                 <br />

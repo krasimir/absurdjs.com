@@ -31,48 +31,54 @@
             <ul>
                 <li><a href="/">Home</a>
                 </li>
-                <li><a href="/pages/builds">Builds</a>
-                </li>
-                <li><a href="/pages/installation">Installation and compilation</a>
-                </li>
-                <li><a href="/pages/input-formats" class="active">Input formats</a>
-                </li>
-                <li><a href="/pages/css-preprocessing">CSS preprocessing</a>
+                <li><a href="/pages/documentation">Documentation</a>
                 </li>
                 <li>
                     <ul>
-                        <li><a href="/pages/css-preprocessing/basics">Basics</a>
+                        <li><a href="/pages/builds">Builds / Download</a>
                         </li>
-                        <li><a href="/pages/css-preprocessing/variables-and-mixins">Variables and Mixins</a>
+                        <li><a href="/pages/installation">Installation and compilation</a>
                         </li>
-                        <li><a href="/pages/css-preprocessing/plugins">Plugins</a>
+                        <li><a href="/pages/input-formats" class="active">Input formats</a>
                         </li>
-                        <li><a href="/pages/css-preprocessing/media-queries-raw-data">Media queries and raw data</a>
-                        </li>
-                        <li><a href="/pages/css-preprocessing/extending">Extending</a>
-                        </li>
-                        <li><a href="/pages/css-preprocessing/organic-css">Organic CSS</a>
+                        <li><a href="/pages/css-preprocessing">CSS preprocessing</a>
                         </li>
                         <li>
                             <ul>
-                                <li><a href="/pages/css-preprocessing/organic-css/atoms">Atoms</a>
+                                <li><a href="/pages/css-preprocessing/basics">Basics</a>
                                 </li>
-                                <li><a href="/pages/css-preprocessing/organic-css/molecules">Molecules</a>
+                                <li><a href="/pages/css-preprocessing/variables-and-mixins">Variables and Mixins</a>
+                                </li>
+                                <li><a href="/pages/css-preprocessing/plugins">Plugins</a>
+                                </li>
+                                <li><a href="/pages/css-preprocessing/media-queries-raw-data">Media queries and raw data</a>
+                                </li>
+                                <li><a href="/pages/css-preprocessing/extending">Extending</a>
+                                </li>
+                                <li><a href="/pages/css-preprocessing/organic-css">Organic CSS</a>
+                                </li>
+                                <li>
+                                    <ul>
+                                        <li><a href="/pages/css-preprocessing/organic-css/atoms">Atoms</a>
+                                        </li>
+                                        <li><a href="/pages/css-preprocessing/organic-css/molecules">Molecules</a>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </li>
+                        <li><a href="/pages/html-preprocessing">HTML preprocessing</a>
+                        </li>
+                        <li><a href="/pages/client-side-components">Client-side components</a>
+                        </li>
+                        <li>
+                            <ul></ul>
+                        </li>
+                        <li><a href="/pages/api">API</a>
+                        </li>
+                        <li><a href="/pages/misc">Misc</a>
+                        </li>
                     </ul>
-                </li>
-                <li><a href="/pages/html-preprocessing">HTML preprocessing</a>
-                </li>
-                <li><a href="/pages/client-side-components">Client-side components</a>
-                </li>
-                <li>
-                    <ul></ul>
-                </li>
-                <li><a href="/pages/api">API</a>
-                </li>
-                <li><a href="/pages/misc">Misc</a>
                 </li>
             </ul>
         </div>
@@ -82,11 +88,14 @@
             <ul>
                 <li class="left"><a href="/"><i class="fa fa-home"></i> <span>Home</span></a>
                 </li>
-                <li class="right sitemap-button" data-absurd-event="click:clicked"><a href="/"><span>Sitemap</span> <i class="fa fa-sitemap"></i></a>
+                <li class="right sitemap-button" data-absurd-event="click:clicked"><a href="/"><span>Menu</span> <i class="fa fa-bars"></i></a>
                 </li>
             </ul>
         </nav>
         <div class="content-container">
+            <a href="/pages/documentation" class="doc-home" title="Documentation's Index">
+                <img src="/public/img/logo-small.png" alt="AbsurdJS" />
+            </a>
             <h1 id="input-formats">Input formats</h1>
 <h2 id="node-js-modules">Node.js modules</h2>
 <p>To add something for compilation you need to use the AbsurdJS&#39;s API. However, you can&#39;t add everything into one file. You could split your logic into different files and import them one by one. For example:</p>

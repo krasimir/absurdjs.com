@@ -1,23 +1,25 @@
 [
 	{ "name": "Home", "path": "/"},
-	{ "name": "Builds", "path": "/pages/builds"},
-	{ "name": "Installation and compilation", "path": "/pages/installation"},
-	{ "name": "Input formats", "path": "/pages/input-formats"},
-	{ "name": "CSS preprocessing", "path": "/pages/css-preprocessing", "childs": [
-		{ "name": "Basics", "path": "/pages/css-preprocessing/basics"},
-		{ "name": "Variables and Mixins", "path": "/pages/css-preprocessing/variables-and-mixins"},
-		{ "name": "Plugins", "path": "/pages/css-preprocessing/plugins"},
-		{ "name": "Media queries and raw data", "path": "/pages/css-preprocessing/media-queries-raw-data"},
-		{ "name": "Extending", "path": "/pages/css-preprocessing/extending"},
-		{ "name": "Organic CSS", "path": "/pages/css-preprocessing/organic-css", "childs": [
-			{ "name": "Atoms", "path": "/pages/css-preprocessing/organic-css/atoms"},
-			{ "name": "Molecules", "path": "/pages/css-preprocessing/organic-css/molecules"}
-		]}
-	]},
-	{ "name": "HTML preprocessing", "path": "/pages/html-preprocessing"},
-	{ "name": "Client-side components", "path": "/pages/client-side-components", "childs": [
-		
-	]},
-	{ "name": "API", "path": "/pages/api"},
-	{ "name": "Misc", "path": "/pages/misc"}
+	{ "name": "Documentation", "path": "/pages/documentation", "childs": [
+		{ "name": "Builds / Download", "path": "/pages/builds"},
+		{ "name": "Installation and compilation", "path": "/pages/installation"},
+		{ "name": "Input formats", "path": "/pages/input-formats"},
+		{ "name": "CSS preprocessing", "path": "/pages/css-preprocessing", "childs": [
+			{ "name": "Basics", "path": "/pages/css-preprocessing/basics"},
+			{ "name": "Variables and Mixins", "path": "/pages/css-preprocessing/variables-and-mixins"},
+			{ "name": "Plugins", "path": "/pages/css-preprocessing/plugins"},
+			{ "name": "Media queries and raw data", "path": "/pages/css-preprocessing/media-queries-raw-data"},
+			{ "name": "Extending", "path": "/pages/css-preprocessing/extending"},
+			{ "name": "Organic CSS", "path": "/pages/css-preprocessing/organic-css", "childs": [
+				{ "name": "Atoms", "path": "/pages/css-preprocessing/organic-css/atoms"},
+				{ "name": "Molecules", "path": "/pages/css-preprocessing/organic-css/molecules"}
+			]}
+		]},
+		{ "name": "HTML preprocessing", "path": "/pages/html-preprocessing"},
+		{ "name": "Client-side components", "path": "/pages/client-side-components", "childs": [
+			
+		]},
+		{ "name": "API", "path": "/pages/api"},
+		{ "name": "Misc", "path": "/pages/misc"}
+	]}
 ]

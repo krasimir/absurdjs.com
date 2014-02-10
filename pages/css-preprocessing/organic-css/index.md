@@ -17,10 +17,9 @@ The framework has dozen of predefined atoms which are at your disposal. They are
 
 So, in AbsurdJS you are able to write:
 
-<div class="example">
-<div class="col">
-<small>AbsurdJS:</small>
-<pre><code class="language-javascript">{
+<example>
+<js>
+{
     nav: {
         mar: 0,
         pad: 0,
@@ -30,11 +29,10 @@ So, in AbsurdJS you are able to write:
             fw: 'b'
         }
     }
-}</code></pre>
-</div>
-<div class="col">
-<small>Result:</small>
-<pre><code class="language-css">nav {
+}
+</js>
+<css>
+nav {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -42,16 +40,15 @@ So, in AbsurdJS you are able to write:
 nav ul li {
   float: left;
   font-weight: bold;
-}</code></pre>
-</div>
-</div>
+}
+</css>
+</example>
 
 It's even more interesting if you write in `.css` files. You just have to pass them through the preprocessor.
 
-<div class="example">
-<div class="col">
-<small>AbsurdJS:</small>
-<pre><code class="language-javascript">.container {
+<example>
+<js>
+.container {
 	d: b;
 	mar: 0;
 	pad: 10px 0 0 0;
@@ -60,11 +57,10 @@ It's even more interesting if you write in `.css` files. You just have to pass t
 }
 .container:hover {
 	bg: #ff9;
-}</code></pre>
-</div>
-<div class="col">
-<small>Result:</small>
-<pre><code class="language-css">.container {
+}
+</js>
+<css>
+.container {
 	display: block;
 	margin: 0;
 	padding: 10px 0 0 0;
@@ -74,9 +70,9 @@ It's even more interesting if you write in `.css` files. You just have to pass t
 }
 .container:hover {
 	background: #ff9;
-}</code></pre>
-</div>
-</div>
+}
+</css>
+</example>
 
 Find out the full list of the available atoms [here](/pages/css-preprocessing/organic-css/atoms).
 
@@ -86,48 +82,60 @@ Once you try combining atoms you are starting writing a molecule. The purpose of
 
 ### size
 
-	nav: {
-        size: '100px/200px'
-    }
-
-    // compiles to:
-	nav {
-	  	width: 100px;
-	  	height: 200px;
-	}
+<example>
+<js>
+nav: {
+    size: '100px/200px'
+}
+</js>
+<css>
+nav {
+  	width: 100px;
+  	height: 200px;
+}
+</css>
+</example>
 
 ### cf
 
-	ul: {
-        cf: 'both'
-    }
-
-    // compiles to
-    ul:before, ul:after {
-		content: " ";
-		display: table;
-		clear: both;
-	}
+<example>
+<js>
+ul: {
+    cf: 'both'
+}
+</js>
+<css>
+ul:before, ul:after {
+	content: " ";
+	display: table;
+	clear: both;
+}
+</css>
+</example>
 
 ### grid
 
-	'section.container': {
-		grid: '3/div'
-	}
-
-	// compiles to
-	section.container:before, section.container:after {
-		content: " ";
-		display: table;
-		clear: both;
-	}
-	section.container div {
-		float: left;
-		box-sizing: border-box;
-		-webkit-box-sizing: border-box;
-		-moz-box-sizing: border-box;
-		width: 33.33%;
-	}
+<example>
+<js>
+'section.container': {
+	grid: '3/div'
+}
+</js>
+<css>
+section.container:before, section.container:after {
+	content: " ";
+	display: table;
+	clear: both;
+}
+section.container div {
+	float: left;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	width: 33.33%;
+}
+</css>
+</example>
 
 AbsurdJS also includes [animate.css](http://daneden.github.io/animate.css/) code snippets. This simplifies the process of animating by providing ready-to-use variants.
 
@@ -173,6 +181,6 @@ AbsurdJS also includes [animate.css](http://daneden.github.io/animate.css/) code
 	  -webkit-animation-name: bounce;
 	}
 
-A full list of the available animation types could be seen [here](http://daneden.github.io/animate.css/). You may use `flipInX`, `slideInRight` or `rollOut`.
+A full list of the available animation types could be seen [here](/pages/css-preprocessing/organic-css/molecules/#animate-small-class-prop-values-type-of-animation-small-). You may use `flipInX`, `slideInRight` or `rollOut`.
 
 All the available molecules are available [here](/pages/css-preprocessing/organic-css/molecules).
