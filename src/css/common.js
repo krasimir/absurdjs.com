@@ -12,8 +12,7 @@ module.exports = function(api) {
 			fz: '18px',
 			lh: '24px',
 			ff: "'Average Sans', sans-serif",
-			color: '#393939',
-			'-w-font-smoothing': 'antialiased'
+			color: '#393939'
 		},
 		a: {
 			fw: 'b',

@@ -86,8 +86,8 @@ module.exports = function(api) {
 				pos: 'a',
 				left: '50%',
 				top: '93px',
-				ml: '-449px',
-				opacity: '0.1',
+				ml: '-431px',
+				opacity: '0.15',
 				'-w-trs': 'all 700ms',
 				'&:hover': {
 					opacity: 1,
@@ -95,6 +95,16 @@ module.exports = function(api) {
 				},
 				'@media all and (max-width: 960px)': {
 					d: 'n'
+				}
+			},
+			'.documentation-sitemap': {
+				ul: {
+					lis: 'n',
+					li: {
+						'a:before': {
+							content: '"» "'
+						}
+					}
 				}
 			}
 		}

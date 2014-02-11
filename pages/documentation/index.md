@@ -1,3 +1,5 @@
 # Documentation
 
-<sitemap>
+<div class="documentation-sitemap">
+	<sitemap>
+</div>

@@ -63,7 +63,8 @@ module.exports = function(api) {
 							'-w-trs': 'all 400ms',
 							'&:hover': { 
 								color: '#FFF',
-								moveto: '10px/0'
+								moveto: '10px/0',
+								bdb: 'n'
 							}
 						},
 						'i.fa': {

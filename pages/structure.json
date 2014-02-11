@@ -17,9 +17,16 @@
 		]},
 		{ "name": "HTML preprocessing", "path": "/pages/html-preprocessing"},
 		{ "name": "Client-side components", "path": "/pages/client-side-components", "childs": [
-			
-		]},
-		{ "name": "API", "path": "/pages/api"},
-		{ "name": "Misc", "path": "/pages/misc"}
-	]}
+			{ "name": "Definition", "path": "/pages/client-side-components/definition"},
+			{ "name": "CSS compilation", "path": "/pages/client-side-components/css-compilation"},
+			{ "name": "HTML compilation", "path": "/pages/client-side-components/html-compilation"},
+			{ "name": "Events", "path": "/pages/client-side-components/events"},
+			{ "name": "Handling async template operations", "path": "/pages/client-side-components/handling-async-operations"},
+			{ "name": "Nested components", "path": "/pages/client-side-components/nested-components"},
+			{ "name": "Dependency injection", "path": "/pages/client-side-components/dependency-injection"},
+			{ "name": "Utilities", "path": "/pages/client-side-components/utilities"}
+		]}
+	]},
+	{ "name": "API", "path": "/pages/api"},
+	{ "name": "Misc", "path": "/pages/misc"}
 ]
