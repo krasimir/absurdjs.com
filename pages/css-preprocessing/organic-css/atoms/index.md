@@ -196,11 +196,11 @@ tal:a | text-align-last:auto
 tal:l | text-align-last:left
 tal:c | text-align-last:center
 tal:r | text-align-last:right
-td | text-decoration
-td:n | text-decoration:none
-td:u | text-decoration:underline
-td:o | text-decoration:overline
-td:l | text-decoration:line-through
+ted | text-decoration
+ted:n | text-decoration:none
+ted:u | text-decoration:underline
+ted:o | text-decoration:overline
+ted:l | text-decoration:line-through
 te | text-emphasis
 te:n | text-emphasis:none
 te:ac | text-emphasis:accent

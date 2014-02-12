@@ -99,7 +99,7 @@ section.container div {
 
 ## moveto: <small class="prop-values">[x]/[y]/[z]</small>
 
-> translates an element to x/y/x position
+> translates an element to x/y/z position
 
 <example>
 <js>

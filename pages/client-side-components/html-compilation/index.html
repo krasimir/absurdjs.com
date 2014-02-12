@@ -114,6 +114,127 @@
                 <img src="/public/img/logo-small.png" alt="AbsurdJS" />
             </a>
             <h1 id="html-compilation">HTML compilation</h1>
+<p>In the context of Node.js the AbsurdJS&#39;s <a href="/pages/html-preprocessing/">HTML preprocessing</a> is just saving markup to a file. However in the browser is much more. It&#39;s creating a new DOM element or fetching one from the current page. And because it has template engine integrated you are able to fill the HTML with data. All you have to do is to use the <code class="language-javascript">html</code> property of the class and call its <code class="language-javascript">populate</code> method.</p>
+<pre><code class="language-javascript">absurd.component(&quot;ComponentName&quot;, {
+    html: {
+        &#39;header&#39;: {
+            &#39;a[href=&quot;http://absurdjs.com/&quot;]&#39;: &#39;AbsurdJS&#39;
+        }
+    },
+    constructor: function(name) {
+        this.populate();
+        console.log(this.el.outerHTML);
+        document.querySelector(&#39;body&#39;).appendChild(this.el);
+    }
+})();
+</code></pre><p>The result of the above snippet is a new <code class="language-javascript">&lt;header&gt;</code> tag added to the <code class="language-javascript">&lt;body&gt;</code> of the page. Once you call the <code class="language-javascript">populate</code> method the <code class="language-javascript">el</code> property is filled and it is pointing to the newly created DOM element.</p>
+<p>There are projects where you want to work with already existing elements. If that&#39;s the case then the value of the <code class="language-javascript">html</code> property should be a selector. String matching your DOM element through <code class="language-javascript">querySelector</code> method.</p>
+<div class="example">
+<div class="col">
+<small>HTML:</small>
+<pre><code class="language-markup">&lt;div class=&quot;content&quot;&gt;
+    &lt;p&gt;Option A&lt;/p&gt;
+    &lt;p&gt;Option B&lt;/p&gt;
+&lt;/div&gt;</code></pre></div>
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">absurd.component(&quot;ComponentName&quot;, {
+    html: &#39;.content p:nth-child(2)&#39;,
+    constructor: function(name) {
+        this.populate();
+        this.el.innerHTML = &#39;New text.&#39;;
+    }
+})();</code></pre></div>
+</div>
+
+<p><small class="jsbin"><i class="fa fa-code"></i> <a href="http://jsbin.com/zazat/2/edit"></a></small></p>
+<p>The code changes <code class="language-javascript">Option B</code> to <code class="language-javascript">New text.</code>.</p>
+<h2 id="using-expressions">Using expressions</h2>
+<p>Ok, we saw how to get an access to a DOM element (<code class="language-javascript">this.el</code>). Now let&#39;s see how to populate the HTML with data.</p>
+<p>The AbsurdJS&#39;s <a href="http://krasimirtsonev.com/blog/article/Javascript-template-engine-in-just-20-line">template engine</a> accepts expressions in <code class="language-javascript">&lt;% ... %&gt;</code>. The content inside is not something special which you have to learn. It&#39;s pure JavaScript. For example:</p>
+<div class="example">
+<div class="col">
+<small>HTML:</small>
+<pre><code class="language-markup">&lt;div class=&quot;content&quot;&gt;
+    &lt;p&gt;&lt;% this.text %&gt;&lt;/p&gt;
+&lt;/div&gt;</code></pre></div>
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">absurd.component(&quot;ComponentName&quot;, {
+    html: &#39;.content&#39;,
+    text: &#39;Wow ... it works!&#39;,
+    constructor: function() {
+        this.populate();
+    }
+})();</code></pre></div>
+</div>
+
+<p><small class="jsbin"><i class="fa fa-code"></i> <a href="http://jsbin.com/xaguj/1/edit"></a></small></p>
+<p>If you dig a bit in the code of the library you will see that the template engine constructs a JavaScript function, which is later executed. In the example above, the code looks like that:</p>
+<pre><code class="language-javascript">var r=[];
+r.push(&quot;&lt;div class=\&quot;content\&quot;&gt;    &lt;p&gt;&quot;);
+r.push( this.text );
+r.push(&quot;&lt;/p&gt;&lt;/div&gt;&quot;);
+return r.join(&quot;&quot;);
+</code></pre><p>So our expression is directly run as a valid JavaScript in the context of the current component. That&#39;s why we need <code class="language-javascript">this</code> keyword in front of the variable. It simply points to our component. This means that you could do a lot of things like for loops, filters or computed properties. Here is a little bit more advanced snippet.</p>
+<div class="example example-rows">
+<div class="col">
+<small>HTML:</small>
+<pre><code class="language-markup">&lt;div class=&quot;content&quot;&gt;
+    &lt;h1&gt;&lt;% this.getName().toUpperCase() %&gt;&lt;/h1&gt;
+    &lt;ul class=&quot;features&quot;&gt;
+        &lt;% for(var i=0; i&amp;lt;this.features.length; i++) { %&gt;
+        &lt;% var feature = this.features[i]; %&gt;
+        &lt;li class=&quot;&lt;% feature.active ? &#39;available&#39; : &#39;missing&#39; %&gt;&quot;&gt;
+            &lt;% feature.label %&gt;
+        &lt;/li&gt;
+        &lt;% } %&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;</code></pre></div>
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">absurd.component(&quot;ComponentName&quot;, {
+    css: {
+        &#39;.content&#39;: {
+            &#39;.available&#39;: { color: &#39;#009f00&#39; },
+            &#39;.missing&#39;: { color: &#39;#9f0000&#39;, ted: &#39;l&#39; }
+        }
+    },
+    html: &#39;.content&#39;,
+    name: &#39;AbsurdJS JavaScript&#39;,
+    getName: function() {
+        return this.name;
+    },
+    features: [
+        { label: &#39;CSS preprocessing&#39;, active: true },
+        { label: &#39;HTML preprocessing&#39;, active: true },
+        { label: &#39;Organic CSS&#39;, active: true },
+        { label: &#39;jQuery dependency&#39;, active: false }
+    ],
+    constructor: function() {
+        this.populate();
+    }
+})();</code></pre></div>
+</div>
+
+<p><small class="jsbin"><i class="fa fa-code"></i> <a href="http://jsbin.com/pomev/8/edit"></a></small></p>
+<p>If you are curious about the code running through the template engine:</p>
+<pre><code class="language-javascript">var r=[];
+r.push(&quot;&lt;div class=\&quot;content\&quot;&gt;    &lt;h1&gt;&quot;);
+r.push( this.getName().toUpperCase() );
+r.push(&quot;&lt;/h1&gt;&lt;ul class=\&quot;features\&quot;&gt;    &quot;); 
+for(var i=0; i&lt;this.features.length; i++) { 
+r.push(&quot;            &quot;); 
+var feature = this.features[i]; 
+r.push(&quot;            &lt;li class=\&quot;&quot;);
+r.push( feature.active ? &#39;available&#39; : &#39;missing&#39; );
+r.push(&quot;\&quot;&gt;                &quot;);
+r.push( feature.label );
+r.push(&quot;            &lt;/li&gt;&quot;); 
+} 
+r.push(&quot;&lt;/ul&gt;&lt;/div&gt;&quot;);
+return r.join(&quot;&quot;); 
+</code></pre><p>Also notice that we escaped the <code class="language-javascript">&lt;</code> sign in the for loop. I.e. we used <code class="language-javascript">i&amp;lt;this.features.length;</code> instead of <code class="language-javascript">i&lt;this.features.length</code>. That&#39;s because while we are converting the DOM element to a string  the browser interpolates such symbols as part of nodes and it mess up our logic. So, have this in mind while you write crazy JavaScript inside the HTML as an expression.</p>
 
                 <br />
                 <br />

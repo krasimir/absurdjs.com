@@ -86,6 +86,7 @@ module.exports = function () {
 
     var applyCodeTags = function(html) {
         html = html.replace(/\<example\>/g, '<div class="example">');
+        html = html.replace(/\<example class="rows"\>/g, '<div class="example example-rows">');
         html = html.replace(/\<\/example\>/g, '</div>');
         html = html.replace(/\<js\>\n/g, '<div class="col">\n<small>JavaScript:</small>\n<pre><code class="language-javascript">');
         html = html.replace(/\<css\>\n/g, '<div class="col">\n<small>CSS:</small>\n<pre><code class="language-css">');

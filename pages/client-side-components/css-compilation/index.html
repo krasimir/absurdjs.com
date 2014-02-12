@@ -114,6 +114,55 @@
                 <img src="/public/img/logo-small.png" alt="AbsurdJS" />
             </a>
             <h1 id="css-compilation">CSS compilation</h1>
+<p>AbsurdJS was started as CSS preprocessor. And because it is written in plain JavaScript it was easy to be ported for browser usage. The <a href="/pages/css-preprocessing/">CSS compilation</a> processes are the same as in the Node.js version of the library. You should use JSON as an input and define it in <code class="language-javascript">css</code> property of the component.</p>
+<pre><code class="language-javascript">absurd.component(&quot;ComponentName&quot;, {
+    css: {
+        &#39;.content&#39;: {
+            background: &#39;#BADA55&#39;
+        },
+        span: {
+            fontWeight: &#39;bold&#39;,
+            textDecoration: &#39;underline&#39;
+        }
+    },
+    constructor: function(name) {
+        this.populate();
+    }
+})();
+</code></pre><p>Before to call the <code class="language-javascript">populate</code> method your CSS is not compiled and it is not applied to the page. During the population a new <code class="language-javascript">&lt;style&gt;</code> tag is created and inserted into the DOM. You may update the value of the <code class="language-javascript">css</code> property and call again <code class="language-javascript">populate</code>. The styles will be updated. Have in mind that what AbsurdJS is doing is to define CSS which is valid for the whole page. It&#39;s not like changing the <code class="language-javascript">style</code> attribute of an element, but it&#39;s like changing the stylesheets dynamically.</p>
+<p>Let&#39;s use the above component with the following HTML:</p>
+<pre><code class="language-javascript">&lt;div class=&quot;content&quot;&gt;
+    Sample &lt;span&gt;text&lt;/span&gt;
+&lt;/div&gt;
+&lt;section&gt;
+    Another &lt;span&gt;text&lt;/span&gt;.
+&lt;/section&gt;
+</code></pre><p>After the CSS compilation the both <code class="language-javascript">span</code> tags get the styles applied.</p>
+<p><a class="jsbin-embed" href="http://jsbin.com/fojey/4/embed?js,output">JS Bin</a><script src="http://static.jsbin.com/js/embed.js"></script></p>
+<p>Don&#39;t forget that you can use <a href="/pages/css-preprocessing/organic-css">Organic CSS</a>. All the <a href="/pages/css-preprocessing/organic-css/atoms">atoms</a> and <a href="/pages/css-preprocessing/organic-css/molecules">molecules</a> are available. For example:</p>
+<pre><code class="language-javascript">absurd.component(&quot;ComponentName&quot;, {
+    css: {
+        &#39;.content&#39;: {
+            bg: &#39;#BADA55&#39;,
+            fz: &#39;20px&#39;,
+            moveto: &#39;20px/20px&#39;
+        }
+    },
+    constructor: function(name) {
+        this.populate();
+    }
+})();
+</code></pre><p>Which produces the following <code class="language-javascript">&lt;style&gt;</code> tag:</p>
+<pre><code class="language-javascript">&lt;style id=&quot;ComponentName-css&quot; type=&quot;text/css&quot;&gt;
+    .content {
+        background: #BADA55;
+        font-size: 20px;
+        transform: translate(20px,20px);
+        -webkit-transform: translate(20px,20px);
+        -ms-transform: translate(20px,20px);
+    }
+&lt;/style&gt;
+</code></pre><p><small class="jsbin"><i class="fa fa-code"></i> <a href="http://jsbin.com/hutiy/1/edit"></a></small></p>
 
                 <br />
                 <br />

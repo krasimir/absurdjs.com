@@ -69,12 +69,21 @@ module.exports = function(api) {
 				},
 				'.col': {
 					small: {
-						color: '#DDDDDD'
+						color: '#AAAAAA'
 					},
 					'@media all and (max-width: 600px)': {
 						fl: 'n',
 						wid: '100%'
 					}
+				}
+			},
+			'.example-rows': {
+				'.col:nth-child(2), .col:nth-child(1)': {
+					pad: 0
+				},
+				'.col': {
+					fl: 'n',
+					wid: '100%'
 				}
 			},
 			'.prop-values': {
@@ -105,6 +114,23 @@ module.exports = function(api) {
 							content: '"» "'
 						}
 					}
+				}
+			},
+			'.jsbin': {
+				fz: '14px',
+				d: 'b',			
+				bg: '#FFF',
+				a: { color: '#999' },
+				ov: 'h',
+				'&:before': {
+					content: '" "',
+					d: 'b',
+					wid: '100%',
+					bdt: 'solid 1px #DADADA',
+					moveto: '237px/19px'
+				},
+				'a:after': {
+					content: '"Check out the example in JSBin"'
 				}
 			}
 		}

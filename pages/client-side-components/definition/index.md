@@ -10,7 +10,7 @@ To create a component you need first to define a class. That's what `absurd.comp
 	});
 	var component = CompClass();
 
-Every component has a constructor function which is called one you create a new instance of the class. Your component may or may not accept arguments.
+Every component has a `constructor` function which is called once you create a new instance of the class. Your component may or may not accept arguments.
 
 ## Local variables and methods
 
