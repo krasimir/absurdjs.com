@@ -12,7 +12,7 @@ gulp.task('pages', function() {
 });
 
 gulp.task('builds', function() {
-	gulp.src('./builds/*.js')
+	gulp.src('./builds/absurd.js')
 	.pipe(builds());
 });
 
