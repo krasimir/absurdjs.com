@@ -94,9 +94,10 @@ module.exports = function(api) {
 				wid: '40px',
 				pos: 'a',
 				left: '50%',
-				top: '93px',
+				top: '105px',
 				ml: '-431px',
-				opacity: '0.15',
+				opacity: '0.2',
+				fz: '30px',
 				'-w-trs': 'all 700ms',
 				'&:hover': {
 					opacity: 1,
@@ -131,6 +132,17 @@ module.exports = function(api) {
 				},
 				'a:after': {
 					content: '"Check out the example in JSBin"'
+				}
+			},
+			'.social': {
+				'.twitter-share-button': {
+					wid: '80px !important'
+				},
+				'[id^=___plusone]': { 
+					width: '59px !important'
+				},
+				'.fb-like': {
+					moveto: '0/-5px'
 				}
 			}
 		}

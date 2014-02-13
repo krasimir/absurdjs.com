@@ -95,6 +95,9 @@ module.exports = function () {
         return html;
     }
 
+    var layoutHTML = fs.readFileSync(__dirname + "/../layout.html").toString('utf8');
+    var socialHTML = fs.readFileSync(__dirname + "/../social.html").toString('utf8');
+
     function transform (file, enc, next) {
         var self = this;
 
@@ -109,7 +112,6 @@ module.exports = function () {
         }
 
         var sitemap = JSON.parse(fs.readFileSync(__dirname + '/../pages/structure.json'));
-        var layoutHTML = fs.readFileSync(__dirname + "/../layout.html").toString('utf8');
         var root = __dirname + "/../";
         var fileRoot = path.dirname(file.path);
         var htmlFile = path.basename(file.path).replace(".md", ".html");
@@ -122,12 +124,15 @@ module.exports = function () {
             sitemap: getSiteMap(sitemap, fileURL),
             pageTitle: getPageTitle(sitemap, fileURL),
             guide: getGuide(sitemap, fileURL),
-            minify: false
+            minify: false,
+            url: fileURL
         }
 
         absurd.flush().morph("html").add(layoutHTML).compile(function(err, html) {
             html = html.replace('<content>', contentHTML);
+            html = html.replace('<social>', socialHTML);
             html = html.replace('<sitemap>', partials.sitemap);
+            html = html.replace('<version>', partials.version);
             fs.writeFileSync(fileRoot + '/' + htmlFile, html, {encoding: 'utf8'});
         }, partials);
 

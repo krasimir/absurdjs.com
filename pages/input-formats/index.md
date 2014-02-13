@@ -1,5 +1,7 @@
 # Input formats
 
+<social>
+
 ## Node.js modules
 
 To add something for compilation you need to use the AbsurdJS's API. However, you can't add everything into one file. You could split your logic into different files and import them one by one. For example:

@@ -1,5 +1,7 @@
 # Definition
 
+<social>
+
 To create a component you need first to define a class. That's what `absurd.component` API is for.
 
 	var absurd = Absurd();

@@ -1,5 +1,7 @@
 # Extending
 
+<social>
+
 We already convered the [plugins](/pages/css-preprocessing/plugins). That's how you may extend AbsurdJS and define your own CSS properties. You may also create your own API methods:
 
 	api.register("buttonize", function(selector) {

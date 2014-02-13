@@ -1,5 +1,7 @@
 # HTML preprocessing
 
+<social>
+
 AbsurdJS could also act as a HTML preprocessor. It needs the calling of only one method `morph`.
 
 	api.morph("html").add({

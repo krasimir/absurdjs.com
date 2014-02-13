@@ -1,5 +1,7 @@
 # Organic CSS framework
 
+<social>
+
 That's a concept which is initially introduced [here](http://davidwalsh.name/starting-css). The idea is to follow the [Atomic design principle](http://bradfrostweb.com/blog/post/atomic-web-design/), but while writing CSS.
 
 ## Atoms

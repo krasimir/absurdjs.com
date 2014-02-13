@@ -1,5 +1,7 @@
 # Installation
 
+<social>
+
 ## Node.js
 
 Install AbsurdJS globally:

@@ -1,5 +1,7 @@
 # Media queries and raw data
 
+<social>
+
 The media queries are defined inside the selectors. They are nested properties. For example:
 
 	api.add({

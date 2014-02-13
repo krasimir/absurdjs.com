@@ -1,5 +1,7 @@
 # Builds / Downloads
 
+<social>
+
 ## Node.js
 
 Install AbsurdJS globally:
@@ -7,7 +9,7 @@ Install AbsurdJS globally:
 	npm install -g absurd
 
 * NPM package: [absurd](https://npmjs.org/package/absurd)
-* Current version: <% this.version %>
+* Current version: <version>
 
 - - -
 

@@ -1,5 +1,7 @@
 # Plugins
 
+<social>
+
 If you write a lot of CSS, you probably see a lot of patterns. Chunks of CSS which are always together and which you type again and again. Yes, the [mixins](/pages/css-preprocessing/variables-and-mixins) are one of the possible solutions, but AbsurdJS offers something better. What if you can define your own CSS property.
 
 	api.plugin("moveit", function(api, value) {

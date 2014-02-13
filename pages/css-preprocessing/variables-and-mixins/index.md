@@ -1,5 +1,7 @@
 # Variables and Mixins
 
+<social>
+
 You don't have to do anything special. That's because you use JavaScript and the language supports variables by default. And not only that, you are able to use loops, conditional statements, functions etc ...
 
 	var brandColor = "#00F";

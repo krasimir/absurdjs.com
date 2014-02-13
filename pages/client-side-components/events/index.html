@@ -109,12 +109,103 @@
                 </li>
             </ul>
         </nav>
-        <div class="content-container">
-            <a href="/pages/documentation" class="doc-home" title="Documentation's Index">
-                <img src="/public/img/logo-small.png" alt="AbsurdJS" />
-            </a>
+        <div class="content-container"><a href="/pages/documentation" class="doc-home" title="Documentation's Index"><i class="fa fa-long-arrow-left"></i></a>
             <h1 id="events">Events</h1>
+<div class="social">
 
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="AbsurdJS" data-hashtags="AbsurdJS">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+	<!-- Place this tag in your head or just before your close body tag. -->
+	<script type="text/javascript" src="https://apis.google.com/js/platform.js"></script>
+	<!-- Place this tag where you want the +1 button to render. -->
+	<div class="g-plusone" data-size="medium"></div>
+
+	<div class="fb-like" data-width="30" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+
+</div>
+
+<p>While you develop a JavaScript application into the browser you are dealing with two types of events - DOM events triggered by elements on the page and events dispatched by objects into your code logic. Let&#39;s see how everything works in AbsurdJS.</p>
+<h2 id="catching-dom-events">Catching DOM events</h2>
+<p>If you want to listen for events triggered by particular DOM element you have to add a <code class="language-javascript">data-absurd-event</code> attribute. The value should contain the name of the event and a name of a function into your component.</p>
+<div class="example">
+<div class="col">
+<small>HTML:</small>
+<pre><code class="language-markup">&lt;div class=&quot;content&quot;&gt;
+&lt;a data-absurd-event=&quot;click:linkClicked&quot; href=&quot;#&quot;&gt;
+    click me
+&lt;/a&gt;
+&lt;/div&gt;</code></pre></div>
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">absurd.component(&quot;ComponentName&quot;, {
+    html: &#39;.content&#39;,
+    linkClicked: function(e) {
+        alert(&quot;clicked&quot;);
+    },
+    constructor: function() {
+        this.populate();
+    }
+})();</code></pre></div>
+</div>
+
+<p><small class="jsbin"><i class="fa fa-code"></i> <a href="http://jsbin.com/hajos/1/edit"></a></small></p>
+<p>You may event send parameters to the function which is called. Just add another <code class="language-javascript">:</code> and append your values. Notice that the first argument of the handler is always an <a href="https://developer.mozilla.org/en-US/docs/Web/API/Event">Event object</a>. That&#39;s the object which you normally get when you add event listeners with vanilla JavaScript.</p>
+<div class="example">
+<div class="col">
+<small>HTML:</small>
+<pre><code class="language-markup">&lt;div class=&quot;content&quot;&gt;
+&lt;a data-absurd-event=&quot;click:linkClicked:20:30&quot; href=&quot;#&quot;&gt;
+    click me
+&lt;/a&gt;
+&lt;/div&gt;</code></pre></div>
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">absurd.component(&quot;ComponentName&quot;, {
+    html: &#39;.content&#39;,
+    linkClicked: function(e, a, b) {
+        alert(&quot;clicked &quot; + a + &quot; &quot; + b);
+    },
+    constructor: function() {
+        this.populate();
+    }
+})();</code></pre></div>
+</div>
+
+<p>You could even do a crazy things like adding a template expression in the attribute. For example, if the name of the handler depends on a variable inside the component.</p>
+<pre><code class="language-javascript">&lt;div class=&quot;content&quot;&gt;
+    &lt;a href=&quot;#&quot; data-absurd-event=&quot;click:clicked&lt;% this.status %&gt;&quot;&gt;
+        click me
+    &lt;/a&gt;
+&lt;/div&gt;
+</code></pre><h2 id="handling-custom-events">Handling custom events</h2>
+<p>As we said earlier in this documentation every AbsurdJS component is actually an event dispatcher.</p>
+<pre><code class="language-javascript">var menu = absurd.component(&quot;MenuClass&quot;, {
+    openMenu: function() {
+        this.dispatch(&quot;opened&quot;, {width: 42});
+    }
+})();
+menu.on(&quot;opened&quot;, function(data) {
+    console.log(data.width);
+});
+menu.openMenu();
+</code></pre><p>There are <code class="language-javascript">on</code>, <code class="language-javascript">off</code> and <code class="language-javascript">dispatch</code> methods implemented. The example above shows how to trigger a custom event and attach some data to it.</p>
+<p>Sometimes you need to listen for event inside the same component. In such cases you don&#39;t need to use the <code class="language-javascript">on</code> method. It is enough to define a function with the same name as the event. This solves the well known problem with the scope. I.e. the <code class="language-javascript">this</code> keyword inside the handler points to the component itself.</p>
+<pre><code class="language-javascript">var menu = absurd.component(&quot;MenuClass&quot;, {
+    opened: function(data){
+        console.log(this.__name, data.width);
+        // MenuClass 42
+    },
+    openMenu: function() {
+        this.dispatch(&quot;opened&quot;, {width: 42});
+    }
+})();
+menu.on(&quot;opened&quot;, function(data) {
+    console.log(this.__name, data.width);
+    // undefined 200
+});
+menu.openMenu(); 
+</code></pre>
                 <br />
                 <br />
                 <hr />
@@ -123,8 +214,17 @@
                 <hr />
                 <div id="disqus_thread"></div>
                 <script type="text/javascript">
-                    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                    var disqus_shortname = 'absurdjs'; // required: replace example with your forum shortname        (function() {            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);        })();
+                    var disqus_shortname = 'absurdjs';
+                    var disqus_identifier = "/pages/client-side-components/events";
+                    var disqus_url = "http://absurdjs.com/pages/client-side-components/events";
+                    var disqus_title = "/pages/client-side-components/events";
+                    (function() {
+                        var dsq = document.createElement('script');
+                        dsq.type = 'text/javascript';
+                        dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
                 </script>
                 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
                 </noscript> <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> 

@@ -1,5 +1,7 @@
 # CSS compilation
 
+<social>
+
 AbsurdJS was started as CSS preprocessor. And because it is written in plain JavaScript it was easy to be ported for browser usage. The [CSS compilation](/pages/css-preprocessing/) processes are the same as in the Node.js version of the library. You should use JSON as an input and define it in `css` property of the component.
 
 	absurd.component("ComponentName", {

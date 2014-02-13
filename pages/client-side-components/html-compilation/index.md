@@ -1,5 +1,7 @@
 # HTML compilation
 
+<social>
+
 In the context of Node.js the AbsurdJS's [HTML preprocessing](/pages/html-preprocessing/) is just saving markup to a file. However in the browser is much more. It's creating a new DOM element or fetching one from the current page. And because it has template engine integrated you are able to fill the HTML with data. All you have to do is to use the `html` property of the class and call its `populate` method.
 
 	absurd.component("ComponentName", {

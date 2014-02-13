@@ -1,5 +1,7 @@
 # Basics
 
+<social>
+
 The library was started as JavaScript to CSS compiler. So, the main input format is JavaScript. Every object defines a selector. Every property of that object could be a property and its value or another object. For example:
 
 	{
