@@ -47,7 +47,7 @@ module.exports = function () {
         }
         process(sitemap);
         for(var i=0; i<allItems.length; i++) {
-            if(allItems[i].path == path) return allItems[i].name + ' / AbsurdJS';
+            if(allItems[i].path == path) return allItems[i].name + ' / AbsurdJS - JavaScript library with superpowers';
         }
         return 'AbsurdJS - JavaScript library with superpowers';
     }
@@ -89,9 +89,10 @@ module.exports = function () {
         html = html.replace(/\<example class="rows"\>/g, '<div class="example example-rows">');
         html = html.replace(/\<\/example\>/g, '</div>');
         html = html.replace(/\<js\>\n/g, '<div class="col">\n<small>JavaScript:</small>\n<pre><code class="language-javascript">');
+        html = html.replace(/\<str text="(.+)"\>\n/g, '<div class="col">\n<small>$1:</small>\n<pre><code class="language-javascript">');
         html = html.replace(/\<css\>\n/g, '<div class="col">\n<small>CSS:</small>\n<pre><code class="language-css">');
         html = html.replace(/\<html\>\n/g, '<div class="col">\n<small>HTML:</small>\n<pre><code class="language-markup">');
-        html = html.replace(/\n\<\/(js|css|html)\>/g, '</code></pre></div>');
+        html = html.replace(/\n\<\/(js|css|html|str)\>/g, '</code></pre></div>');
         return html;
     }
 

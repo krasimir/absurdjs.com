@@ -42,7 +42,7 @@ The web development nowadays is all about managing HTML, CSS and JavaScript. Abs
 
 Here is a JSBin to play with:
 
-<a class="jsbin-embed" href="http://jsbin.com/juwap/3/embed?js,output">JS Bin</a><script src="http://static.jsbin.com/js/embed.js"></script>
+<a class="jsbin-embed" href="http://jsbin.com/juwap/4/embed?js,output">JS Bin</a><script src="http://static.jsbin.com/js/embed.js"></script>
 
 The main goal of AbsurdJS components are to implement things which you already know and use. At the same time to act as an utility, as a helper and not as a framework. For example, every component is actually an event dispatcher, there is dependency injector implemented. You could use the build-in Router or the HTTP request module. What you should remember is that it is up to you to bootstrap the components and wire them into a complete application. Frameworks like Angular, Knockout or Ember provide enormous list of features and if you want to use a framework then you better check them. However, if you need a custom solution or you want to simplify the already started project AbsurdJS is suitable for you. It is a minimalistic collection of helpful JavaScript snippets which main purpose is to avoid the *magical* moments, by providing transparency.
 

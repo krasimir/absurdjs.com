@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Documentation / AbsurdJS - JavaScript library with superpowers</title>
+    <title>Tests / AbsurdJS - JavaScript library with superpowers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/public/styles.css">
     <link href='http://fonts.googleapis.com/css?family=Average+Sans' rel='stylesheet' type='text/css'>
@@ -31,7 +31,7 @@
             <ul>
                 <li><a href="/">Home</a>
                 </li>
-                <li><a href="/pages/documentation" class="active">Documentation</a>
+                <li><a href="/pages/documentation">Documentation</a>
                 </li>
                 <li>
                     <ul>
@@ -95,7 +95,7 @@
                 </li>
                 <li><a href="/pages/api">API</a>
                 </li>
-                <li><a href="/pages/tests">Tests</a>
+                <li><a href="/pages/tests" class="active">Tests</a>
                 </li>
                 <li><a href="/pages/misc">Misc</a>
                 </li>
@@ -114,7 +114,7 @@
             </ul>
         </nav>
         <div class="content-container"><a href="/pages/documentation" class="doc-home" title="Documentation's Index"><i class="fa fa-long-arrow-left"></i></a>
-            <h1 id="documentation">Documentation</h1>
+            <h1 id="tests">Tests</h1>
 <div class="social">
 
 	<a href="https://twitter.com/share" class="twitter-share-button" data-via="KrasimirTsonev" data-hashtags="AbsurdJS">Tweet</a>
@@ -129,21 +129,23 @@
 
 </div>
 
-<div class="documentation-sitemap">
-    <ul><li><a href="/">Home</a></li><li><a href="/pages/documentation" class="active">Documentation</a></li><li><ul><li><a href="/pages/builds">Builds / Download</a></li><li><a href="/pages/installation">Installation and compilation</a></li><li><a href="/pages/input-formats">Input formats</a></li><li><a href="/pages/css-preprocessing">CSS preprocessing</a></li><li><ul><li><a href="/pages/css-preprocessing/basics">Basics</a></li><li><a href="/pages/css-preprocessing/variables-and-mixins">Variables and Mixins</a></li><li><a href="/pages/css-preprocessing/plugins">Plugins</a></li><li><a href="/pages/css-preprocessing/media-queries-raw-data">Media queries and raw data</a></li><li><a href="/pages/css-preprocessing/extending">Extending</a></li><li><a href="/pages/css-preprocessing/organic-css">Organic CSS</a></li><li><ul><li><a href="/pages/css-preprocessing/organic-css/atoms">Atoms</a></li><li><a href="/pages/css-preprocessing/organic-css/molecules">Molecules</a></li></ul></li></ul></li><li><a href="/pages/html-preprocessing">HTML preprocessing</a></li><li><a href="/pages/client-side-components">Client-side components</a></li><li><ul><li><a href="/pages/client-side-components/definition">Definition</a></li><li><a href="/pages/client-side-components/css-compilation">CSS compilation</a></li><li><a href="/pages/client-side-components/html-compilation">HTML compilation</a></li><li><a href="/pages/client-side-components/events">Events</a></li><li><a href="/pages/client-side-components/handling-async-operations">Handling async template operations</a></li><li><a href="/pages/client-side-components/nested-components">Nested components</a></li><li><a href="/pages/client-side-components/dependency-injection">Dependency injection</a></li><li><a href="/pages/client-side-components/utilities">Utilities</a></li></ul></li></ul></li><li><a href="/pages/api">API</a></li><li><a href="/pages/tests">Tests</a></li><li><a href="/pages/misc">Misc</a></li><li><a href="/pages/try-it">Try it online</a></li></ul>
-</div>
+<h2 id="node-js">Node.js</h2>
+<p>Download the repo and run <code class="language-javascript">npm install</code>. Once everything is set up execute <code class="language-javascript">jasmine ./tests</code>.</p>
+<h2 id="client-side">Client-side</h2>
+<p>Download the repo and navigate to <code class="language-javascript">/client-side/tests/</code></p>
+
                 <br />
                 <br />
                 <hr />
-                <div class="guide"><a href="/"><i class="fa fa-arrow-circle-o-left"></i> Home</a><a href="/pages/builds">Builds / Download <i class="fa fa-arrow-circle-o-right"></i></a>
+                <div class="guide"><a href="/pages/api"><i class="fa fa-arrow-circle-o-left"></i> API</a><a href="/pages/misc">Misc <i class="fa fa-arrow-circle-o-right"></i></a>
                 </div>
                 <hr />
                 <div id="disqus_thread"></div>
                 <script type="text/javascript">
                     var disqus_shortname = 'absurdjs';
-                    var disqus_identifier = "/pages/documentation";
-                    var disqus_url = "http://absurdjs.com/pages/documentation";
-                    var disqus_title = "/pages/documentation";
+                    var disqus_identifier = "/pages/tests";
+                    var disqus_url = "http://absurdjs.com/pages/tests";
+                    var disqus_title = "/pages/tests";
                     (function() {
                         var dsq = document.createElement('script');
                         dsq.type = 'text/javascript';

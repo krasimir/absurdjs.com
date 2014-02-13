@@ -32,7 +32,7 @@ Let's use the above component with the following HTML:
 
 After the CSS compilation the both `span` tags get the styles applied.
 
-<a class="jsbin-embed" href="http://jsbin.com/fojey/4/embed?js,output">JS Bin</a><script src="http://static.jsbin.com/js/embed.js"></script>
+<a class="jsbin-embed" href="http://jsbin.com/fojey/5/embed?js,output">JS Bin</a><script src="http://static.jsbin.com/js/embed.js"></script>
 
 Don't forget that you can use [Organic CSS](/pages/css-preprocessing/organic-css). All the [atoms](/pages/css-preprocessing/organic-css/atoms) and [molecules](/pages/css-preprocessing/organic-css/molecules) are available. For example:
 

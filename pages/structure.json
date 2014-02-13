@@ -28,5 +28,7 @@
 		]}
 	]},
 	{ "name": "API", "path": "/pages/api"},
-	{ "name": "Misc", "path": "/pages/misc"}
+	{ "name": "Tests", "path": "/pages/tests"},
+	{ "name": "Misc", "path": "/pages/misc"},
+	{ "name": "Try it online", "path": "/pages/try-it"}
 ]

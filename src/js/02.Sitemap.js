@@ -3,6 +3,7 @@ absurd.component("SiteMap", {
 	html: '.sitemap',
 	css: {
 		'.sitemap': {
+			d: 'b',
 			wid: '0px',
 			ov: 'h',
 			right: 0,

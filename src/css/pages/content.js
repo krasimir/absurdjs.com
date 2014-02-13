@@ -144,6 +144,11 @@ module.exports = function(api) {
 				'.fb-like': {
 					moveto: '0/-5px'
 				}
+			},
+			'.jsbin-widget': {
+				iframe: {
+					hei: '600px'
+				}
 			}
 		}
 	});

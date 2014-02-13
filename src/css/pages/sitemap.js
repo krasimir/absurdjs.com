@@ -2,6 +2,7 @@ module.exports = function(api) {
 	api.add({
 		'.sitemap': {
 			bg: '#000',
+			d: 'n',
 			color: '#FFF',
 			'-w-trs': 'all 600ms',
 			'z-index': 100,

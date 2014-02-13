@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>API / AbsurdJS</title>
+    <title>API / AbsurdJS - JavaScript library with superpowers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/public/styles.css">
     <link href='http://fonts.googleapis.com/css?family=Average+Sans' rel='stylesheet' type='text/css'>
@@ -95,7 +95,11 @@
                 </li>
                 <li><a href="/pages/api" class="active">API</a>
                 </li>
+                <li><a href="/pages/tests">Tests</a>
+                </li>
                 <li><a href="/pages/misc">Misc</a>
+                </li>
+                <li><a href="/pages/try-it">Try it online</a>
                 </li>
             </ul>
         </div>
@@ -113,7 +117,7 @@
             <h1 id="api">API</h1>
 <div class="social">
 
-	<a href="https://twitter.com/share" class="twitter-share-button" data-via="AbsurdJS" data-hashtags="AbsurdJS">Tweet</a>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="KrasimirTsonev" data-hashtags="AbsurdJS">Tweet</a>
 	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
 	<!-- Place this tag in your head or just before your close body tag. -->
@@ -124,10 +128,163 @@
 	<div class="fb-like" data-width="30" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
 
 </div>
+
+<h2 id="add-small-class-prop-values-object-small-">add ( <small class="prop-values">object</small> )</h2>
+<blockquote>
+<p>Adds data for compilation.</p>
+</blockquote>
+<pre><code class="language-javascript">api.add({
+    body: { 
+        padding: 0 
+    }
+});
+</code></pre><h2 id="import-small-class-prop-values-string-string-string-small-">import ( <small class="prop-values">string | [string, string, ...]</small> )</h2>
+<blockquote>
+<p>AbsurdJS supports importing of JavaScript, JSON, YAML and CSS files.</p>
+</blockquote>
+<pre><code class="language-javascript">module.exports = function(api) {
+    api.import(__dirname + &#39;/config/sizes.js&#39;);
+    api.import([
+        __dirname + &#39;/config/colors.js&#39;,
+        __dirname + &#39;/config/sizes.js&#39;
+    ]);
+}
+</code></pre><h2 id="storage-small-class-prop-values-key-value-small-">storage ( <small class="prop-values">key, value</small> )</h2>
+<div class="example">
+<div class="col">
+<small>Setting value:</small>
+<pre><code class="language-javascript">api.storage(&quot;mixin&quot;, function(px) { 
+    return {
+        fontSize: px + &#39;px&#39;
+    }
+});</code></pre></div>
+<div class="col">
+<small>Getting value:</small>
+<pre><code class="language-javascript">api.add({
+    body: [
+        api.storage(&quot;mixin&quot;)(18)
+    ]
+});</code></pre></div>
+</div>
+
+<h2 id="plugin-small-class-prop-values-name-of-property-function-small-">plugin ( <small class="prop-values">name of property, function</small> )</h2>
+<blockquote>
+<p>The plugin&#39;s function accepts two arguments. The first one is a reference to the API and second one is the value of the CSS property.</p>
+</blockquote>
+<pre><code class="language-javascript">api.plugin(&#39;my-custom-gradient&#39;, function(api, colors) {
+    return {
+        background: &#39;linear-gradient(to bottom, &#39; + colors.join(&quot;, &quot;) + &#39;)&#39;
+    };
+});
+</code></pre><h2 id="darken-small-class-prop-values-color-percents-small-">darken ( <small class="prop-values">color, percents</small> )</h2>
+<pre><code class="language-javascript">api.add({
+    body: {
+        color: api.darken(&#39;#BADA55&#39;, 25)
+    }
+});
+</code></pre><h2 id="lighten-small-class-prop-values-color-percents-small-">lighten ( <small class="prop-values">color, percents</small> )</h2>
+<pre><code class="language-javascript">api.add({
+    body: {
+        color: api.lighten(&#39;#BADA55&#39;, 25)
+    }
+});
+</code></pre><h2 id="raw-small-class-prop-values-string-small-">raw ( <small class="prop-values">string</small> )</h2>
+<pre><code class="language-javascript"> api.raw(&#39;/* comment here */&#39;);
+</code></pre><h2 id="rawimport-small-class-prop-values-string-string-string-small-">rawImport ( <small class="prop-values">string | [string, string, ...]</small> )</h2>
+<pre><code class="language-javascript">api.rawImport([&#39;bootstrap-responsive.css&#39;, &#39;bootstrap.css&#39;]);
+</code></pre><h2 id="compile-small-class-prop-values-function-options-small-">compile  ( <small class="prop-values">function, options</small> )</h2>
+<div class="example">
+<div class="col">
+<small>Example:</small>
+<pre><code class="language-javascript">api.compile(function(err, result) {
+    // ...
+}, {});</code></pre></div>
+<div class="col">
+<small>Default options:</small>
+<pre><code class="language-javascript">{
+    combineSelectors: true,
+    minify: false,
+    processor: [internal CSS preprocessor],
+    keepCamelCase: false
+}</code></pre></div>
+</div>
+
+<h2 id="compilefile-small-class-prop-values-path-to-file-function-options-small-">compileFile  ( <small class="prop-values">path to file, function, options</small> )</h2>
+<blockquote>
+<p>Check <code class="language-javascript">compile</code> method for details about the <code class="language-javascript">options</code>.</p>
+</blockquote>
+<pre><code class="language-javascript">api.compileFile(&quot;css/styles.css&quot;, function(err, result) {
+    // ...
+}, {});
+</code></pre><h2 id="hook-small-class-prop-values-method-function-small-">hook ( <small class="prop-values">method function</small> )</h2>
+<blockquote>
+<p>If your hook handler returns <code class="language-javascript">true</code> the default method behaviour is skipped.</p>
+</blockquote>
+<pre><code class="language-javascript">api.hook(&quot;add&quot;, function(rules, stylesheet) {
+    // write your logic here
+    return true;
+});
+</code></pre><h2 id="register-small-class-prop-values-method-function-small-">register ( <small class="prop-values">method, function</small> )</h2>
+<blockquote>
+<p>Create your own API function.</p>
+</blockquote>
+<pre><code class="language-javascript">api.register(&quot;toJSON&quot;, function(callback) {
+    // your custom code here
+})
+</code></pre><h2 id="morph-small-class-prop-values-type-small-">morph ( <small class="prop-values">type</small> )</h2>
+<blockquote>
+<p><code class="language-javascript">type</code> could be <code class="language-javascript">html</code> or <code class="language-javascript">component</code>. Check out <a href="/pages/html-preprocessing">HTML preprocessing</a> for more information.</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>HTML preprocessing:</small>
+<pre><code class="language-javascript">api.morph(&quot;html&quot;).add({
+    html: {
+        head: {
+            title: &quot;AbsurdJS is awesome&quot;
+        }
+    }
+}).compile(function(err, html) {
+    // &lt;html&gt;
+    //    &lt;head&gt;
+    //        &lt;title&gt;AbsurdJS is awesome&lt;/title&gt;
+    //    &lt;/head&gt;
+    // &lt;/html&gt;
+})</code></pre></div>
+<div class="col">
+<small>Components preprocessing:</small>
+<pre><code class="language-javascript">api.morph(&quot;component&quot;).add({
+    css: {
+        &quot;.page&quot;: {
+           display: &#39;block&#39; 
+        }
+    },
+    html: {
+        &#39;section.page&#39;: {
+            h2: &quot;That&#39;s a page&quot;
+        }
+    }
+}).compile(function(err, css, html) {
+    /*
+    css = .page {
+      display: block;
+    }
+    html = &lt;section class=\&quot;page\&quot;&gt;
+        &lt;h2&gt;That&#39;s a page&lt;/h2&gt;
+    &lt;/section&gt;&quot;
+    */
+})</code></pre></div>
+</div>
+
+<h1 id="client-side-api">Client-side API</h1>
+<blockquote>
+<p>coming soon ...</p>
+</blockquote>
+
                 <br />
                 <br />
                 <hr />
-                <div class="guide"><a href="/pages/client-side-components/utilities"><i class="fa fa-arrow-circle-o-left"></i> Utilities</a><a href="/pages/misc">Misc <i class="fa fa-arrow-circle-o-right"></i></a>
+                <div class="guide"><a href="/pages/client-side-components/utilities"><i class="fa fa-arrow-circle-o-left"></i> Utilities</a><a href="/pages/tests">Tests <i class="fa fa-arrow-circle-o-right"></i></a>
                 </div>
                 <hr />
                 <div id="disqus_thread"></div>
