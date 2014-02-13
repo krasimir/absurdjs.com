@@ -2,6 +2,8 @@
 
 <social>
 
+A full list of the available atoms:
+
 Atom | Result
 --- | ---
 pos | position

@@ -1,4 +1,4 @@
-# Organic CSS framework
+# Organic CSS
 
 <social>
 
@@ -10,7 +10,7 @@ As you probably know the atom is the basic building block of matter. In the cont
 
 	font-size: 20px;
 
-The framework has dozen of predefined atoms which are at your disposal. They are actually identical to the [Emmet CSS snipets for Sublime Text 2](http://peters-playground.com/Emmet-Css-Snippets-for-Sublime-Text-2/). It's a huge collection and you are actually able to write CSS really fast. Here are few of them:
+The library has dozen of predefined atoms which are at your disposal. They are actually identical to the [Emmet CSS snipets for Sublime Text 2](http://peters-playground.com/Emmet-Css-Snippets-for-Sublime-Text-2/). It's a huge collection and you are actually able to write CSS really fast. Here are few of them:
 
 	fz: 24px -> font-size: 24px
 	d: ib -> display: inline-block
@@ -183,6 +183,8 @@ AbsurdJS also includes [animate.css](http://daneden.github.io/animate.css/) code
 	  -webkit-animation-name: bounce;
 	}
 
-A full list of the available animation types could be seen [here](/pages/css-preprocessing/organic-css/molecules/#animate-small-class-prop-values-type-of-animation-small-). You may use `flipInX`, `slideInRight` or `rollOut`.
+A full list of the available animation types could be seen [here](/pages/css-preprocessing/organic-css/molecules/#animate-small-class-prop-values-type-of-animation-small-). You may use `flipInX`, `slideInRight` or `rollOut`. The documentation of the build-in molecules is [here](/pages/css-preprocessing/organic-css/molecules).
 
-All the available molecules are available [here](/pages/css-preprocessing/organic-css/molecules).
+At the end, if you can't wait and want to try something now experiment on top of this JSBin:
+
+<a class="jsbin-embed" href="http://jsbin.com/zacov/2/embed?js,console">JS Bin</a><script src="http://static.jsbin.com/js/embed.js"></script>
