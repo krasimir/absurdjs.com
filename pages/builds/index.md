@@ -1,7 +1,5 @@
 # Builds / Downloads
 
-<social>
-
 ## Node.js
 
 Install AbsurdJS globally:
@@ -22,3 +20,6 @@ Install AbsurdJS globally:
 <i class="fa fa-download"></i>&nbsp;&nbsp;Organic CSS
 <br />
 [absurd.organic.js](/builds/absurd.organic.js) ([minified version](/builds/absurd.organic.min.js))
+
+<br />
+<social>

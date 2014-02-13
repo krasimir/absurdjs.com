@@ -143,6 +143,9 @@ module.exports = function(api) {
 				},
 				'.fb-like': {
 					moveto: '0/-5px'
+				},
+				'.github-stars': {
+					width: '86px !important'	
 				}
 			},
 			'.jsbin-widget': {
