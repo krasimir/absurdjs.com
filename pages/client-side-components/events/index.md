@@ -94,3 +94,120 @@ Sometimes you need to listen for event inside the same component. In such cases 
 	    // undefined 200
 	});
 	menu.openMenu(); 
+
+## Built-in events
+
+Here is the place where we should mention the build-in events, which are fired by default from the component.
+
+### ready
+
+The `ready` event is triggered when the document is fully loaded. That's the same as jQuery's `ready` method.
+
+	absurd.component('Component', {
+		ready: function() {
+			// page is loaded
+		}
+	})();
+
+The code for this event is:
+
+	if (document.addEventListener) {
+		document.addEventListener('DOMContentLoaded', fn);
+	} else {
+		document.attachEvent('onreadystatechange', function() {
+			if (document.readyState === 'interactive') {
+				fn();
+			}
+		});
+	}
+
+Where `fn` dispatches the event.
+
+### populated
+
+The `populated` event is dispatched when the `populate` method finishes its job.
+
+<example>
+<js>
+var c = absurd.component("Component", {
+    html: {
+        div: 'Test'
+    }
+})();
+c.on('populated', function() {
+    console.log('population done');
+});
+c.populate();
+</js>
+<js>
+absurd.component("Component", {
+    html: {
+        div: 'Test'
+    },
+    populated: function() {
+        console.log('population done');
+    }
+})().populate();
+</js>
+</example>
+
+## Sending an event to all the created components
+
+There are cases where you want to notify all the components for something. Here is how to do it:
+
+	absurd.component("ComponentA", {
+        somethingHappens: function(data) {
+            console.log(data.someData);
+        }
+    })();
+    absurd.component("ComponentB", {
+        somethingHappens: function(data) {
+            console.log(data.someData);
+        }
+    })();
+    
+    absurd.components.broadcast("somethingHappens", {
+        someData: 'someValue'
+    });
+
+That's how the `ready` event is send. Of course it is not mandatory to pass any data.
+
+## Sending messages from one component to another
+
+The last thing about the events in AbsurdJS is sending them from one component to another. This could be really powerful, because you are able to wire the whole page and still have the things split in different components. 
+
+    var a = absurd.component("ComponentA", {
+        ohYeah: function() {
+            console.log("Oh ... yeah!");
+        }
+    })();
+    var b = absurd.component("ComponentB", {
+        doIt: function() {
+            this.dispatch('ohYeah');
+        }
+    })();
+    a.wire('ohYeah');
+    b.doIt();
+
+There is a global event bus where all the messages are sent. Once the event is trigged you are able to bind it to every component. That's what happen when we use the `wire` method. You have also an access to the bus which actually implements the usual event dispatcher class.
+
+	var a = absurd.component("ComponentA", {
+        ohYeah: function() {
+            console.log("Oh ... yeah!");
+        }
+    })();
+    var b = absurd.component("ComponentB", {
+        doIt: function() {
+            this.dispatch('ohYeah');
+        }
+    })();
+    
+    // absurd.components.events = global event bus
+    absurd.components.events.on('ohYeah', function() {
+        console.log('I got it.');
+    });
+    
+    a.wire('ohYeah');
+    b.doIt();
+
+<small class="jsbin"><i class="fa fa-code"></i> [](http://jsbin.com/xikem/9/edit?js,console)</small>

@@ -87,8 +87,6 @@
                                 </li>
                                 <li><a href="/pages/client-side-components/dependency-injection" class="active">Dependency injection</a>
                                 </li>
-                                <li><a href="/pages/client-side-components/utilities">Utilities</a>
-                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -120,25 +118,79 @@
 	<a href="https://twitter.com/share" class="twitter-share-button" data-via="KrasimirTsonev" data-hashtags="AbsurdJS">Tweet</a>
 	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
-	<!-- Place this tag in your head or just before your close body tag. -->
-	<script type="text/javascript" src="https://apis.google.com/js/platform.js"></script>
-	<!-- Place this tag where you want the +1 button to render. -->
-	<div class="g-plusone" data-size="medium"></div>
-
 	<div class="fb-like" data-width="30" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
 
 	<iframe src="http://ghbtns.com/github-btn.html?user=krasimir&repo=absurd&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20" class="github-stars"></iframe>
 
+	<script type="text/javascript" src="https://apis.google.com/js/platform.js"></script>
+	<div class="g-plusone" data-size="medium"></div>
+
 </div>
 
-<blockquote>
-<p>coming soon ...</p>
-</blockquote>
+<p>Dependency management is one of the most difficult things to handle. It&#39;s always challenging to write a code which have less or if possible no dependencies. AbsurdJS has its own dependency injector. It is inspired by the <a href="http://docs.angularjs.org/guide/di">Angular</a> and it is well explained <a href="http://krasimirtsonev.com/blog/article/Dependency-injection-in-JavaScript">here</a>.</p>
+<p>To use the injection we first need to define our module/function  in the dependency injector.</p>
+<pre><code class="language-javascript">absurd.di.register(&#39;INeedYou&#39;, function() {
+    console.log(&#39;Ok, here I am&#39;);
+});
+</code></pre><p>And that&#39;s it. You are able to use <code class="language-javascript">INeedYou</code> as an argument of your component&#39;s functions. You don&#39;t have to initialize it or something like that. It just comes as a parameter.</p>
+<pre><code class="language-javascript">absurd.component(&quot;CompClass&quot;, {
+    anotherMethod: function(INeedYou, message) {
+        INeedYou();
+        console.log(message);
+    },
+    constructor: function(INeedYou) {
+        INeedYou();
+        this.anotherMethod(&#39;Hi&#39;);
+    }
+})();
+</code></pre><p><small class="jsbin"><i class="fa fa-code"></i> <a href="http://jsbin.com/manen/13/edit"></a></small></p>
+<p>Notice that you can still pass another arguments. They are coming after the dependency.</p>
+<h2 id="the-minification-problem">The minification problem</h2>
+<p>If you read <a href="http://krasimirtsonev.com/blog/article/Dependency-injection-in-JavaScript">this</a>, you will find out that if you use minificators your code will be transformed to something like this:</p>
+<pre><code class="language-javascript">absurd.component(&quot;CompClass&quot;,{anotherMethod:function(e,t){e();console.log(t)},constructor:function(e){e();this.anotherMethod(&quot;Hi&quot;)}})()
+</code></pre><p>Notice that <code class="language-javascript">INeedYou, message</code> are changed to <code class="language-javascript">e,t</code>. This of course breaks our dependency injection, because we are using interpolation to resolve it. AbsurdJS follows Angular in solving this problem by letting you writing the arguments in a string, just before the function definition. </p>
+<pre><code class="language-javascript">absurd.di.register(&#39;INeedYou&#39;, function() {
+    console.log(&#39;Ok, here I am&#39;);
+});
+absurd.component(&quot;CompClass&quot;, {
+    identify: [&#39;INeedYou,,&#39;, function(INeedYou, name, type) {
+        INeedYou();
+        console.log(name, type);
+    }],
+    constructor: function(INeedYou) {
+        this.identify(&#39;AbsurdJS&#39;, &#39;JavaScript library&#39;);
+    }
+})();
+</code></pre><p>Instead of defining your function directly pass an array, where the first element is a string representing your arguments. The two commas in <code class="language-javascript">INeedYou,,</code> mean <code class="language-javascript">name</code> and <code class="language-javascript">type</code>. You don&#39;t need to write the actual name of the parameters. Just put commas. We could even change the order of the args. For example:</p>
+<pre><code class="language-javascript">absurd.component(&quot;CompClass&quot;, {
+    identify: [&#39;,INeedYou,&#39;, function(name, INeedYou, type) {
+        INeedYou();
+        console.log(name, type);
+    }],
+    constructor: function(INeedYou) {
+        this.identify(&#39;AbsurdJS&#39;, &#39;JavaScript library&#39;);
+    }
+})();
+</code></pre><p><small class="jsbin"><i class="fa fa-code"></i> <a href="http://jsbin.com/gujub/1/edit"></a></small></p>
+<p>At the end your code is minified to the following line, which still works.</p>
+<pre><code class="language-javascript">absurd.component(&quot;CompClass&quot;,{identify:[&quot;,INeedYou,&quot;,function(e,t,n){t();console.log(e,n)}],constructor:function(e){this.identify(&quot;AbsurdJS&quot;,&quot;JavaScript library&quot;)}})()
+</code></pre><p>You could add whatever you want to the dependency injector.</p>
+<pre><code class="language-javascript">var config = {
+    username: &#39;...&#39;,
+    password: &#39;...&#39;
+};
+absurd.di.register(&#39;config&#39;, config);
+absurd.component(&quot;CompClass&quot;, {
+    constructor: function(config) {
+        console.log(config.username);
+    }
+})();
+</code></pre><p><small class="jsbin"><i class="fa fa-code"></i> <a href="http://jsbin.com/lifew/1/edit"></a></small></p>
 
                 <br />
                 <br />
                 <hr />
-                <div class="guide"><a href="/pages/client-side-components/nested-components"><i class="fa fa-arrow-circle-o-left"></i> Nested components</a><a href="/pages/client-side-components/utilities">Utilities <i class="fa fa-arrow-circle-o-right"></i></a>
+                <div class="guide"><a href="/pages/client-side-components/nested-components"><i class="fa fa-arrow-circle-o-left"></i> Nested components</a><a href="/pages/api">API <i class="fa fa-arrow-circle-o-right"></i></a>
                 </div>
                 <hr />
                 <div id="disqus_thread"></div>

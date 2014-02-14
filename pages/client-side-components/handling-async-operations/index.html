@@ -87,8 +87,6 @@
                                 </li>
                                 <li><a href="/pages/client-side-components/dependency-injection">Dependency injection</a>
                                 </li>
-                                <li><a href="/pages/client-side-components/utilities">Utilities</a>
-                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -120,20 +118,56 @@
 	<a href="https://twitter.com/share" class="twitter-share-button" data-via="KrasimirTsonev" data-hashtags="AbsurdJS">Tweet</a>
 	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
-	<!-- Place this tag in your head or just before your close body tag. -->
-	<script type="text/javascript" src="https://apis.google.com/js/platform.js"></script>
-	<!-- Place this tag where you want the +1 button to render. -->
-	<div class="g-plusone" data-size="medium"></div>
-
 	<div class="fb-like" data-width="30" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
 
 	<iframe src="http://ghbtns.com/github-btn.html?user=krasimir&repo=absurd&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20" class="github-stars"></iframe>
 
+	<script type="text/javascript" src="https://apis.google.com/js/platform.js"></script>
+	<div class="g-plusone" data-size="medium"></div>
+
 </div>
 
-<blockquote>
-<p>coming soon</p>
-</blockquote>
+<p>You probably know how easy is to use <a href="/pages/client-side-components/html-compilation">expressions in your HTML templates</a>. Let&#39;s say that we have the following component and HTML on the page:</p>
+<div class="example">
+<div class="col">
+<small>HTML:</small>
+<pre><code class="language-markup">&lt;h1&gt;&lt;% this.getData() %&gt;&lt;/h1&gt;</code></pre></div>
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">absurd.component(&quot;Component&quot;, {
+    html: &#39;h1&#39;,
+    getData: function() {
+        return &#39;AbsurdJS&#39;;
+    },
+    constructor: function() {
+        this.populate();
+    }
+})();</code></pre></div>
+</div>
+
+<p>The result of the example is that the heading tag is filled with some text - <code class="language-javascript">&lt;h1&gt;AbsurdJS&lt;/h1&gt;</code>. Now let&#39;s say that the function <code class="language-javascript">getData</code> has to perform some asynchronous operation. If we keep the template the same it will not work, because the method is executed immediately during the population. Luckily AbsurdJS provides a mechanism for solving such issues.</p>
+<div class="example">
+<div class="col">
+<small>HTML:</small>
+<pre><code class="language-markup">&lt;h1&gt;&lt;% this.async(&#39;getData&#39;) %&gt;&lt;/h1&gt;</code></pre></div>
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">absurd.component(&quot;Component&quot;, {
+    html: &#39;h1&#39;,
+    getData: function(callback) {
+        setTimeout(function() {
+            // this runs after 2 sec
+            callback(&#39;It\&#39;s done.&#39;);
+        }, 2000);
+    },
+    constructor: function() {
+        this.populate();
+    }
+})();</code></pre></div>
+</div>
+
+<p>The idea is to receive a callback which you need to run once your asynchronous action finishes. You still can pass parameters to your function. Just remember that the callback is always the first argument. The rest are yours.</p>
+<p><small class="jsbin"><i class="fa fa-code"></i> <a href="http://jsbin.com/tudic/1/"></a></small></p>
 
                 <br />
                 <br />

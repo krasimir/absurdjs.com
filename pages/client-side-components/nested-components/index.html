@@ -87,8 +87,6 @@
                                 </li>
                                 <li><a href="/pages/client-side-components/dependency-injection">Dependency injection</a>
                                 </li>
-                                <li><a href="/pages/client-side-components/utilities">Utilities</a>
-                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -120,20 +118,42 @@
 	<a href="https://twitter.com/share" class="twitter-share-button" data-via="KrasimirTsonev" data-hashtags="AbsurdJS">Tweet</a>
 	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
-	<!-- Place this tag in your head or just before your close body tag. -->
-	<script type="text/javascript" src="https://apis.google.com/js/platform.js"></script>
-	<!-- Place this tag where you want the +1 button to render. -->
-	<div class="g-plusone" data-size="medium"></div>
-
 	<div class="fb-like" data-width="30" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
 
 	<iframe src="http://ghbtns.com/github-btn.html?user=krasimir&repo=absurd&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20" class="github-stars"></iframe>
 
+	<script type="text/javascript" src="https://apis.google.com/js/platform.js"></script>
+	<div class="g-plusone" data-size="medium"></div>
+
 </div>
 
-<blockquote>
-<p>coming soon</p>
-</blockquote>
+<p>While having a complex web page you may end up with nested components. AbsurdJS provides a mechanism for solving such problems.</p>
+<pre><code class="language-javascript">var Child = absurd.component(&quot;ChildClass&quot;, {
+    text: &quot;click me&quot;,
+    html: {
+        &#39;a[data-absurd-event=&quot;click:handler&quot; href=&quot;#&quot;]&#39;: &quot;&lt;% this.text %&gt;&quot;
+    },
+    handler: function(e) {
+        this.text = &quot;Wow!!!&quot;;
+        this.populate();
+    }
+});
+
+var main = absurd.component(&quot;MainClass&quot;, {
+    html: {
+        section: [
+            &quot;&lt;% this.child(&#39;link1&#39;) %&gt;, &quot;,
+            &quot;&lt;% this.child(&#39;link2&#39;) %&gt;&quot;
+        ]
+    }
+})();
+main.set(&quot;children&quot;, {
+    link1: Child(),
+    link2: Child()
+});
+main.set(&#39;parent&#39;, document.querySelector(&#39;body&#39;)).populate();
+</code></pre><p>So, there are two component classes defined - <code class="language-javascript">ChildClass</code> and <code class="language-javascript">MainClass</code>. Before to call the <code class="language-javascript">populate</code> method of the <code class="language-javascript">main</code> variable we set its <code class="language-javascript">children</code>. We should pass a hash object. The keys are unique strings which are later used in the template of the component (the <code class="language-javascript">html</code> property). Notice that we are not calling the <code class="language-javascript">populate</code> method of the nested components. That&#39;s a job of AbsurdJS. It always check if some component has children. And if yes then it triggers their compilation.</p>
+<p><small class="jsbin"><i class="fa fa-code"></i> <a href="http://jsbin.com/yucek/1/"></a></small></p>
 
                 <br />
                 <br />

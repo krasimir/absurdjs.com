@@ -20,6 +20,11 @@ module.exports = function(api) {
 				fz: '36px',
 				lh: '40px'
 			},
+			h3: {
+				fz: '36px',
+				lh: '40px',
+				fw: 'n'
+			},
 			p: {
 				fz: '24px',
 				lh: '34px'

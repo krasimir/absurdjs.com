@@ -87,8 +87,6 @@
                                 </li>
                                 <li><a href="/pages/client-side-components/dependency-injection">Dependency injection</a>
                                 </li>
-                                <li><a href="/pages/client-side-components/utilities">Utilities</a>
-                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -120,14 +118,12 @@
 	<a href="https://twitter.com/share" class="twitter-share-button" data-via="KrasimirTsonev" data-hashtags="AbsurdJS">Tweet</a>
 	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
-	<!-- Place this tag in your head or just before your close body tag. -->
-	<script type="text/javascript" src="https://apis.google.com/js/platform.js"></script>
-	<!-- Place this tag where you want the +1 button to render. -->
-	<div class="g-plusone" data-size="medium"></div>
-
 	<div class="fb-like" data-width="30" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
 
 	<iframe src="http://ghbtns.com/github-btn.html?user=krasimir&repo=absurd&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20" class="github-stars"></iframe>
+
+	<script type="text/javascript" src="https://apis.google.com/js/platform.js"></script>
+	<div class="g-plusone" data-size="medium"></div>
 
 </div>
 
@@ -211,7 +207,104 @@ menu.on(&quot;opened&quot;, function(data) {
     // undefined 200
 });
 menu.openMenu(); 
-</code></pre>
+</code></pre><h2 id="built-in-events">Built-in events</h2>
+<p>Here is the place where we should mention the build-in events, which are fired by default from the component.</p>
+<h3 id="ready">ready</h3>
+<p>The <code class="language-javascript">ready</code> event is triggered when the document is fully loaded. That&#39;s the same as jQuery&#39;s <code class="language-javascript">ready</code> method.</p>
+<pre><code class="language-javascript">absurd.component(&#39;Component&#39;, {
+    ready: function() {
+        // page is loaded
+    }
+})();
+</code></pre><p>The code for this event is:</p>
+<pre><code class="language-javascript">if (document.addEventListener) {
+    document.addEventListener(&#39;DOMContentLoaded&#39;, fn);
+} else {
+    document.attachEvent(&#39;onreadystatechange&#39;, function() {
+        if (document.readyState === &#39;interactive&#39;) {
+            fn();
+        }
+    });
+}
+</code></pre><p>Where <code class="language-javascript">fn</code> dispatches the event.</p>
+<h3 id="populated">populated</h3>
+<p>The <code class="language-javascript">populated</code> event is dispatched when the <code class="language-javascript">populate</code> method finishes its job.</p>
+<div class="example">
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">var c = absurd.component(&quot;Component&quot;, {
+    html: {
+        div: &#39;Test&#39;
+    }
+})();
+c.on(&#39;populated&#39;, function() {
+    console.log(&#39;population done&#39;);
+});
+c.populate();</code></pre></div>
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">absurd.component(&quot;Component&quot;, {
+    html: {
+        div: &#39;Test&#39;
+    },
+    populated: function() {
+        console.log(&#39;population done&#39;);
+    }
+})().populate();</code></pre></div>
+</div>
+
+<h2 id="sending-an-event-to-all-the-created-components">Sending an event to all the created components</h2>
+<p>There are cases where you want to notify all the components for something. Here is how to do it:</p>
+<pre><code class="language-javascript">absurd.component(&quot;ComponentA&quot;, {
+    somethingHappens: function(data) {
+        console.log(data.someData);
+    }
+})();
+absurd.component(&quot;ComponentB&quot;, {
+    somethingHappens: function(data) {
+        console.log(data.someData);
+    }
+})();
+
+absurd.components.broadcast(&quot;somethingHappens&quot;, {
+    someData: &#39;someValue&#39;
+});
+</code></pre><p>That&#39;s how the <code class="language-javascript">ready</code> event is send. Of course it is not mandatory to pass any data.</p>
+<h2 id="sending-messages-from-one-component-to-another">Sending messages from one component to another</h2>
+<p>The last thing about the events in AbsurdJS is sending them from one component to another. This could be really powerful, because you are able to wire the whole page and still have the things split in different components. </p>
+<pre><code class="language-javascript">var a = absurd.component(&quot;ComponentA&quot;, {
+    ohYeah: function() {
+        console.log(&quot;Oh ... yeah!&quot;);
+    }
+})();
+var b = absurd.component(&quot;ComponentB&quot;, {
+    doIt: function() {
+        this.dispatch(&#39;ohYeah&#39;);
+    }
+})();
+a.wire(&#39;ohYeah&#39;);
+b.doIt();
+</code></pre><p>There is a global event bus where all the messages are sent. Once the event is trigged you are able to bind it to every component. That&#39;s what happen when we use the <code class="language-javascript">wire</code> method. You have also an access to the bus which actually implements the usual event dispatcher class.</p>
+<pre><code class="language-javascript">var a = absurd.component(&quot;ComponentA&quot;, {
+    ohYeah: function() {
+        console.log(&quot;Oh ... yeah!&quot;);
+    }
+})();
+var b = absurd.component(&quot;ComponentB&quot;, {
+    doIt: function() {
+        this.dispatch(&#39;ohYeah&#39;);
+    }
+})();
+
+// absurd.components.events = global event bus
+absurd.components.events.on(&#39;ohYeah&#39;, function() {
+    console.log(&#39;I got it.&#39;);
+});
+
+a.wire(&#39;ohYeah&#39;);
+b.doIt();
+</code></pre><p><small class="jsbin"><i class="fa fa-code"></i> <a href="http://jsbin.com/xikem/9/edit?js,console"></a></small></p>
+
                 <br />
                 <br />
                 <hr />
