@@ -115,6 +115,7 @@ module.exports = function () {
         var sitemap = JSON.parse(fs.readFileSync(__dirname + '/../pages/structure.json'));
         var root = __dirname + "/../";
         var fileRoot = path.dirname(file.path);
+        var markdownFile = path.resolve(file.path).replace(path.resolve(root), '');
         var htmlFile = path.basename(file.path).replace(".md", ".html");
         var fileURL = fileRoot.replace(path.resolve(root), '').replace(/\\/g, '/');
         var contentHTML = marked(fs.readFileSync(file.path).toString('utf8'));
@@ -126,7 +127,8 @@ module.exports = function () {
             pageTitle: getPageTitle(sitemap, fileURL),
             guide: getGuide(sitemap, fileURL),
             minify: false,
-            url: fileURL
+            url: fileURL,
+            markdownFile: markdownFile
         }
 
         absurd.flush().morph("html").add(layoutHTML).compile(function(err, html) {

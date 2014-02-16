@@ -4,6 +4,7 @@ module.exports = function(api) {
 		__dirname + '/landing/landing.js',
 		__dirname + '/landing/content.js',
 		__dirname + '/pages/content.js',
+		__dirname + '/pages/footer.js',
 		__dirname + '/pages/nav.js',
 		__dirname + '/pages/sitemap.js',
 		__dirname + '/quick-tips.js',

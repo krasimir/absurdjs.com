@@ -14,7 +14,14 @@ module.exports = function(api) {
 				lh: '60px',
 				pad: '0 0 20px 0',
 				mar: '50px 0 30px 0',
-				bdb: 'solid 8px ' + api.colors.brandColor1
+				bdb: 'solid 8px ' + api.colors.brandColor1,
+				'&:before': {
+					d: 'b',
+					content: '" "',
+					wid: '69px',
+					hei: '50px',
+					fl: 'r'
+				}
 			},
 			h2: {
 				fz: '36px',
@@ -95,12 +102,12 @@ module.exports = function(api) {
 				color: '#999',
 				fw: 'n'
 			},
-			'.doc-home': {
+			'.doc-home, .page-edit': {
 				wid: '40px',
 				pos: 'a',
 				left: '50%',
-				top: '105px',
-				ml: '-431px',
+				top: '104px',
+				ml: '306px',
 				opacity: '0.2',
 				fz: '30px',
 				'-w-trs': 'all 700ms',
@@ -108,9 +115,13 @@ module.exports = function(api) {
 					opacity: 1,
 					bdb: 'n'
 				},
-				'@media all and (max-width: 960px)': {
+				'@media all and (max-width: 820px)': {
 					d: 'n'
 				}
+			},
+			'.page-edit': {
+				top: '105px',
+				ml: '347px'
 			},
 			'.documentation-sitemap': {
 				ul: {
