@@ -7,206 +7,30 @@
         <link rel="stylesheet" href="/public/styles.css">
         <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,700' type='text/css'>
         <link rel="stylesheet" href="/public/font-awesome-4.0.3/css/font-awesome.min.css">
-        <link rel="stylesheet" href="/public/prism/prism.css" />
     </head>
-    <body>
+    <body class="landing">
 
-        <!-- facebook -->
-        <div id="fb-root"></div>
-        <script>(function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=130923167067801";
-          fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
+        <div class="video">
+            <video preload="auto" autoplay="true" loop="loop" muted="muted" volume="0"> 
+                <source src="/public/video/cells.webm" type="video/webm"> 
+                <source src="/public/video/cells.mp4" type="video/mp4">
+            </video>
+            <div class="video-overlay"></div>
+        </div>
 
-        <header class="landing">
+        <img src="/public/img/logo.png" alt="AbsurdJS logo" class="logo" />
+
+        <!-- <section class="content">
             <div class="container">
-                <h1>A JavaScript<br />library with<br />superpowers</h1>
-                <img src="/public/img/logo.png" alt="AbsurdJS logo" />
-                <nav>
-                    <ul>
-                        <li><a href="#features"><i class="fa fa-check-circle-o"></i>&nbsp;&nbsp;Features</a></li>
-                        <li><a href="#quick-use"><i class="fa fa-code"></i>&nbsp;&nbsp;Quick-use</a></li>
-                        <li><a href="/pages/documentation"><i class="fa fa-book"></i>&nbsp;&nbsp;Documentation</a></li>
-                        <li><a href="/pages/api"><i class="fa fa-sort-amount-desc"></i>&nbsp;&nbsp;API</a></li>
-                        <li><a href="/pages/try-it"><i class="fa fa-flask"></i>&nbsp;&nbsp;Try it online</a></li>
-                        <li><hr /></li>
-                        <li><a href="/pages/builds"><i class="fa fa-truck"></i>&nbsp;&nbsp;Builds / Download</a></li>
-                        <li><hr /></li>
-                        <li>
-                            <a href="https://github.com/krasimir/absurd" target="_blank"><i class="fa fa-github-square"></i>&nbsp;&nbsp;Code at GitHub</a>
-                            <!-- GitHub -->
-                            <div class="github-stars">
-                                <iframe src="http://ghbtns.com/github-btn.html?user=krasimir&repo=absurd&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20"></iframe>
-                            </div>
-                        </li>
-                    </ul>                    
-                </nav>
+                <h1><span>A JavaScript<br />library<br />with<br />superpowers</span></h1>
             </div>
-        </header>
+        </section>
 
-        <!-- ---------------------------------------------------------------- features -->
-        <a name="features"></a>
-        <div class="landing-content">
+        <div class="preloader">
+            <img src="/public/img/preloader.jpg" />
+            <span>loading<span>
+        </div> -->
 
-            <section>
-                <span class="index">01</span>
-                <img src="/public/img/hero-01.jpg" alt="AbsurdJS hero" class="hero" />
-                <img src="/public/img/hero-line.jpg" alt="hero-line" class="hero-line" />
-                <div class="description">
-                    <h2>CSS<br />preprocessing</h2>
-                    <p>Boost your productivity by using CSS preprocessor</p>
-                    <p>Available for:<br /><img src="/public/img/nodejs.png" alt="nodejs" /> <img src="/public/img/browsers.png" alt="browsers" /></p>
-                    <p><a href="/pages/css-preprocessing"><i class="fa fa-check-circle-o"></i> Read more</a></p>
-                </div>
-            </section>
-
-            <section>
-                <span class="index">02</span>
-                <img src="/public/img/hero-02.jpg" alt="AbsurdJS hero" class="hero" />
-                <img src="/public/img/hero-line.jpg" alt="hero-line" class="hero-line" />
-                <div class="description">
-                    <h2>HTML<br />preprocessing</h2>
-                    <p>Make your templates dynamic.</p>
-                    <p>Available for:<br /><img src="/public/img/nodejs.png" alt="nodejs" /> <img src="/public/img/browsers.png" alt="browsers" /></p>
-                    <p><a href="/pages/html-preprocessing"><i class="fa fa-check-circle-o"></i> Read more</a></p>
-                </div>
-            </section>
-
-            <section>
-                <span class="index">03</span>
-                <img src="/public/img/hero-03.jpg" alt="AbsurdJS hero" class="hero woman" />
-                <img src="/public/img/hero-line.jpg" alt="hero-line" class="hero-line" />
-                <div class="description">
-                    <h2>Client-side<br />components</h2>
-                    <p>Modulize your front-end.</p>
-                    <p>Available for:<br /><img src="/public/img/browsers.png" alt="browsers" /></p>
-                    <p><a href="/pages/client-side-components"><i class="fa fa-check-circle-o"></i> Read more</a></p>
-                </div>
-            </section>
-
-            <section>
-                <span class="index">04</span>
-                <img src="/public/img/hero-04.jpg" alt="AbsurdJS hero" class="hero" />
-                <img src="/public/img/hero-line.jpg" alt="hero-line" class="hero-line" />
-                <div class="description">
-                    <h2>Organic CSS<br />development</h2>
-                    <p>Follow Atomic design principle.</p>
-                    <p>Available for:<br /><img src="/public/img/nodejs.png" alt="nodejs" /> <img src="/public/img/browsers.png" alt="browsers" /></p>
-                    <p><a href="/pages/css-preprocessing/organic-css"><i class="fa fa-check-circle-o"></i> Read more</a></p>
-                </div>
-            </section>
-
-        </div>
-
-        <!-- ---------------------------------------------------------------- quick-use -->
-        <a name="quick-use"></a>
-        <div class="quick-tips second-color">
-            <h3>Quick-use</h3>
-            <div class="grid-container">
-                <div>
-                    <img src="/public/img/nodejs.png" alt="nodejs" />
-                    <pre><code class="language-javascript">var absurd = require('absurd')();
-absurd.add({
-    section: {
-        width: '960px',
-        padding: '20px 0 0 0',
-        a: {
-            fontSize: '12px'
-        }
-    }
-}).compile(function(err, css) {
-    console.log(css);
-});</code></pre>
-                <p>The result:</p>
-                <pre><code class="language-css">section {
-  width: 960px;
-  padding: 20px 0 0 0;
-}
-section a {
-  font-size: 12px;
-}</code></pre>
-                </div>
-                <div>
-                    <img src="/public/img/browsers.png" alt="browsers" />
-                    <pre><code class="language-javascript">var absurd = Absurd();
-absurd.add({
-    body: {
-        fontSize: '20px',
-        lineHeight: '30px',
-        p: {
-            '-wm-box-sizing': 'border-box'
-        }
-    }
-}).compile(function(err, css) {
-    console.log(css);
-});</code></pre>
-                <p>The result:</p>
-                <pre><code class="language-css">body {
-  font-size: 20px;
-  line-height: 30px;
-}
-body p {
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-}</code></pre>
-                </div>
-            </div>
-        </div>
-
-        <footer>
-            <div class="grid-container">
-                <div class="col">
-                    <h3><i class="fa fa-github-square"></i>&nbsp;&nbsp;Contribute</h3>
-                    <hr />
-                    <p>The official repository of AbsurdJS is <a href="https://github.com/krasimir/absurd" target="_blank">github.com/krasimir/absurd</a>. Feel free to fork it, make new <a href="https://github.com/krasimir/absurd/issues" target="_blank">issues</a> or <a href="https://github.com/krasimir/absurd/pulls" target="_blank">pull</a> requests.</p>
-                    <p>The code of this site is also open source - <a href="https://github.com/krasimir/absurdjs.com" target="_blank">github.com/krasimir/absurdjs.com</a>. If you have an ideas for a new article, new entry in the documentation or something else don't hesitate to ask.</p>
-                </div>
-                <div class="col">
-                    <h3><i class="fa fa-share-square"></i>&nbsp;&nbsp;Share</h3>
-                    <hr />
-                    <!-- Twitter -->
-                    <a href="https://twitter.com/share" class="twitter-share-button" data-via="KrasimirTsonev" data-hashtags="AbsurdJS" data-counturl="http://krasimir.github.io/absurd/">Tweet</a>
-                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-                    <br />
-                    <!-- GitHub -->
-                    <iframe src="http://ghbtns.com/github-btn.html?user=krasimir&repo=absurd&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20"></iframe>
-                    <br />
-                    <!-- Google plus -->
-                    <!-- Place this tag where you want the +1 button to render. -->
-                    <div class="g-plusone" data-annotation="inline" data-width="120"></div>
-                    <br />
-                    <!-- Place this tag after the last +1 button tag. -->
-                    <script type="text/javascript">
-                      (function() {
-                        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-                        po.src = 'https://apis.google.com/js/platform.js';
-                        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-                      })();
-                    </script>
-                    <!-- Facebook -->
-                    <div class="fb-like" data-href="http://absurdjs.com/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
-                    <br /><br /><hr />
-                    <a href="https://twitter.com/AbsurdJS" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @AbsurdJS</a><br />
-                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-                </div>
-            </div>
-            <div class="about-the-author">
-                <h3>About the author</h3>
-                <p>
-                    <a href="http://krasimirtsonev.com" target="_blank"><i class="fa fa-coffee"></i> Krasimir Tsonev</a>
-                </p>
-                <p class="follow">
-                    <a href="https://twitter.com/KrasimirTsonev" class="twitter-follow-button" data-show-count="true" data-lang="en">Follow @KrasimirTsonev</a>
-                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-                </p>
-            </div>
-        </footer>
-
-        <script src="/public/prism/prism.js"></script>
         <script src="/builds/absurd.organic.min.js"></script>
         <script src="/builds/absurd.min.js"></script>
         <script src="/public/scripts.js"></script>

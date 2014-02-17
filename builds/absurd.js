@@ -1,4 +1,4 @@
-/* version: 0.2.83 */
+/* version: 0.2.87, born: 17-1-2014 17:20 */
 var Absurd = (function(w) {
 var lib = { 
     api: {},
@@ -39,6 +39,8 @@ var require = function(v) {
         return lib.helpers.Clone;
     } else if(v == '../helpers/Prefixes' || v == '/../../../helpers/Prefixes') {
         return lib.helpers.Prefixes;
+    } else if(v == __dirname + '/../../../../') {
+        return Absurd;
     } else {
         return function() {}
     }
@@ -205,7 +207,19 @@ api.__handleCSS = function(next) {
 		next();
 	}
 	return this;
-}
+};
+api.applyCSS = function(data, skipAutoPopulation) {
+	if(this.html && typeof this.html === 'string') {
+		var res = {};
+		res[this.html] = data;
+		data = res;
+	}
+	this.css = data;
+	if(!skipAutoPopulation) {
+		this.populate();
+	}
+	return this;
+};
 var HTMLSource = false;
 
 api.__mergeDOMElements = function(e1, e2) {	
@@ -293,6 +307,13 @@ api.__handleHTML = function(next) {
 	}
 	return this;
 };
+api.applyHTML = function(data, skipAutoPopulation) {
+	this.html = data;
+	if(!skipAutoPopulation) {
+		this.populate();
+	}
+	return this;
+};
 var	appended = false
 api.__append = function(next) {
 	if(!appended && this.el && this.get("parent")) {
@@ -336,7 +357,46 @@ api.__handleEvents = function(next) {
 	}
 	next();
 	return this;
-}	
+}
+api.__getAnimAndTransEndEventName = function(el) {
+	if(!el) return;
+    var a;
+    var animations = {
+      'animation': ['animationend', 'transitionend'],
+      'OAnimation': ['oAnimationEnd', 'oTransitionEnd'],
+      'MozAnimation': ['animationend', 'transitionend'],
+      'WebkitAnimation': ['webkitAnimationEnd', 'webkitTransitionEnd']
+    }
+    for(a in animations){
+        if( el.style[a] !== undefined ){
+            return animations[a];
+        }
+    }
+}
+api.onAnimationEnd = function(el, func) {
+	if(arguments.length == 1) {
+		func = el;
+		el = this.el;
+	}
+	var self = this;
+	var eventName = api.__getAnimAndTransEndEventName(el);
+	if(!eventName) { func.apply(this, [{error: 'Animations not supported.'}]); return; };
+	this.addEventListener(el, eventName[0], function(e) {
+		func.apply(self, [e]);
+	});
+}
+api.onTransitionEnd = function(el, func) {
+	if(arguments.length == 1) {
+		func = el;
+		el = this.el;
+	}
+	var self = this;
+	var eventName = api.__getAnimAndTransEndEventName(el);
+	if(!eventName) { func.apply(this, [{error: 'Animations not supported.'}]); return; };
+	this.addEventListener(el, eventName[1], function(e) {
+		func.apply(self, [e]);
+	});
+}
 var	async = { funcs: {}, index: 0 };
 api.__handleAsyncFunctions = function(next) {
 	if(this.el) {
@@ -515,6 +575,21 @@ api.toggleClass = function(className, el) {
 	}
 	return api;
 }
+api.verify = function(selector, ok, fail) {
+	var test = function() {
+		var res = this.qs(selector) ? true : false;
+		if(res && ok) ok.apply(this);
+		else if(fail) fail.apply(this);
+	}
+	if(typeof selector == 'string') {
+		test.apply(this);
+	} else if(typeof selector == 'function') {
+		fail = ok;
+		ok = selector;
+		selector = this.html;
+		test.apply(this);
+	}
+}
 	return api;
 };
 var client = function() {
@@ -602,7 +677,7 @@ var client = function() {
 			(function(fn) {
 				if (document.addEventListener) {
 					document.addEventListener('DOMContentLoaded', fn);
-				} else {
+				} else if(document.attachEvent) {
 					document.attachEvent('onreadystatechange', function() {
 						if (document.readyState === 'interactive') {
 							fn();
@@ -786,6 +861,7 @@ lib.api.add = function(API) {
 	var checkAndExecutePlugin = function(selector, prop, value, stylesheet, parentSelector) {
 		var prefix = prefixes.nonPrefixProp(prop);
 		var plugin = API.getPlugins()[prefix.prop];
+		// console.log("\nChecking for plugin: " + prefix.prop + " (" + prop + ")");
 		if(typeof plugin !== 'undefined') {
 			var pluginResponse = plugin(API, value, prefix.prefix);
 			if(pluginResponse) {
@@ -803,6 +879,7 @@ lib.api.add = function(API) {
 
 		// catching null values
 		if(props === null || typeof props === 'undefined' || props === false) return;
+		if(!parentSelector && !selector) selector = '';
 
 		// multiple selectors
 		if(/, ?/g.test(selector) && options.combineSelectors) {
@@ -813,17 +890,17 @@ lib.api.add = function(API) {
 			return;
 		}
 
+		// check for plugin
+		if(checkAndExecutePlugin(null, selector, props, stylesheet, parentSelector)) {
+			return;	
+		}
+
 		// if array is passed
 		if(typeof props.length !== 'undefined' && typeof props === "object") {
 			for(var i=0; i<props.length, prop=props[i]; i++) {
 				addRule(selector, prop, stylesheet, parentSelector);
 			}
 			return;
-		}
- 
-		// check for plugin
-		if(checkAndExecutePlugin(null, selector, props, stylesheet, parentSelector)) {
-			return;	
 		}
 
 		var _props = {}, 
@@ -1547,22 +1624,14 @@ lib.processors.css.plugins.keyframes = function() {
 	return function(api, value) {
 		var processor = require(__dirname + "/../CSS.js")();
 		var prefixes = require(__dirname + "/../../../helpers/Prefixes");
-		if(typeof value === "object") {			
+		if(typeof value === "object") {
 			// js or json
+			var frames;
 			if(typeof value.frames != "undefined") {
-				for(var frame in value.frames) {
-					for(var prop in value.frames[frame]) {
-						prefixes.addPrefixes(prop, value.frames[frame]);
-					}
-				}
-				var content = '@keyframes ' + value.name + " {\n";
-				content += processor({mainstream: value.frames});
-				content += "}";
-				api.raw(content + "\n" + content.replace("@keyframes", "@-webkit-keyframes"));
+				frames = value.frames;
 			// css
 			} else if(typeof value.keyframes != "undefined") {
-				var content = '@keyframes ' + value.name + " {\n";
-				var frames = {};
+				frames = {};
 				for(var i=0; rule=value.keyframes[i]; i++) {
 					if(rule.type === "keyframe") {
 						var f = frames[rule.values] = {};
@@ -1573,10 +1642,15 @@ lib.processors.css.plugins.keyframes = function() {
 						}
 					}
 				}
-				content += processor({mainstream: frames});
-				content += "}";
-				api.raw(content + "\n" + content.replace("@keyframes", "@-webkit-keyframes"));
 			}
+			var absurd = require(__dirname + '/../../../../')();
+			absurd.add(frames).compile(function(err, css) {
+				var content = '@keyframes ' + value.name + " {\n";
+				content += css;
+				content += "}";
+				content = content + "\n" + content.replace("@keyframes", "@-webkit-keyframes");
+				api.raw(content);
+			}, {combineSelectors: false});
 		}
 	}
 }

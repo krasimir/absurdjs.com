@@ -128,6 +128,7 @@
 
 </div>
 
+<p><!-- ---------------------------------------------------------------- size --></p>
 <h2 id="size-small-class-prop-values-width-height-small-">size: <small class="prop-values">[width]/[height]</small></h2>
 <blockquote>
 <p>sets the <code class="language-javascript">width</code> and <code class="language-javascript">height</code> of an element </p>
@@ -163,6 +164,7 @@ body section{
 }</code></pre></div>
 </div>
 
+<p><!-- ---------------------------------------------------------------- cf --></p>
 <h2 id="cf-small-class-prop-values-all-before-after-small-">cf: <small class="prop-values">[all | before | after]</small></h2>
 <blockquote>
 <p>clear fix</p>
@@ -195,6 +197,7 @@ body section:after {
 }</code></pre></div>
 </div>
 
+<p><!-- ---------------------------------------------------------------- grid --></p>
 <h2 id="grid-small-class-prop-values-columns-selector-small-">grid: <small class="prop-values">[columns]/[selector]</small></h2>
 <blockquote>
 <p>grid definition</p>
@@ -225,6 +228,7 @@ section.container div {
 }</code></pre></div>
 </div>
 
+<p><!-- ---------------------------------------------------------------- moveto --></p>
 <h2 id="moveto-small-class-prop-values-x-y-z-small-">moveto: <small class="prop-values">[x]/[y]/[z]</small></h2>
 <blockquote>
 <p>translates an element to x/y/z position</p>
@@ -256,6 +260,7 @@ div {
 }</code></pre></div>
 </div>
 
+<p><!-- ---------------------------------------------------------------- rotateto --></p>
 <h2 id="rotateto-small-class-prop-values-deg-small-">rotateto: <small class="prop-values">[deg]</small></h2>
 <blockquote>
 <p>rotates an element</p>
@@ -279,6 +284,7 @@ div {
 }</code></pre></div>
 </div>
 
+<p><!-- ---------------------------------------------------------------- scaleto --></p>
 <h2 id="scaleto-small-class-prop-values-x-y-small-">scaleto: <small class="prop-values">[x]/[y]</small></h2>
 <blockquote>
 <p>scales an element</p>
@@ -302,10 +308,12 @@ div {
 }</code></pre></div>
 </div>
 
-<h2 id="animate-small-class-prop-values-type-of-animation-small-">animate: <small class="prop-values">[type of animation]</small></h2>
+<p><!-- ---------------------------------------------------------------- animate --></p>
+<h2 id="animate-small-class-prop-values-string-object-array-small-">animate: <small class="prop-values">[string | object | array]</small></h2>
 <blockquote>
 <p>a shortcut to <a href="http://daneden.github.io/animate.css/">animate.css</a> snippets. Valid values are: bounce, flash, pulse, shake, swing, tada, wobble, bounceIn, bounceInDown, bounceInLeft, bounceInRight, bounceInUp, bounceOut, bounceOutDown, bounceOutLeft, bounceOutRight, bounceOutUp, fadeIn, fadeInDown, fadeInDownBig, fadeInLeft, fadeInLeftBig, fadeInRight, fadeInRightBig, fadeInUp, fadeInUpBig, fadeOut, fadeOutDown, fadeOutDownBig, fadeOutLeft, fadeOutLeftBig, fadeOutRight, fadeOutRightBig, fadeOutUp, fadeOutUpBig, flip, flipInX, flipInY, flipOutX, flipOutY, lightSpeedIn, lightSpeedOut, rotateIn, rotateInDownLeft, rotateInDownRight, rotateInUpLeft, rotateInUpRight, rotateOut, rotateOutDownLeft, rotateOutDownRight, rotateOutUpLeft, rotateOutUpRight, slideInDown, slideInLeft, slideInRight, slideOutLeft, slideOutRight, slideOutUp, hinge, rollIn, rollOut.</p>
 </blockquote>
+<p>Triggering an animation by its name</p>
 <div class="example">
 <div class="col">
 <small>JavaScript:</small>
@@ -353,6 +361,122 @@ div {
     -webkit-animation-fill-mode: both;
     animation-name: rotateInUpLeft;
     -webkit-animation-name: rotateInUpLeft;
+}</code></pre></div>
+</div>
+
+<p>Triggering an animation by setting more properties</p>
+<div class="example">
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">api.add({
+    div: {
+        animate: {
+            name: &#39;slide-to-top&#39;,
+            duration: &#39;1000ms&#39;,
+            iterationCount: 2,
+            fillMode: &#39;both&#39;,
+            timingFunction: &#39;ease&#39;,
+            delay: &#39;1000ms&#39;,
+            direction: &#39;alternate&#39;,
+            playState: &#39;running&#39;
+        }
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});</code></pre></div>
+<div class="col">
+<small>CSS:</small>
+<pre><code class="language-css">div {
+  animation-name: slide-to-top;
+  -webkit-animation-name: slide-to-top;
+  -moz-animation-name: slide-to-top;
+  -ms-animation-name: slide-to-top;
+  -o-animation-name: slide-to-top;
+  animation-duration: 1000ms;
+  -webkit-animation-duration: 1000ms;
+  -moz-animation-duration: 1000ms;
+  -ms-animation-duration: 1000ms;
+  -o-animation-duration: 1000ms;
+  animation-fill-mode: both;
+  -webkit-animation-fill-mode: both;
+  -moz-animation-fill-mode: both;
+  -ms-animation-fill-mode: both;
+  -o-animation-fill-mode: both;
+  animation-timing-function: ease;
+  -webkit-animation-timing-function: ease;
+  -moz-animation-timing-function: ease;
+  -ms-animation-timing-function: ease;
+  -o-animation-timing-function: ease;
+  animation-iteration-count: 2;
+  -webkit-animation-iteration-count: 2;
+  -moz-animation-iteration-count: 2;
+  -ms-animation-iteration-count: 2;
+  -o-animation-iteration-count: 2;
+  animation-delay: 1000ms;
+  -webkit-animation-delay: 1000ms;
+  -moz-animation-delay: 1000ms;
+  -ms-animation-delay: 1000ms;
+  -o-animation-delay: 1000ms;
+  animation-direction: alternate;
+  -webkit-animation-direction: alternate;
+  -moz-animation-direction: alternate;
+  -ms-animation-direction: alternate;
+  -o-animation-direction: alternate;
+  animation-play-state: running;
+  -webkit-animation-play-state: running;
+  -moz-animation-play-state: running;
+  -ms-animation-play-state: running;
+  -o-animation-play-state: running;
+}</code></pre></div>
+</div>
+
+<p>Only definition of animation.</p>
+<div class="example">
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">absurd.add({
+    animate: [&#39;show&#39;, {
+        &#39;0%&#39;: { color: &#39;#FFF&#39; },
+        &#39;100%&#39;: { color: &#39;#000&#39; }
+    }]
+}).compile(function(err, css) {
+    console.log(css);
+});</code></pre></div>
+<div class="col">
+<small>CSS:</small>
+<pre><code class="language-css">@keyframes show {
+  0% { color: #FFF; }
+  100% { color: #000; }
+}
+@-webkit-keyframes show {
+  0% { color: #FFF; }
+  100% { color: #000; }
+}</code></pre></div>
+</div>
+
+<p><!-- ---------------------------------------------------------------- transparent --></p>
+<h2 id="transparent-small-class-prop-values-float-small-">transparent: <small class="prop-values">[float]</small></h2>
+<blockquote>
+<p>setting opacity</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">api.add({
+    div: {
+        transparent: 0.3
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});</code></pre></div>
+<div class="col">
+<small>CSS:</small>
+<pre><code class="language-css">div {
+  filter: alpha(opacity=30);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
+  opacity: 0.3;
+  -moz-opacity: 0.3;
+  -khtml-opacity: 0.3;
 }</code></pre></div>
 </div>
                 <br />

@@ -28,7 +28,7 @@ gulp.task('js', function() {
 gulp.task('css', function() {
 	gulp.src('./src/css/styles.js')
     .pipe(absurd({
-        minify: true,
+        minify: false,
         combineSelectors: false
     }))
     .pipe(gulp.dest('./public'));
