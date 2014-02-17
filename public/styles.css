@@ -125,21 +125,105 @@ video {
 .video-overlay {
 }
 .landing .logo {
+  display: block;
   width: 60px;
   position: absolute;
   margin-left: -30px;
   transform: translate(0px,300px);
   -webkit-transform: translate(0px,300px);
   -ms-transform: translate(0px,300px);
-  transition: all 3000ms;
-  -webkit-transition: all 3000ms;
-  -moz-transition: all 3000ms;
-  -ms-transition: all 3000ms;
-  -o-transition: all 3000ms;
+  filter: alpha(opacity=40);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
+  opacity: 0.4;
+  -moz-opacity: 0.4;
+  -khtml-opacity: 0.4;
+  transition: all 1000ms;
+  -webkit-transition: all 1000ms;
+  -moz-transition: all 1000ms;
+  -ms-transition: all 1000ms;
+  -o-transition: all 1000ms;
   left: 50%;
   bottom: 40px;
 }
 .logo {
+}
+.landing .logo:hover {
+  transform: scale(1.2,1.2);
+  -webkit-transform: scale(1.2,1.2);
+  -ms-transform: scale(1.2,1.2);
+  filter: alpha(opacity=100);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+  -moz-opacity: 1;
+  -khtml-opacity: 1;
+}
+.logo:hover {
+}
+.landing section {
+  position: absolute;
+  margin-left: -480px;
+  margin-top: -200px;
+  width: 960px;
+  transition: all 1000ms;
+  -webkit-transition: all 1000ms;
+  -moz-transition: all 1000ms;
+  -ms-transition: all 1000ms;
+  -o-transition: all 1000ms;
+  transform: rotateY(90deg);
+  -webkit-transform: rotateY(90deg);
+  -moz-transform: rotateY(90deg);
+  -ms-transform: rotateY(90deg);
+  -o-transform: rotateY(90deg);
+  left: 50%;
+  top: 50%;
+  perspective: 400px;
+  -webkit-perspective: 400px;
+  -moz-perspective: 400px;
+  -o-perspective: 400px;
+}
+section.home {
+}
+.landing section.home:before {
+  content: " ";
+  display: table;
+  clear: both;
+}
+.landing section.home:after {
+  content: " ";
+  display: table;
+  clear: both;
+}
+.landing section.home div {
+  float: left;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  width: 50.00%;
+}
+div {
+}
+.landing section.home .title {
+  text-align: right;
+}
+.title {
+}
+.landing section.home .title h1 {
+  font-size: 60px;
+  line-height: 50px;
+  text-align: right;
+  display: inline;
+  background: #000;
+}
+h1 {
+}
+.landing section.home .title h1 span {
+  position: relative;
+  color: #FFF;
+}
+.landing section.home .links {
+  padding: 0 0 0 40px;
+}
+.links {
 }
 .content {
   transition: width 600ms;
@@ -158,8 +242,6 @@ video {
   padding: 0 0 20px 0;
   margin: 50px 0 30px 0;
   border-bottom: solid 8px #F0F0F0;
-}
-h1 {
 }
 .content-container h1:before {
   display: block;
@@ -439,8 +521,6 @@ iframe {
   -moz-box-sizing: border-box;
   width: 50.00%;
 }
-div {
-}
 .footer-content .container h3 {
   padding: 0;
   margin: 0;
@@ -550,8 +630,6 @@ span {
   overflow-y: scroll;
   overflow-x: hidden;
   margin: 0 10px 0 0;
-}
-.links {
 }
 @media all and (max-width: 600px) {
 .content-container .example .col {

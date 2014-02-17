@@ -16,12 +16,9 @@ absurd.component('LandingLogo', {
 	ready: function() {
 		this.verify(function() {
 			var self = this;
-			setTimeout(function() {
-				self.applyCSS({
-					moveto: '0/0'
-				});	
-			}, 100)
-			
+			self.applyCSS({
+				moveto: '0/0'
+			});
 		});
 	}
 })();
