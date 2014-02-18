@@ -339,6 +339,30 @@ a.super-small {
 .landing section.selected {
   left: 50%;
 }
+.landing .cover {
+  position: absolute;
+  width: 0;
+  height: 100%;
+  z-index: 1000;
+  background: #FFF;
+  transition: all 1200ms;
+  -webkit-transition: all 1200ms;
+  -moz-transition: all 1200ms;
+  -ms-transition: all 1200ms;
+  -o-transition: all 1200ms;
+  transition-timing-function: cubic-bezier(1,.01,1,.52);
+  -webkit-transition-timing-function: cubic-bezier(1,.01,1,.52);
+  -moz-transition-timing-function: cubic-bezier(1,.01,1,.52);
+  -ms-transition-timing-function: cubic-bezier(1,.01,1,.52);
+  -o-transition-timing-function: cubic-bezier(1,.01,1,.52);
+  top: 0;
+  left: 0;
+}
+.landing .cover.cover-open {
+  width: 100%;
+}
+.cover.cover-open {
+}
 .content {
   transition: width 600ms;
   -webkit-transition: width 600ms;
@@ -777,6 +801,11 @@ video {
   -ms-transform: scale(1,1);
 }
 .logo:hover {
+}
+.landing section.text-section .close {
+  display: none;
+}
+.close {
 }
 .landing section.home .title {
   text-align: center;

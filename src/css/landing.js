@@ -135,6 +135,9 @@ var section = function() {
 		maw: '600px',
 		wid: 'auto'
 	};
+	r.section['&.text-section']['.close'][noVideoBreakpoint] = {
+		d: 'n'
+	}
 	return r;
 }
 
@@ -231,6 +234,27 @@ var home = function() {
 	return r;
 }
 
+/************************************************************* cover */
+var cover = function() {
+	var r = {
+		'.cover': {
+			pos: 'a',
+			top: 0,
+			left: 0,
+			wid: '0',
+			hei: '100%',
+			zin: '1000',
+			bg: '#FFF',
+			'-wmso-trs': 'all 1200ms',
+			'-wmso-trstf': 'cubic-bezier(1,.01,1,.52)',
+			'&.cover-open': {
+				wid: '100%'
+			}
+		}
+	}
+	return r;
+}
+
 /************************************************************* */
 module.exports = function(api) {
 	api.add({
@@ -241,7 +265,8 @@ module.exports = function(api) {
 			},
 			video(),
 			logo(),
-			section()
+			section(),
+			cover()
 		]
 	})
 }

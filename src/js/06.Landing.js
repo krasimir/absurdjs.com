@@ -57,6 +57,7 @@ absurd.component('Sections', {
 			this.current = this.home;
 			this.populate().addClass('selected', this.current);
 			// inner pages transition
+			this.cover = this.qs('.cover');
 			var links = this.qsa('[data-transition-link]'), self = this;
 			for(var i=0; i<links.length; i++) {
 				var link = links[i];
@@ -64,7 +65,10 @@ absurd.component('Sections', {
 					var href = l.getAttribute('href');
 					l.setAttribute('href', '#');
 					self.addEventListener(l, 'click', function(e) {
-						alert(href);
+						self.addClass('cover-open', self.cover);
+						self.delay(1400, function() {
+							window.location.href = href;
+						})
 					});
 				})(link);
 			}
