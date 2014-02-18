@@ -10,27 +10,37 @@
     </head>
     <body class="landing">
 
-        <div class="video">
-            <video preload="auto" autoplay="true" loop="loop" muted="muted" volume="0"> 
-                <source src="/public/video/cells.webm" type="video/webm"> 
-                <source src="/public/video/cells.mp4" type="video/mp4">
-            </video>
-            <div class="video-overlay"></div>
-        </div>
+        <div class="video-overlay"></div>
 
         <img src="/public/img/logo.png" alt="AbsurdJS logo" class="logo"/>
 
         <section class="home">
-            <div class="title">
+            <div class="column title">
                 <h1><span>&nbsp;A JavaScript&nbsp;<br />&nbsp;library&nbsp;<br />&nbsp;with&nbsp;<br />&nbsp;superpowers&nbsp;</span></h1>
             </div>
-            <div class="links">
-                a
+            <div class="column links">
+                <ul>
+                    <li><a href="/#superpowers" data-absurd-event="click:switchTo:superpowers"><i class="fa fa-bolt"></i>&nbsp;&nbsp;Superpowers</a></li>
+                    <li><a href="/pages/try-it" data-transition-link="true"><i class="fa fa-gamepad"></i>&nbsp;&nbsp;Try it</a></li>
+                    <li><a href="/pages/documentation" data-transition-link="true"><i class="fa fa-lightbulb-o"></i>&nbsp;&nbsp;Guides</a></li>
+                    <li><a href="https://github.com/krasimir/absurd" target="_blank"><i class="fa fa-github"></i>&nbsp;&nbsp;Code</a></li>
+                    <li><a href="/pages/api" data-transition-link="true"><i class="fa fa-book"></i>&nbsp;&nbsp;API</a></li>
+                    <li><a href="/pages/builds" data-transition-link="true"><i class="fa fa-download"></i>&nbsp;&nbsp;Download it</a></li>
+                    <li><a href="/#contribute" class="small"><i class="fa fa-users"></i>&nbsp;&nbsp;Contribute</a></li>
+                    <li><a href="/#author" class="super-small"><i class="fa fa-code"></i>&nbsp;&nbsp;Author&nbsp;&nbsp;</a></li>
+                </ul>
             </div>
         </section>
 
+        <section class="superpowers text-section">
+            <a href="#" class="close" data-absurd-event="click:switchTo:home"><i class="fa fa-times-circle"></i></a>
+            <h2><i class="fa fa-bolt"></i> Superpowers</h2>
+            <br />
+            <p>AbsurdJS is available as <a href="#">Node.js module</a>. AbsurdJS is available as <a href="#">Node.js module</a>. AbsurdJS is available as <a href="#">Node.js module</a>.AbsurdJS is available as <a href="#">Node.js module</a>. AbsurdJS is available as <a href="#">Node.js module</a>. AbsurdJS is available as <a href="#">Node.js module</a>.</p>
+        </section>
+
         <script src="/builds/absurd.organic.min.js"></script>
-        <script src="/builds/absurd.min.js"></script>
+        <script src="/builds/absurd.js"></script>
         <script src="/public/scripts.js"></script>
 
         <script>

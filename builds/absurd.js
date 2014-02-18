@@ -1,4 +1,4 @@
-/* version: 0.2.87, born: 18-1-2014 0:32 */
+/* version: 0.2.88, born: 19-1-2014 0:29 */
 var Absurd = (function(w) {
 var lib = { 
     api: {},
@@ -53,17 +53,7 @@ var queue  = function(funcs, scope) {
 		}
 	})();
 }
-var select = function(selector, parent) {
-	var result;
-	try {
-		result = (parent || document).querySelectorAll(selector);
-	} catch(err) {
-		result = document.querySelectorAll(selector);
-	}
-	return result;
-}
 var str2DOMElement = function(html) {
-    /* code taken from jQuery */
    var wrapMap = {
         option: [ 1, "<select multiple='multiple'>", "</select>" ],
         legend: [ 1, "<fieldset>", "</fieldset>" ],
@@ -73,25 +63,36 @@ var str2DOMElement = function(html) {
         tr: [ 2, "<table><tbody>", "</tbody></table>" ],
         col: [ 2, "<table><tbody></tbody><colgroup>", "</colgroup></table>" ],
         td: [ 3, "<table><tbody><tr>", "</tr></tbody></table>" ],
-
-        // IE6-8 can't serialize link, script, style, or any html5 (NoScope) tags,
-        // unless wrapped in a div with non-breaking characters in front of it.
+        body: [0, "", ""],
         _default: [ 1, "<div>", "</div>"  ]
     };
     wrapMap.optgroup = wrapMap.option;
     wrapMap.tbody = wrapMap.tfoot = wrapMap.colgroup = wrapMap.caption = wrapMap.thead;
     wrapMap.th = wrapMap.td;
-    var element = document.createElement('div');
     var match = /<\s*\w.*?>/g.exec(html);
+    var element = document.createElement('div');
     if(match != null) {
-        var tag = match[0].replace(/</g, '').replace(/>/g, '');
-        var map = wrapMap[tag] || wrapMap._default, element;
-        html = map[1] + html + map[2];
-        element.innerHTML = html;
-        // Descend through wrappers to the right content
-        var j = map[0]+1;
-        while(j--) {
-            element = element.lastChild;
+        var tag = match[0].replace(/</g, '').replace(/>/g, '').split(' ')[0];
+        if(tag.toLowerCase() === 'body') {
+            var dom = document.implementation.createDocument('http://www.w3.org/1999/xhtml', 'html', null);
+            var body = document.createElement("body");
+            // keeping the attributes
+            element.innerHTML = html.replace(/<body/g, '<div').replace(/<\/body>/g, '</div>');
+            var attrs = element.firstChild.attributes;
+            body.innerHTML = html;
+            for(var i=0; i<attrs.length; i++) {
+                body.setAttribute(attrs[i].name, attrs[i].value);
+            }
+            return body;
+        } else {
+            var map = wrapMap[tag] || wrapMap._default, element;
+            html = map[1] + html + map[2];
+            element.innerHTML = html;
+            // Descend through wrappers to the right content
+            var j = map[0]+1;
+            while(j--) {
+                element = element.lastChild;
+            }
         }
     } else {
         element.innerHTML = html;
@@ -132,6 +133,89 @@ var createNode = function(type, attrs, content) {
 	}
 	node.innerHTML = content;
 	return node;
+}
+
+var qs = function(selector, parent) {
+    if(parent === false) { parent = document; }
+    else { parent = parent || this.el || document; }
+    return parent.querySelector(selector);
+};
+var qsa = function(selector, parent) {
+    if(parent === false) { parent = document; }
+    else { parent = parent || this.el || document; }
+    return parent.querySelectorAll(selector);
+};
+var getStyle = function(styleProp, el) {
+    el = el || this.el;
+    if(el && el.currentStyle) {
+        return el.currentStyle[styleProp];
+    } else if (window.getComputedStyle) {
+        return document.defaultView.getComputedStyle(el, null).getPropertyValue(styleProp);
+    }
+    return null;
+};
+var addClass = function(className, el) {
+    el = el || this.el;
+    if(el.classList) {
+        el.classList.add(className);
+    } else {
+        var current = el.className;
+        if(current.indexOf(className) < 0) {
+            if(current == '') el.className = className;
+            else el.className += ' ' + className;
+        }
+    }
+    return this;
+};
+var removeClass = function(className, el) {
+    el = el || this.el;
+    if (el.classList) {
+        el.classList.remove(className);
+    } else {
+        var current = el.className.split(' ');
+        var newClasses = [];
+        for(var i=0; i<current.length; i++) {
+            if(current[i] != className) newClasses.push(current[i]);
+        }
+        el.className = newClasses.join(' ');
+    }
+    return this;
+}
+var replaceClass = function(classNameA, classNameB, el) {
+    el = el || this.el;
+    var current = el.className.split(' '), found = false;
+    for(var i=0; i<current.length; i++) {
+        if(current[i] == classNameA) {
+            found = true;
+            current[i] = classNameB;
+        }
+    }
+    if(!found) {
+        return addClass(classNameB, el);
+    }
+    el.className = current.join(' ');
+    return this;
+}
+var toggleClass = function(className, el) {
+    el = el || this.el;
+    if (el.classList) {
+        el.classList.toggle(className);
+    } else {
+        var classes = el.className.split(' ');
+        var existingIndex = -1;
+        for (var i = classes.length; i--;) {
+            if (classes[i] === className)
+                existingIndex = i;
+        }
+        
+        if(existingIndex >= 0)
+            classes.splice(existingIndex, 1);
+        else
+            classes.push(className);
+
+        el.className = classes.join(' ');
+    }
+    return this;
 }
 var Component = function(componentName, absurd, eventBus, cls) {
 	var api = lib.helpers.Extend({
@@ -195,7 +279,7 @@ api.__handleCSS = function(next) {
 					],
 					 css
 				);
-				(select("head") || select("body"))[0].appendChild(style);
+				(qs("head") || qs("body")).appendChild(style);
 				CSS = { raw: css, element: style };
 			} else if(CSS.raw !== css) {
 				CSS.raw = css;
@@ -208,8 +292,8 @@ api.__handleCSS = function(next) {
 	}
 	return this;
 };
-api.applyCSS = function(data, skipAutoPopulation) {
-	if(this.html && typeof this.html === 'string') {
+api.applyCSS = function(data, preventComposition, skipAutoPopulation) {
+	if(this.html && typeof this.html === 'string' && !preventComposition) {
 		var res = {};
 		res[this.html] = data;
 		data = res;
@@ -289,9 +373,9 @@ api.__handleHTML = function(next) {
 	if(this.html) {
 		if(typeof this.html === 'string') {
 			if(!this.el) {
-				var element = select(this.html);
-				if(element.length > 0) {
-					this.el = element[0];
+				var element = qs(this.html);
+				if(element) {
+					this.el = element;
 					HTMLSource = {'': this.el.outerHTML.replace(/&lt;/g, '<').replace(/&gt;/g, '>') };
 				}
 			}
@@ -487,111 +571,35 @@ api.populate = function(options) {
 api.str2DOMElement = str2DOMElement;
 api.addEventListener = addEventListener;
 api.queue = queue;
+api.qs = qs;
+api.qsa = qsa;
+api.getStyle = getStyle;
+api.addClass = addClass;
+api.removeClass = removeClass;
+api.replaceClass = replaceClass;
+api.toggleClass = toggleClass;
 api.compileHTML = function(HTML, callback, data) {
 	absurd.flush().morph("html").add(HTML).compile(callback, data);
 };
 api.compileCSS = function(CSS, callback, options) {
 	absurd.flush().add(CSS).compile(callback, options);
 };
-api.qs = function(selector, parent) {
-	if(parent === false) { parent = document; }
-	else { parent = parent || this.el || document; }
-	return parent.querySelector(selector);
-};
-api.qsa = function(selector, parent) {
-	if(parent === false) { parent = document; }
-	else { parent = parent || this.el || document; }
-	return parent.querySelectorAll(selector);
-};
-api.getStyle = function(styleProp, el) {
-	el = el || this.el;
-	if(el && el.currentStyle) {
-		return el.currentStyle[styleProp];
-	} else if (window.getComputedStyle) {
-		return document.defaultView.getComputedStyle(el, null).getPropertyValue(styleProp);
-	}
-	return null;
-};
-api.addClass = function(className, el) {
-	el = el || this.el;
-	if(el.classList) {
-		el.classList.add(className);
-	} else {
-		var current = el.className;
-		if(current.indexOf(className) < 0) {
-			if(current == '') el.className = className;
-			else el.className += ' ' + className;
-		}
-	}
-	return api;
-};
-api.removeClass = function(className, el) {
-	el = el || this.el;
-	if (el.classList) {
-		el.classList.remove(className);
-	} else {
-		var current = el.className.split(' ');
-		var newClasses = [];
-		for(var i=0; i<current.length; i++) {
-			if(current[i] != className) newClasses.push(current[i]);
-		}
-		el.className = newClasses.join(' ');
-	}
-	return api;
-}
-api.replaceClass = function(classNameA, classNameB, el) {
-	el = el || this.el;
-	var current = el.className.split(' '), found = false;
-	for(var i=0; i<current.length; i++) {
-		if(current[i] == classNameA) {
-			found = true;
-			current[i] = classNameB;
-		}
-	}
-	if(!found) {
-		return api.addClass(classNameB, el);
-	}
-	el.className = current.join(' ');
-	return api;
-}
-api.toggleClass = function(className, el) {
-	el = el || this.el;
-	if (el.classList) {
-		el.classList.toggle(className);
-	} else {
-		var classes = el.className.split(' ');
-		var existingIndex = -1;
-		for (var i = classes.length; i--;) {
-	  		if (classes[i] === className)
-	    		existingIndex = i;
-		}
-		
-		if(existingIndex >= 0)
-	  		classes.splice(existingIndex, 1);
-		else
-	  		classes.push(className);
-
-		el.className = classes.join(' ');
-	}
-	return api;
-}
-api.verify = function(selector, ok, fail) {
-	var test = function() {
-		var res = this.qs(selector) ? true : false;
-		if(res && ok) ok.apply(this);
-		else if(fail) fail.apply(this);
-	}
-	if(typeof selector == 'string') {
-		test.apply(this);
-	} else if(typeof selector == 'function') {
-		fail = ok;
-		ok = selector;
-		selector = this.html;
-		test.apply(this);
-	}
+api.delay = function(time, fn, args) {
+	var self = this;
+	setTimeout(function() {
+		fn.apply(self, args);
+	}, time);
 }
 	return api;
 };
+var injecting = function(absurd) {
+absurd.di.register('is', {
+	appended: function(selector) {
+		if(typeof selector == 'undefined') selector = this.host.html;
+		return qs(selector) ? true : false;
+	}
+});
+}
 var client = function() {
 	return function(arg) {
 
@@ -740,6 +748,7 @@ var client = function() {
 
 		// dependency injector
 		_api.di = lib.DI(_api);
+		injecting(_api);
 
 		/******************************************* Copied directly from /lib/API.js */
 
@@ -791,6 +800,11 @@ var client = function() {
 			Organic.init(_api);
 		}
 
+		// attaching utils functions
+		_api.utils = {
+			str2DOMElement: str2DOMElement
+		}
+
 		return _api;
 
 	}
@@ -821,7 +835,17 @@ var client = function() {
 		            var a = Array.prototype.slice.call(arguments, 0);
 		            for(var i=0; i<deps.length; i++) {
 		                var d = deps[i];
-		                args.push(self.dependencies[d] && d != '' ? self.dependencies[d] : a.shift());
+		                if(typeof self.dependencies[d] != 'undefined') {
+		                	var diModule = self.dependencies[d];
+		                	if(typeof diModule == 'function') {
+		                		diModule.prototype.host = scope;
+		                	} else if(typeof diModule == 'object') {
+		                		diModule.host = scope;
+		                	}
+							args.push(diModule);
+		                } else {
+		                	args.push(a.shift())
+		                }
 		            }
 		            return func.apply(scope, args);
 		        }

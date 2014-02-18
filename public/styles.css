@@ -87,7 +87,28 @@ pre {
   background: #FFF;
   overflow: hidden;
 }
-.landing .video {
+.landing video {
+  transition: all 2000ms;
+  -webkit-transition: all 2000ms;
+  -moz-transition: all 2000ms;
+  -ms-transition: all 2000ms;
+  -o-transition: all 2000ms;
+  filter: alpha(opacity=0);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  -moz-opacity: 0;
+  -khtml-opacity: 0;
+  z-index: -999;
+  overflow: hidden;
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  bottom: 0;
+  right: 0;
+}
+.landing .video-overlay {
   filter: alpha(opacity=0);
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   opacity: 0;
@@ -98,23 +119,6 @@ pre {
   -moz-transition: all 2000ms;
   -ms-transition: all 2000ms;
   -o-transition: all 2000ms;
-}
-.video {
-}
-.landing .video video {
-  position: absolute;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  z-index: -1000;
-  overflow: hidden;
-  bottom: 0;
-  right: 0;
-}
-video {
-}
-.landing .video .video-overlay {
   position: absolute;
   min-width: 100%;
   min-height: 100%;
@@ -164,22 +168,73 @@ video {
   margin-left: -480px;
   margin-top: -200px;
   width: 960px;
-  transition: all 1000ms;
-  -webkit-transition: all 1000ms;
-  -moz-transition: all 1000ms;
-  -ms-transition: all 1000ms;
-  -o-transition: all 1000ms;
-  transform: rotateY(90deg);
-  -webkit-transform: rotateY(90deg);
-  -moz-transform: rotateY(90deg);
-  -ms-transform: rotateY(90deg);
-  -o-transform: rotateY(90deg);
-  left: 50%;
+  transition: all 1400ms;
+  -webkit-transition: all 1400ms;
+  -moz-transition: all 1400ms;
+  -ms-transition: all 1400ms;
+  -o-transition: all 1400ms;
+  transition-timing-function: cubic-bezier(1,.03,.19,.96);
+  -webkit-transition-timing-function: cubic-bezier(1,.03,.19,.96);
+  -moz-transition-timing-function: cubic-bezier(1,.03,.19,.96);
+  -ms-transition-timing-function: cubic-bezier(1,.03,.19,.96);
+  -o-transition-timing-function: cubic-bezier(1,.03,.19,.96);
+  left: -960px;
   top: 50%;
-  perspective: 400px;
-  -webkit-perspective: 400px;
-  -moz-perspective: 400px;
-  -o-perspective: 400px;
+}
+.landing section.text-section {
+  text-align: center;
+}
+section.text-section {
+}
+.landing section.text-section h2 {
+  text-align: center;
+  display: inline-block;
+  background: #000;
+  padding: 20px 30px;
+  font-size: 60px;
+  line-height: 60px;
+  margin: 0 0 20px 0;
+  color: #fff;
+}
+.landing section.text-section p {
+  background: #000;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  color: #fff;
+}
+.landing section.text-section .close {
+  width: 52px;
+  margin: 0 auto;
+  font-size: 60px;
+  display: block;
+  transform: translate(0, -60px) rotateZ(0deg) scale(0.9, 0.9);
+  -webkit-transform: translate(0, -60px) rotateZ(0deg) scale(0.9, 0.9);
+  -moz-transform: translate(0, -60px) rotateZ(0deg) scale(0.9, 0.9);
+  -o-transform: translate(0, -60px) rotateZ(0deg) scale(0.9, 0.9);
+  transition: all 600ms;
+  -webkit-transition: all 600ms;
+  -moz-transition: all 600ms;
+  -ms-transition: all 600ms;
+  -o-transition: all 600ms;
+  transition-timing-function: cubic-bezier(1,.03,.19,.96);
+  -webkit-transition-timing-function: cubic-bezier(1,.03,.19,.96);
+  -moz-transition-timing-function: cubic-bezier(1,.03,.19,.96);
+  -ms-transition-timing-function: cubic-bezier(1,.03,.19,.96);
+  -o-transition-timing-function: cubic-bezier(1,.03,.19,.96);
+  color: #000;
+  transform-origin: 50% 30.5px;
+  -webkit-transform-origin: 50% 30.5px;
+  -moz-transform-origin: 50% 30.5px;
+  -o-transform-origin: 50% 30.5px;
+}
+.landing section.text-section .close:hover {
+  border-bottom: none;
+  transform: translate(0, -60px) rotateZ(90deg) scale(1.5, 1.5);
+  -webkit-transform: translate(0, -60px) rotateZ(90deg) scale(1.5, 1.5);
+  -moz-transform: translate(0, -60px) rotateZ(90deg) scale(1.5, 1.5);
+  -o-transform: translate(0, -60px) rotateZ(90deg) scale(1.5, 1.5);
+  color: #FF2227;
 }
 section.home {
 }
@@ -193,14 +248,14 @@ section.home {
   display: table;
   clear: both;
 }
-.landing section.home div {
+.landing section.home .column {
   float: left;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   width: 50.00%;
 }
-div {
+.column {
 }
 .landing section.home .title {
   text-align: right;
@@ -222,8 +277,67 @@ h1 {
 }
 .landing section.home .links {
   padding: 0 0 0 40px;
+  transform: translate(0px,-10px);
+  -webkit-transform: translate(0px,-10px);
+  -ms-transform: translate(0px,-10px);
 }
 .links {
+}
+.landing section.home .links ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+ul {
+}
+.landing section.home .links ul li {
+  margin: 0 0 4px 0;
+  padding: 0;
+}
+li {
+}
+.landing section.home .links ul li a {
+  transition: all 200ms;
+  -webkit-transition: all 200ms;
+  -moz-transition: all 200ms;
+  -o-transition: all 200ms;
+  display: inline-block;
+  background: #000;
+  padding: 10px 20px;
+  border-left: solid 1px #000;
+  color: #FFF;
+}
+.landing section.home .links ul li a:hover {
+  border-bottom: none;
+  border-left: solid 13px #FF2227;
+}
+.landing section.home .links ul li a.small {
+  font-size: 12px;
+  font-weight: normal;
+  padding: 4px 8px;
+  background: rgba(0, 0, 0, 0.6);
+}
+a.small {
+}
+.landing section.home .links ul li a.super-small {
+  font-size: 10px;
+  font-weight: normal;
+  padding: 2px 4px;
+  background: rgba(0, 0, 0, 0.4);
+}
+a.super-small {
+}
+.landing section.waiting {
+  transition: none;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -ms-transition: none;
+  -o-transition: none;
+  margin-left: 0;
+  left: 100%;
+}
+.landing section.selected {
+  left: 50%;
 }
 .content {
   transition: width 600ms;
@@ -413,10 +527,6 @@ table {
 .content-container .documentation-sitemap ul {
   list-style: none;
 }
-ul {
-}
-li {
-}
 .content-container .documentation-sitemap ul li a:before {
   content: "» ";
 }
@@ -520,6 +630,8 @@ iframe {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   width: 50.00%;
+}
+div {
 }
 .footer-content .container h3 {
   padding: 0;
@@ -630,6 +742,87 @@ span {
   overflow-y: scroll;
   overflow-x: hidden;
   margin: 0 10px 0 0;
+}
+@media all and (max-width: 880px) {
+.landing video {
+  display: none;
+}
+video {
+}
+.landing .video-overlay {
+  display: none;
+}
+.video-overlay {
+}
+.landing .logo {
+  position: relative;
+  width: 120px;
+  margin: 50px auto 50px auto;
+  filter: alpha(opacity=100);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+  -moz-opacity: 1;
+  -khtml-opacity: 1;
+  transform: translate(0px,0px);
+  -webkit-transform: translate(0px,0px);
+  -ms-transform: translate(0px,0px);
+  left: auto;
+  bottom: auto;
+}
+.logo {
+}
+.landing .logo:hover {
+  transform: scale(1,1);
+  -webkit-transform: scale(1,1);
+  -ms-transform: scale(1,1);
+}
+.logo:hover {
+}
+.landing section.home .title {
+  text-align: center;
+  margin: 0 0 36px 0;
+}
+.title {
+}
+.landing section.home .title h1 {
+  font-size: 50px;
+  line-height: 50px;
+}
+h1 {
+}
+.landing section.home .links ul li {
+  text-align: center;
+}
+li {
+}
+a {
+}
+.landing section.home .links ul li a:hover {
+  border-bottom: none;
+  border-left: solid 1px #000;
+}
+a:hover {
+}
+.landing section.home .column {
+  float: none;
+  width: 100%;
+}
+.column {
+}
+.landing section.waiting {
+  left: auto;
+}
+.landing section.selected {
+  left: auto;
+}
+.landing section {
+  position: relative;
+  margin: 30px auto;
+  max-width: 600px;
+  width: auto;
+  left: auto;
+  top: auto;
+}
 }
 @media all and (max-width: 600px) {
 .content-container .example .col {
