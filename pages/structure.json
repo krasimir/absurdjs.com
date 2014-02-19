@@ -26,7 +26,11 @@
 			{ "name": "Dependency injection", "path": "/pages/client-side-components/dependency-injection"}
 		]}
 	]},
-	{ "name": "API", "path": "/pages/api"},
+	{ "name": "API", "path": "/pages/api", "childs": [
+		{ "name": "Node.js", "path": "/pages/api/nodejs"},
+		{ "name": "Client-side", "path": "/pages/api/client-side"},
+		{ "name": "Build-in components", "path": "/pages/api/build-in-components"}
+	]},
 	{ "name": "Tests", "path": "/pages/tests"},
 	{ "name": "Misc", "path": "/pages/misc"},
 	{ "name": "Try it online", "path": "/pages/try-it"}

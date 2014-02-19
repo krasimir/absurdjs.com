@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Client-side / AbsurdJS - JavaScript library with superpowers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/styles.css">
+    <link href='http://fonts.googleapis.com/css?family=Average+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/public/font-awesome-4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/public/prism/prism.css" />
+</head>
+
+<body>
+    <!-- facebook -->
+    <div id="fb-root"></div>
+    <script>
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=130923167067801";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <div class="sitemap">
+        <div class="close"> <a href="#" data-absurd-event="click:close"><i class="fa fa-times-circle-o"></i></a> 
+        </div>
+        <div class="links">
+            <ul>
+                <li><a href="/">Home</a>
+                </li>
+                <li><a href="/pages/documentation">Documentation</a>
+                </li>
+                <li>
+                    <ul>
+                        <li><a href="/pages/builds">Builds / Download</a>
+                        </li>
+                        <li><a href="/pages/installation">Installation and compilation</a>
+                        </li>
+                        <li><a href="/pages/input-formats">Input formats</a>
+                        </li>
+                        <li><a href="/pages/css-preprocessing">CSS preprocessing</a>
+                        </li>
+                        <li>
+                            <ul>
+                                <li><a href="/pages/css-preprocessing/basics">Basics</a>
+                                </li>
+                                <li><a href="/pages/css-preprocessing/variables-and-mixins">Variables and Mixins</a>
+                                </li>
+                                <li><a href="/pages/css-preprocessing/plugins">Plugins</a>
+                                </li>
+                                <li><a href="/pages/css-preprocessing/media-queries-raw-data">Media queries and raw data</a>
+                                </li>
+                                <li><a href="/pages/css-preprocessing/extending">Extending</a>
+                                </li>
+                                <li><a href="/pages/css-preprocessing/organic-css">Organic CSS</a>
+                                </li>
+                                <li>
+                                    <ul>
+                                        <li><a href="/pages/css-preprocessing/organic-css/atoms">Atoms</a>
+                                        </li>
+                                        <li><a href="/pages/css-preprocessing/organic-css/molecules">Molecules</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="/pages/html-preprocessing">HTML preprocessing</a>
+                        </li>
+                        <li><a href="/pages/client-side-components">Client-side components</a>
+                        </li>
+                        <li>
+                            <ul>
+                                <li><a href="/pages/client-side-components/definition">Definition</a>
+                                </li>
+                                <li><a href="/pages/client-side-components/css-compilation">CSS compilation</a>
+                                </li>
+                                <li><a href="/pages/client-side-components/html-compilation">HTML compilation</a>
+                                </li>
+                                <li><a href="/pages/client-side-components/events">Events</a>
+                                </li>
+                                <li><a href="/pages/client-side-components/handling-async-operations">Handling async template operations</a>
+                                </li>
+                                <li><a href="/pages/client-side-components/nested-components">Nested components</a>
+                                </li>
+                                <li><a href="/pages/client-side-components/dependency-injection">Dependency injection</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="/pages/api">API</a>
+                </li>
+                <li>
+                    <ul>
+                        <li><a href="/pages/api/nodejs">Node.js</a>
+                        </li>
+                        <li><a href="/pages/api/client-side" class="active">Client-side</a>
+                        </li>
+                        <li><a href="/pages/api/build-in-components">Build-in components</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="/pages/tests">Tests</a>
+                </li>
+                <li><a href="/pages/misc">Misc</a>
+                </li>
+                <li><a href="/pages/try-it">Try it online</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <nav class="content-nav">
+            <ul>
+                <li class="left"><a href="/"><i class="fa fa-home"></i> <span>Home</span></a>
+                </li>
+                <li class="right sitemap-button" data-absurd-event="click:clicked"><a href="/"><span>Menu</span> <i class="fa fa-bars"></i></a>
+                </li>
+            </ul>
+        </nav>
+        <div class="content-container"><a href="/pages/documentation" class="doc-home" title="Documentation's Index"><i class="fa fa-arrow-circle-o-left"></i></a><a href="https://github.com/krasimir/absurdjs.com/tree/master\pages\api\client-side\index.md" class="page-edit" title="Edit this page"
+            target="_blank"><i class="fa fa-edit"></i></a>
+            <h1 id="client-side-api">Client-side API</h1>
+<div class="social">
+
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="KrasimirTsonev" data-hashtags="AbsurdJS">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+	<div class="fb-like" data-width="30" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+
+	<iframe src="http://ghbtns.com/github-btn.html?user=krasimir&repo=absurd&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20" class="github-stars"></iframe>
+
+	<script type="text/javascript" src="https://apis.google.com/js/platform.js"></script>
+	<div class="g-plusone" data-size="medium"></div>
+
+</div>
+
+<hr>
+<h1 id="factory">Factory</h1>
+<h2 id="creating-a-component">Creating a component</h2>
+<h3 id="absurd-component-small-class-prop-values-name-of-component-object-small-">absurd.component ( <small class="prop-values">name of component, object</small> )</h3>
+<pre><code class="language-javascript">var Class = absurd.component(&#39;MyComponent&#39;, {
+    // ...
+});
+var instance = Class();
+</code></pre><h3 id="absurd-components-register-small-class-prop-values-name-of-component-object-small-">absurd.components.register ( <small class="prop-values">name of component, object</small> )</h3>
+<pre><code class="language-javascript">var Class = absurd.components.register(&#39;MyComponent&#39;, {
+    // ...
+});
+var instance = Class();
+</code></pre><h2 id="retrieving-defined-class">Retrieving defined class</h2>
+<h3 id="absurd-components-get-small-class-prop-values-name-of-component-small-">absurd.components.get ( <small class="prop-values">name of component</small> )</h3>
+<pre><code class="language-javascript">absurd.component(&quot;MyComp&quot;, {
+    run: function() {
+        console.log(&quot;run&quot;);
+    }
+});
+var Class = absurd.components.get(&quot;MyComp&quot;);
+var instance = Class();
+instance.run();
+</code></pre><h2 id="deleting-defined-classes">Deleting defined classes</h2>
+<h3 id="absurd-components-flush-">absurd.components.flush ( )</h3>
+<blockquote>
+<p>all classes</p>
+</blockquote>
+<h3 id="absurd-components-remove-small-class-prop-values-name-of-component-small-">absurd.components.remove ( <small class="prop-values">name of component</small> )</h3>
+<h2 id="getting-a-list-of-all-the-defined-components">Getting a list of all the defined components</h2>
+<h3 id="absurd-components-list-">absurd.components.list (  )</h3>
+<h2 id="broadcasting-a-message-to-all-defined-components">Broadcasting a message to all defined components</h2>
+<h3 id="absurd-components-broadcast-small-class-prop-values-name-of-the-message-data-small-">absurd.components.broadcast( <small class="prop-values">name of the message, data</small> )</h3>
+<pre><code class="language-javascript">absurd.component(&#39;MyCompA&#39;, {
+    message: function(data) {
+        console.log(&#39;data: &#39; + data);
+    }
+})();
+absurd.component(&#39;MyCompB&#39;, {
+    message: function(data) {
+        console.log(&#39;data: &#39; + data);
+    }
+})();
+absurd.components.broadcast(&#39;message&#39;, 42);
+</code></pre><p><br /><br /></p>
+<hr>
+<h1 id="component-class-api">Component class API</h1>
+<!-- -------------------------------------------------------------------- Properties -- -->
+
+<h2 id="properties">Properties</h2>
+<h3 id="__name-string-">__name (string)</h3>
+<blockquote>
+<p>Returns the name of the component.</p>
+</blockquote>
+<pre><code class="language-javascript">absurd.component(&#39;MyComp&#39;, {
+    constructor: function() {
+        console.log(this.__name); // MyComp
+    }
+})();
+</code></pre><h3 id="listeners-object-">listeners (object)</h3>
+<blockquote>
+<p>It keeps the current added listeners.</p>
+</blockquote>
+<pre><code class="language-javascript">absurd.component(&#39;MyComp&#39;, {
+    constructor: function() {
+        this.on(&#39;my-custom-event&#39;, function() { });
+        console.log(this.listeners); // { &#39;my-custom-event&#39;: [] }
+    }
+})(); 
+</code></pre><h3 id="css-object-">css (object)</h3>
+<blockquote>
+<p>CSS waiting for compilation. Check <code class="language-javascript">populate</code> method for details.</p>
+</blockquote>
+<h3 id="html-object-">html (object)</h3>
+<blockquote>
+<p>HTML waiting for compilation. Check <code class="language-javascript">populate</code> method for details.</p>
+</blockquote>
+<h3 id="el-dom-element-">el (DOM element)</h3>
+<blockquote>
+<p>The element is available after the calling of <code class="language-javascript">populate</code> method.</p>
+</blockquote>
+<!-- -------------------------------------------------------------------- Methods -- -->
+
+<h2 id="methods">Methods</h2>
+<h3 id="constructor-small-class-prop-values-parameters-small-">constructor ( <small class="prop-values">parameters ...</small> )</h3>
+<blockquote>
+<p>The init method of the component. Called when a new instance is created.</p>
+</blockquote>
+<pre><code class="language-javascript">absurd.component(&#39;MyComp&#39;, {
+    constructor: function() {
+        console.log(&#39;created&#39;);
+    }
+})();
+</code></pre><h3 id="ready-small-class-prop-values-javascript-event-object-small-">ready ( <small class="prop-values">JavaScript Event object</small> )</h3>
+<blockquote>
+<p>The method is called when the page is fully loaded. AbsurdJS listens for <code class="language-javascript">load</code> (<code class="language-javascript">onload</code> under IE) event of the <code class="language-javascript">window</code> object.</p>
+</blockquote>
+<pre><code class="language-javascript">absurd.component(&#39;MyComp&#39;, {
+    ready: function(e) {
+        console.log(&#39;DOM is ready&#39;);
+    }
+})();
+</code></pre><h3 id="on-small-class-prop-values-name-of-event-handler-small-">on ( <small class="prop-values">name of event, handler</small> )</h3>
+<blockquote>
+<p>Adding a listener for particular event.</p>
+</blockquote>
+<pre><code class="language-javascript">var c = absurd.component(&#39;MyComp&#39;, {
+    run: function() {
+        this.dispatch(&#39;my-custom-event&#39;, { answer: 42 });   
+    }
+})();
+c.on(&#39;my-custom-event&#39;, function(data) {
+    console.log(&#39;The answer is &#39; + data.answer);
+}).run();
+</code></pre><h3 id="off-small-class-prop-values-name-of-event-handler-small-">off ( <small class="prop-values">name of event, handler</small> )</h3>
+<blockquote>
+<p>Removing a event listener</p>
+</blockquote>
+<pre><code class="language-javascript">var c = absurd.component(&#39;MyComp&#39;, {
+    run: function() {
+        this.dispatch(&#39;my-custom-event&#39;, { answer: 42 });   
+    }
+})();
+c.on(&#39;my-custom-event&#39;, function(data) {
+    console.log(&#39;The answer is &#39; + data.answer); // this is never reached
+}).off(&#39;my-custom-event&#39;).run();
+</code></pre><h3 id="dispatch-small-class-prop-values-name-of-event-data-small-">dispatch ( <small class="prop-values">name of event, data</small> )</h3>
+<blockquote>
+<p>Triggering an event.</p>
+</blockquote>
+<pre><code class="language-javascript">var c = absurd.component(&#39;MyComp&#39;, {
+    run: function() {
+        this.dispatch(&#39;my-custom-event&#39;, { answer: 42 });   
+    }
+})();
+c.on(&#39;my-custom-event&#39;, function(data) {
+    console.log(&#39;The answer is &#39; + data.answer);
+}).run();
+</code></pre><h3 id="set-small-class-prop-values-key-value-small-">set( <small class="prop-values">key, value</small> )</h3>
+<blockquote>
+<p>Keeping something to the storage. If you use <code class="language-javascript">parent</code> as a key it has a special meaning. <code class="language-javascript">parent</code> should be a valid DOM element. After the population your component is added as a child of that element.</p>
+</blockquote>
+<pre><code class="language-javascript">absurd.component(&#39;MyComp&#39;, {
+    constructor: function() {
+        this.set(&#39;answer&#39;, 42);
+        console.log(this.get(&#39;answer&#39;));
+    }
+})();    
+</code></pre><h3 id="get-small-class-prop-values-key-small-">get( <small class="prop-values">key</small> )</h3>
+<blockquote>
+<p>Retrieving something from the storage.</p>
+</blockquote>
+<pre><code class="language-javascript">absurd.component(&#39;MyComp&#39;, {
+    constructor: function() {
+        this.set(&#39;answer&#39;, 42);
+        console.log(this.get(&#39;answer&#39;));
+    }
+})();
+</code></pre><h3 id="applycss-small-class-prop-values-data-object-preventcomposition-boolean-skipautopopulation-boolean-small-">applyCSS ( <small class="prop-values">data[object], preventComposition[boolean], skipAutoPopulation[boolean]</small> )</h3>
+<blockquote>
+<p>The method sets a the <code class="language-javascript">data</code> to the <code class="language-javascript">css</code> property and calls <code class="language-javascript">populate</code> method. Normally uses the <code class="language-javascript">html</code> property to compose the CSS object. You may skip this by setting <code class="language-javascript">preventComposition = false</code>. If you want to prevent the <code class="language-javascript">populate</code> execution then set <code class="language-javascript">skipAutoPopulation = false</code>.</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">absurd.component(&#39;MyComp&#39;, {
+    html: &#39;.my-class&#39;,
+    constructor: function() {
+        this.applyCSS({
+            fontSize: &#39;20px&#39;,
+            margin: 0
+        });
+    }
+})();</code></pre></div>
+<div class="col">
+<small>The produced style tag:</small>
+<pre><code class="language-javascript">&lt;style id=&quot;MyComp-css&quot; type=&quot;text/css&quot;&gt;
+.my-class {
+  font-size: 20px;
+  margin: 0;
+}
+&lt;/style&gt;</code></pre></div>
+</div>
+
+<h3 id="applyhtml-small-class-prop-values-data-object-skipautopopulation-boolean-small-">applyHTML ( <small class="prop-values">data[object], skipAutoPopulation[boolean]</small> )</h3>
+<blockquote>
+<p>It sets a value of the <code class="language-javascript">html</code> and calls <code class="language-javascript">populate</code>. If <code class="language-javascript">skipAutoPopulation = false</code> the population is not performed.</p>
+</blockquote>
+<h3 id="onanimationend-small-class-prop-values-dom-element-handler-small-">onAnimationEnd ( <small class="prop-values">DOM element, handler</small> )</h3>
+<blockquote>
+<p>It listens for animation ending on particular DOM element. If only one parameter is passed then the components <code class="language-javascript">el</code> element is used.</p>
+</blockquote>
+<h3 id="ontransitionend-small-class-prop-values-dom-element-handler-small-">onTransitionEnd ( <small class="prop-values">DOM element, handler</small> )</h3>
+<blockquote>
+<p>It listens for transition ending on particular DOM element. If only one parameter is passed then the components <code class="language-javascript">el</code> element is used.</p>
+</blockquote>
+<h3 id="wire-small-class-prop-values-name-of-an-event-small-">wire ( <small class="prop-values">name of an event</small> )</h3>
+<p>It wires the current component to a event dispatched from another component.</p>
+<pre><code class="language-javascript">absurd.component(&#39;MyCompA&#39;, {    
+    omg: function() {
+        console.log(&#39;omg&#39;);
+    }
+})().wire(&#39;omg&#39;);
+absurd.component(&#39;MyCompB&#39;, {
+    run: function() {
+       this.dispatch(&#39;omg&#39;); 
+    }
+})().run();
+</code></pre><h3 id="populate-">populate ( )</h3>
+<blockquote>
+<p>Reads <code class="language-javascript">css</code> and <code class="language-javascript">html</code> properties. It compiles the CSS and the HTML by creating a new &lt;style&gt; tag in the &lt;head&gt; of the document and filling the <code class="language-javascript">el</code> property. It also handles the DOM events listening and the asynchronous templating.</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">absurd.component(&#39;MyComp&#39;, {
+    css: {
+        &#39;.my-component&#39;: { fz: &#39;20px&#39; }
+    },
+    html: {
+        &#39;.my-component&#39;: {
+            p: &#39;Some text ...&#39;
+        }
+    },
+    constructor: function() {
+        this.set(&#39;parent&#39;, document.body);
+        this.populate();
+    }
+})();</code></pre></div>
+<div class="col">
+<small>Result:</small>
+<pre><code class="language-javascript">// in the head tag
+&lt;style id=&quot;MyComp-css&quot; type=&quot;text/css&quot;&gt;
+.my-component {
+  font-size: 20px;
+}
+&lt;/style&gt;
+
+// in the body tag
+&lt;div class=&quot;my-component&quot;&gt;
+    &lt;p&gt;Some text ...&lt;/p&gt;
+&lt;/div&gt;</code></pre></div>
+</div>
+
+<h3 id="str2domelement-small-class-prop-values-html-string-small-">str2DOMElement ( <small class="prop-values">html string</small> )</h3>
+<blockquote>
+<p>Converts HTML string to a valid DOM element</p>
+</blockquote>
+<pre><code class="language-javascript">var c = absurd.component(&#39;MyComp&#39;, {})();
+var el = c.str2DOMElement(&#39;&lt;p&gt;&lt;small&gt;test&lt;/small&gt;&lt;/p&gt;&#39;);
+console.log(el.outerHTML); // &lt;p&gt;&lt;small&gt;test&lt;/small&gt;&lt;/p&gt;
+</code></pre><h3 id="addeventlistener-small-class-prop-values-dom-element-name-of-the-event-handler-small-">addEventListener ( <small class="prop-values">DOM element, name of the event, handler</small> )</h3>
+<blockquote>
+<p>Attaches an event listener to DOM element.</p>
+</blockquote>
+<pre><code class="language-javascript">var c = absurd.component(&#39;MyComp&#39;, {})();
+c.addEventListener(document.body, &#39;click&#39;, function() {
+    console.log(&#39;clicked&#39;);
+});
+</code></pre><h3 id="queue-small-class-prop-values-array-of-functions-scope-small-">queue ( <small class="prop-values">array of functions, scope</small> )</h3>
+<blockquote>
+<p>Running JavaScript functions in a chain.</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">var c = absurd.component(&#39;MyComp&#39;, {})();
+c.queue([
+    function(next) {
+        console.log(this.name);
+        next();
+    },
+    function(next) {
+        console.log(this.name);
+        next();
+    },
+    function(next) {
+        console.log(&#39;end&#39;);
+    },
+], { name: &#39;John&#39; });</code></pre></div>
+<div class="col">
+<small>Result:</small>
+<pre><code class="language-javascript">John
+John
+end</code></pre></div>
+</div>
+
+<h3 id="qs-small-class-prop-values-selector-parent-small-">qs ( <small class="prop-values">selector, parent</small> )</h3>
+<blockquote>
+<p>Alias of <code class="language-javascript">document.querySelector</code>. <code class="language-javascript">parent</code> is the scope of the query. If it is skipped the local <code class="language-javascript">el</code> is got. If <code class="language-javascript">el</code> is still not defined then <code class="language-javascript">document</code> is used.</p>
+</blockquote>
+<h3 id="qsa-small-class-prop-values-selector-parent-small-">qsa ( <small class="prop-values">selector, parent</small> )</h3>
+<blockquote>
+<p>Alias of <code class="language-javascript">document.querySelectorAll</code>. <code class="language-javascript">parent</code> is the scope of the query. If it is skipped the local <code class="language-javascript">el</code> is got. If <code class="language-javascript">el</code> is still not defined then <code class="language-javascript">document</code> is used.</p>
+</blockquote>
+<h3 id="getstyle-small-class-prop-values-name-of-a-property-dom-element-small-">getStyle ( <small class="prop-values">name of a property, DOM element</small> )</h3>
+<blockquote>
+<p>If the DOM element is skipped then the local <code class="language-javascript">el</code> is used.</p>
+</blockquote>
+<h3 id="addclass-small-class-prop-values-name-of-class-dom-element-small-">addClass ( <small class="prop-values">name of class, DOM element</small> )</h3>
+<blockquote>
+<p>If the DOM element is skipped then the local <code class="language-javascript">el</code> is used.</p>
+</blockquote>
+<h3 id="removeclass-small-class-prop-values-name-of-class-dom-element-small-">removeClass ( <small class="prop-values">name of class, DOM element</small> )</h3>
+<blockquote>
+<p>If the DOM element is skipped then the local <code class="language-javascript">el</code> is used.</p>
+</blockquote>
+<h3 id="toggleclass-small-class-prop-values-name-of-class-dom-element-small-">toggleClass ( <small class="prop-values">name of class, DOM element</small> )</h3>
+<blockquote>
+<p>If the DOM element is skipped then the local <code class="language-javascript">el</code> is used.</p>
+</blockquote>
+<h3 id="replaceclass-small-class-prop-values-name-of-class-a-name-of-class-b-dom-element-small-">replaceClass ( <small class="prop-values">name of class A, name of class B, DOM element</small> )</h3>
+<blockquote>
+<p>If the DOM element is skipped then the local <code class="language-javascript">el</code> is used.</p>
+</blockquote>
+<h3 id="compilehtml-small-class-prop-values-html-as-json-callback-data-small-">compileHTML ( <small class="prop-values">HTML as JSON, callback, data</small> )</h3>
+<blockquote>
+<p>Using AbsurdJS <a href="/pages/html-preprocessing/">HTML preprocessing</a>.</p>
+</blockquote>
+<pre><code class="language-javascript">var c = absurd.component(&#39;MyComp&#39;, {})();
+c.compileHTML({ 
+    header: {
+        p: &#39;&lt;% this.text %&gt;&#39;
+    }
+}, function(err, html) {
+    console.log(html); // &lt;header&gt;&lt;p&gt;My text here.&lt;/p&gt;&lt;/header&gt;
+}, { text: &#39;My text here.&#39; });
+</code></pre><h3 id="compilecss-small-class-prop-values-html-as-json-callback-options-small-">compileCSS ( <small class="prop-values">HTML as JSON, callback, options</small> )</h3>
+<blockquote>
+<p>Using AbsurdJS <a href="/pages/css-preprocessing/">CSS preprocessing</a>.</p>
+</blockquote>
+<pre><code class="language-javascript">var c = absurd.component(&#39;MyComp&#39;, {})();
+c.compileCSS({ 
+    header: {
+        p: { fz: &#39;30px&#39;}
+    }
+}, function(err, css) {
+    console.log(css); // header p{font-size: 30px;}
+}, { minify: true });
+</code></pre><h3 id="delay-small-class-prop-values-interval-function-small-">delay ( <small class="prop-values">interval, function</small> )</h3>
+<blockquote>
+<p>Alias of <code class="language-javascript">setTimeout</code>, but it keeps the scope.</p>
+</blockquote>
+<pre><code class="language-javascript">var c = absurd.component(&#39;MyComp&#39;, {})();
+c.delay(1000, function() {
+    console.log(this.__name); // MyComp
+});
+</code></pre><!-- -------------------------------------------------------------------- Events -- -->
+
+<h2 id="events">Events</h2>
+<h3 id="populated">populated</h3>
+<blockquote>
+<p>Fired when the <code class="language-javascript">populate</code> method finishes its job.</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">var c = absurd.component(&#39;MyComp&#39;, {
+    populated: function() {
+        console.log(&#39;catched&#39;);
+    },
+    run: function() {
+        this.populate();
+    }
+})();
+c.on(&#39;populated&#39;, function() {
+    console.log(&#39;catched&#39;);
+}).run();</code></pre></div>
+<div class="col">
+<small>Result:</small>
+<pre><code class="language-javascript">catched
+catched</code></pre></div>
+</div>
+                <br />
+                <br />
+                <hr />
+                <div class="guide"><a href="/pages/api/nodejs"><i class="fa fa-arrow-circle-o-left"></i> Node.js</a><a href="/pages/api/build-in-components">Build-in components <i class="fa fa-arrow-circle-o-right"></i></a>
+                </div>
+                <hr />
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                    var disqus_shortname = 'absurdjs';
+                    var disqus_identifier = "/pages/api/client-side";
+                    var disqus_url = "http://absurdjs.com/pages/api/client-side";
+                    var disqus_title = "/pages/api/client-side";
+                    (function() {
+                        var dsq = document.createElement('script');
+                        dsq.type = 'text/javascript';
+                        dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+                </noscript> <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> 
+        </div>
+        <div class="footer-content"><a href="javascript:void" class="open" data-absurd-event="click:toggle"><i class="fa fa-angle-up"></i></a>
+            <div class="container">
+                <div class="about-the-author">
+                    <h3>About the author</h3> 
+                    <p> <a href="http://krasimirtsonev.com" target="_blank"><i class="fa fa-coffee"></i> Krasimir Tsonev</a> 
+                    </p>
+                    <p class="social"> <a href="https://github.com/krasimir" target="_blank"><i class="fa fa-github"></i></a>  <a href="http://twitter.com/KrasimirTsonev" target="_blank"><i class="fa fa-twitter"></i></a>  <a href="http://www.facebook.com/profile.php?id=617578836"
+                        target="_blank"><i class="fa fa-facebook"></i></a> 
+                    </p>
+                </div>
+                <div>
+                    <h3>About the library</h3>
+                    <p><a href="https://github.com/krasimir/absurd" target="_blank"><i class="fa fa-github"></i> github.com/krasimir/absurd</a>
+                        <br /><a href="https://github.com/krasimir/absurdjs.com/blob/master/LICENSE" target="_blank"><i class="fa fa-file-text-o"></i> License (MIT)</a>
+                        <br />
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/public/prism/prism.js"></script>
+    <script src="/builds/absurd.organic.min.js"></script>
+    <script src="/builds/absurd.min.js"></script>
+    <script src="/public/scripts.js"></script>
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-1621908-2', 'absurdjs.com');
+        ga('send', 'pageview');
+    </script>
+</body>
+
+</html>

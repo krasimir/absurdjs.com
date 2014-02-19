@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Extending / AbsurdJS - JavaScript library with superpowers</title>
+    <title>Build-in components / AbsurdJS - JavaScript library with superpowers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/public/styles.css">
     <link href='http://fonts.googleapis.com/css?family=Average+Sans' rel='stylesheet' type='text/css'>
@@ -53,7 +53,7 @@
                                 </li>
                                 <li><a href="/pages/css-preprocessing/media-queries-raw-data">Media queries and raw data</a>
                                 </li>
-                                <li><a href="/pages/css-preprocessing/extending" class="active">Extending</a>
+                                <li><a href="/pages/css-preprocessing/extending">Extending</a>
                                 </li>
                                 <li><a href="/pages/css-preprocessing/organic-css">Organic CSS</a>
                                 </li>
@@ -99,7 +99,7 @@
                         </li>
                         <li><a href="/pages/api/client-side">Client-side</a>
                         </li>
-                        <li><a href="/pages/api/build-in-components">Build-in components</a>
+                        <li><a href="/pages/api/build-in-components" class="active">Build-in components</a>
                         </li>
                     </ul>
                 </li>
@@ -121,9 +121,9 @@
                 </li>
             </ul>
         </nav>
-        <div class="content-container"><a href="/pages/documentation" class="doc-home" title="Documentation's Index"><i class="fa fa-arrow-circle-o-left"></i></a><a href="https://github.com/krasimir/absurdjs.com/tree/master\pages\css-preprocessing\extending\index.md" class="page-edit"
+        <div class="content-container"><a href="/pages/documentation" class="doc-home" title="Documentation's Index"><i class="fa fa-arrow-circle-o-left"></i></a><a href="https://github.com/krasimir/absurdjs.com/tree/master\pages\api\build-in-components\index.md" class="page-edit"
             title="Edit this page" target="_blank"><i class="fa fa-edit"></i></a>
-            <h1 id="extending">Extending</h1>
+            <h1 id="build-in-components">Build-in components</h1>
 <div class="social">
 
 	<a href="https://twitter.com/share" class="twitter-share-button" data-via="KrasimirTsonev" data-hashtags="AbsurdJS">Tweet</a>
@@ -138,78 +138,46 @@
 
 </div>
 
-<p>We already convered the <a href="/pages/css-preprocessing/plugins">plugins</a>. That&#39;s how you may extend AbsurdJS and define your own CSS properties. You may also create your own API methods:</p>
-<pre><code class="language-javascript">api.register(&quot;buttonize&quot;, function(selector) {
-    var styles = {};
-    styles[selector] = {
-        cursor: &quot;pointer&quot;,
-        display: &quot;block&quot;,
-        background: &quot;#aaa&quot;,
-        &quot;:hover&quot;: {
-            background: &quot;#ddd&quot;
+<p>There are components which are integrated into AbsurdJS and you are able to inject them in every of the your component&#39;s functions.</p>
+<hr>
+<h2 id="is">is</h2>
+<p>A helper component wrapping common tasks.</p>
+<h3 id="appended-small-class-prop-values-selector-small-">appended ( <small class="prop-values">selector</small> )</h3>
+<blockquote>
+<p>It checks if there is a DOM element matching with passed selector</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>No minification:</small>
+<pre><code class="language-javascript">absurd.component(&#39;MyComp&#39;, {
+    constructor: function(is) {
+        if(is.appended(&#39;body&#39;)) {
+            console.log(&#39;Yes, there is a body tag.&#39;);
         }
-    };
-    api.add(styles);
-});
-api.buttonize(&quot;.header a&quot;);
-</code></pre><p><code class="language-javascript">buttonize</code> is a method which in the above example generates:</p>
-<pre><code class="language-javascript">.header a {
-  cursor: pointer;
-  display: block;
-  background: #aaa;
-}
-.header a:hover {
-  background: #ddd;
-}
-</code></pre><p>Every API method could be overwritten. You are able to run your own function instead of the original one. If your method returns <code class="language-javascript">true</code> then the default behaviour of the method is suppressed and only your implementation works.</p>
-<pre><code class="language-javascript">api.hook(&quot;add&quot;, function(rules) {    
-    if(rules.grid) {
-        var styles = {};
-        styles[rules.grid.parent] = parentStyles = {
-            &quot;:after&quot;: {
-                display: &quot;table&quot;,
-                content: &quot;&quot;,
-                clear: &quot;both&quot;
-            }
-        };
-        parentStyles[rules.grid.child] = {
-            width: (100 / rules.grid.columns) + &quot;%&quot;,
-            float: &quot;left&quot;
-        };
-        api.add(styles);
-        return true;
     }
-});
-api.add({
-    grid: {
-        parent: &quot;.header .menu&quot;,
-        child: &quot;.link&quot;,
-        columns: 4
-    }
-});
-</code></pre><p>And the result is:</p>
-<pre><code class="language-javascript">.header .menu:after {
-  display: table;
-  content: &quot;&quot;;
-  clear: both;
-}
-.header .menu .link {
-  width: 25%;
-  float: left;
-}
-</code></pre>
+})();</code></pre></div>
+<div class="col">
+<small>Minification protection:</small>
+<pre><code class="language-javascript">absurd.component(&#39;MyComp&#39;, {
+    constructor: [&#39;is&#39;, function(is) {
+        if(is.appended(&#39;body&#39;)) {
+            console.log(&#39;Yes, there is a body tag.&#39;);
+        }
+    }]
+})();</code></pre></div>
+</div>
                 <br />
                 <br />
                 <hr />
-                <div class="guide"><a href="/pages/css-preprocessing/media-queries-raw-data"><i class="fa fa-arrow-circle-o-left"></i> Media queries and raw data</a><a href="/pages/css-preprocessing/organic-css">Organic CSS <i class="fa fa-arrow-circle-o-right"></i></a>
+                <div class="guide"><a href="/pages/api/client-side"><i class="fa fa-arrow-circle-o-left"></i> Client-side</a><a href="/pages/tests">Tests <i class="fa fa-arrow-circle-o-right"></i></a>
                 </div>
                 <hr />
                 <div id="disqus_thread"></div>
                 <script type="text/javascript">
                     var disqus_shortname = 'absurdjs';
-                    var disqus_identifier = "/pages/css-preprocessing/extending";
-                    var disqus_url = "http://absurdjs.com/pages/css-preprocessing/extending";
-                    var disqus_title = "/pages/css-preprocessing/extending";
+                    var disqus_identifier = "/pages/api/build-in-components";
+                    var disqus_url = "http://absurdjs.com/pages/api/build-in-components";
+                    var disqus_title = "/pages/api/build-in-components";
                     (function() {
                         var dsq = document.createElement('script');
                         dsq.type = 'text/javascript';
