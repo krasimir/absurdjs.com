@@ -27,7 +27,7 @@
 		]}
 	]},
 	{ "name": "API", "path": "/pages/api", "childs": [
-		{ "name": "Node.js", "path": "/pages/api/nodejs"},
+		{ "name": "Core", "path": "/pages/api/core"},
 		{ "name": "Client-side", "path": "/pages/api/client-side"},
 		{ "name": "Build-in components", "path": "/pages/api/build-in-components"}
 	]},

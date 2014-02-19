@@ -1,4 +1,4 @@
-# Node.js API
+# Core API
 
 <social>
 
