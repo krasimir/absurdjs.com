@@ -18,7 +18,7 @@ gulp.task('builds', function() {
 
 gulp.task('js', function() {
 	gulp.src('./src/js/**/*.js')
-	.pipe(uglify())
+	// .pipe(uglify())
 	.pipe(concat('scripts.js'))
 	// .pipe(jshint())
 	// .pipe(jshint.reporter('default'))

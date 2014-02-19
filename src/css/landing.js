@@ -21,7 +21,6 @@ var video = function() {
 		},
 		'.video-overlay': {
 			transparent: 0,
-			'-wmso-trs': 'all 2000ms',
 			'@media all and (max-width: 880px)': {
 				d: 'n'
 			},
@@ -120,6 +119,14 @@ var section = function() {
 						color: themeColor,
 						'-wmo-trf': 'translate(0, -60px) rotateZ(90deg) scale(1.5, 1.5)'
 					}
+				},
+				'p a': {
+					color: '#FFF',
+					bdb: 'dotted 1px #fff',
+					'-wmso-trs': 'all 300ms',
+					'&:hover': {
+						color: '#999'
+					}
 				}
 			},
 			'&.home': home(),
@@ -137,7 +144,13 @@ var section = function() {
 	};
 	r.section['&.text-section']['.close'][noVideoBreakpoint] = {
 		d: 'n'
-	}
+	};
+	r.section['&.text-section'].h2[noVideoBreakpoint] = {
+		fz: '30px',
+		bg: '#FFF',
+		color: '#000',
+		pad: '10px 0 10px 0'
+	};
 	return r;
 }
 
@@ -220,8 +233,8 @@ var home = function() {
 		}
 	}
 	r['.column'] = {};
-	r['.column'][noVideoBreakpoint] = { fl: 'n', wid: '100%' };
-	r['.title'][noVideoBreakpoint] = { ta: 'c', mar: '0 0 36px 0', h1: { fz: '50px', lh: '50px'} };
+	r['.column'][noVideoBreakpoint] = { fl: 'n', wid: '100%', pad: 0 };
+	r['.title'][noVideoBreakpoint] = { ta: 'c', mar: '0 0 36px 0', h1: { fz: '40px', lh: '40px'} };
 	r['.links'].ul.li[noVideoBreakpoint] = { 
 		ta: 'c',
 		a: {
@@ -257,16 +270,21 @@ var cover = function() {
 
 /************************************************************* */
 module.exports = function(api) {
-	api.add({
+	var basic = {
+		bg: '#FFF',
+		ov: 'h'
+	}
+	basic[noVideoBreakpoint] = {
+		ov: 's'
+	};
+	var r = {
 		'.landing': [
-			{
-				bg: '#FFF',
-				ov: 'h',
-			},
+			basic,
 			video(),
 			logo(),
 			section(),
 			cover()
 		]
-	})
+	};
+	api.add(r)
 }

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>AbsurdJS</title>
+	<style type="text/css">
+		body {
+			background: #E3E3E3;
+		}
+	</style>
+	<link rel="stylesheet" href="jasmine-1.3.1/jasmine.css">
+	<script src="../builds/absurd.organic.js"></script>
+	<script src="../builds/absurd.js"></script>
+	<script>
+		var require = function(path) {
+			if(path == '../../../index.js') return Absurd;
+			if(path == '../../index.js') return Absurd;
+		}
+		var __dirname = "";
+	</script>
+	<script src="jasmine-1.3.1/jasmine.js"></script>
+	<script src="jasmine-1.3.1/jasmine-html.js"></script>
+	<script src="utils.js"></script>
+	<script src="tests.js"></script>
+	<script src="tests.from.node.js"></script>
+	<script src="01.components.js"></script>
+	<script src="02.components.css.js"></script>
+	<script src="03.components.html.js"></script>
+	<script src="04.components.complex.js"></script>
+	<script src="05.components.events.js"></script>
+	<script src="05.components.events.observer.js"></script>
+	<script src="06.components.async.js"></script>
+	<script src="06.components.nesting.js"></script>
+	<script src="07.components.di.js"></script>
+	<script src="08.components.utils.js"></script>
+	<script src="09.components.apply.helpers.js"></script>
+	<script src="10.components.injected.js"></script>
+</head>
+<body>
+	<div id="content"></div>	
+	<script>
+		(function() {
+			var jasmineEnv = jasmine.getEnv();
+			var htmlReporter = new jasmine.HtmlReporter(null, document.getElementById("content"));
+			jasmineEnv.updateInterval = 1000;
+			jasmineEnv.clearReporters();
+			jasmineEnv.addReporter(htmlReporter);
+			jasmineEnv.specFilter = function(spec) {
+				return htmlReporter.specFilter(spec);
+			};
+			var currentWindowOnload = window.onload;
+			window.onload = function() {
+				if (currentWindowOnload) {
+					currentWindowOnload();
+				}
+				execJasmine();
+			};
+			function execJasmine() {
+				absurd = Absurd();
+				jasmineEnv.execute();
+			}
+		})();
+	</script>
+
+	<div id="banner-A" class="<% this.theme %>" style="display: none;">
+		<input type="text" />
+		<p><% this.text %></p>
+		<small>small text</small>
+	</div>
+
+</body>
+</html>

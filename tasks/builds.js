@@ -4,6 +4,8 @@ var PluginError = gutil.PluginError;
 var path = require('path');
 var fs = require("fs");
 var request = require('request');
+var ncp = require('ncp').ncp;
+ncp.limit = 16;
 
 module.exports = function () {
 
@@ -43,8 +45,22 @@ module.exports = function () {
             });
         }
 
+        var getTests = function(callback) {
+            var source = __dirname + '/../node_modules/absurd/client-side/tests';
+            var destination = __dirname + '/../tests';
+            var testsIndex = __dirname + '/../tests/index.html';
+            ncp(source, destination, function (err) {
+                var indexContent = fs.readFileSync(testsIndex);
+                indexContent = indexContent.toString().replace(/\/build/g, '/builds');
+                fs.writeFileSync(testsIndex, indexContent);
+                callback();
+            });
+        }
+
         getAbsurd(function() {
-            getOrganic(next);
+            getOrganic(function() {
+                getTests(next);
+            });
         })
     }
 

@@ -1,7 +1,7 @@
 absurd.component('LandingVideo', {
 	html: '.landing .video-overlay',
 	video: {
-		'video[preload="auto" autoplay="true" loop="loop" muted="muted" volume="0"]': {
+		'video[preload="auto" autoplay="true" loop="loop" muted="muted" volume="0" src="/public/video/cells.mp4"]': {
 			'source[src="/public/video/cells.webm" type="video/webm"]': '',
 			'source[src="/public/video/cells.mp4" type="video/mp4"]': ''
 		}
@@ -20,8 +20,8 @@ absurd.component('LandingVideo', {
 						}
 					}, true);
 				});
-				media.load();
-				media.play();
+				// media.load();
+				// media.play();
 			});
 		}
 	}]
@@ -46,7 +46,7 @@ absurd.component('Sections', {
 		this.delay(200, function() {
 			this.removeClass('waiting', this[newSection]);
 			this.addClass('selected', this[newSection]);
-			this.current = this[newSection]
+			this.current = this[newSection];
 		});
 	},
 	ready: ['is', function(is) {
@@ -54,6 +54,8 @@ absurd.component('Sections', {
 			// sections
 			this.home = this.qs('.home');
 			this.superpowers = this.qs('.superpowers');
+			this.contribute = this.qs('.contribute');
+			this.author = this.qs('.author');
 			this.current = this.home;
 			this.populate().addClass('selected', this.current);
 			// inner pages transition

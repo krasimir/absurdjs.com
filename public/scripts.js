@@ -1,6 +1,203 @@
-absurd=Absurd();
-absurd.component("SiteMap",{sitemapWidth:400,html:".sitemap",css:{".sitemap":{d:"b",wid:"0px",ov:"h",right:0,pos:"f",hei:"100%","&.open":{wid:"400px"},".links":{hei:"auto"},"@media all and (max-width: 700px)":{"&.open":{wid:"100%"}}}},sitemapOpen:function(){this.dispatch("updateContentWidth",{isSiteMapOpen:!0,diff:this.sitemapWidth});var t=this.qs(".content",!1).offsetHeight;this.css[".sitemap"].hei=t+"px",this.css[".sitemap"][".links"].hei=t-128+"px",this.populate().addClass("open")},sitemapClose:function(){this.dispatch("updateContentWidth",{isSiteMapOpen:!1,diff:this.sitemapWidth}),this.css[".sitemap"].wid="0px",this.populate().removeClass("open")},close:function(t){t&&t.preventDefault(),this.sitemapClose(),SiteMapButton.open=!1},ready:function(){this.populate(),this.wire("sitemapOpen"),this.wire("sitemapClose")}})();var SiteMapButton=absurd.component("SiteMapButton",{html:".sitemap-button",open:!1,clicked:function(t){t.preventDefault(),this.open=!this.open,this.dispatch("sitemap"+(this.open?"Open":"Close"))},ready:function(){this.populate()}})();
-absurd.component("Content",{css:{".content":{wid:"100%",hei:"100%","@media all and (max-width: 1000px)":{wid:"100%"}}},updateContentWidth:function(t){var e=parseInt(this.getStyle("width",this.qs(".content",!1)).replace("px",""));this.css[".content"].wid=e-(t.isSiteMapOpen?t.diff:-t.diff)+"px",this.populate()},ready:function(){this.wire("updateContentWidth"),this.populate()}})();
-absurd.component("TryIt",{css:{".content-container":{maw:"100%"},".doc-home":{d:"n"}},ready:function(){this.qs(".jsbin-widget")&&this.populate()}})();
-absurd.component("ContentFooter",{html:".footer-content",css:{".footer-content":{hei:"9px",".open":{"-w-trs":"all 1000ms","-wmso-trf":"rotate(0)"}}},toggle:function(t){t.preventDefault(),this.open?(this.open=!1,this.css[".footer-content"].hei="9px",this.css[".footer-content"][".open"]["-wmso-trf"]="rotate(0)"):(this.open=!0,this.css[".footer-content"].hei="150px",this.css[".footer-content"][".open"]["-wmso-trf"]="rotate(180deg)"),this.populate()},ready:function(){this.populate()}})();
-absurd.component("LandingVideo",{html:".landing .video-overlay",video:{'video[preload="auto" autoplay="true" loop="loop" muted="muted" volume="0"]':{'source[src="/public/video/cells.webm" type="video/webm"]':"",'source[src="/public/video/cells.mp4" type="video/mp4"]':""}},ready:["is",function(e){if(e.appended()&&document.body.clientWidth>880){this.populate();var t=this,i=t.qs("body",document);this.compileHTML(this.video,function(e,s){var o=t.str2DOMElement(s);i.insertBefore(o,i.firstChild),t.addEventListener(o,"playing",function(){t.applyCSS({".landing .video-overlay, .landing video":{transparent:1}},!0)}),o.load(),o.play()})}}]})(),absurd.component("LandingLogo",{html:".landing .logo",ready:["is",function(e){e.appended()&&this.applyCSS({moveto:"0/0"})}]})(),absurd.component("Sections",{html:".landing",switchTo:function(e,t){this.removeClass("selected",this.current),this.addClass("waiting",this[t]),this.delay(200,function(){this.removeClass("waiting",this[t]),this.addClass("selected",this[t]),this.current=this[t]})},ready:["is",function(e){if(e.appended()){this.home=this.qs(".home"),this.superpowers=this.qs(".superpowers"),this.current=this.home,this.populate().addClass("selected",this.current),this.cover=this.qs(".cover");for(var t=this.qsa("[data-transition-link]"),i=this,s=0;s<t.length;s++){var o=t[s];!function(e){var t=e.getAttribute("href");e.setAttribute("href","#"),i.addEventListener(e,"click",function(){i.addClass("cover-open",i.cover),i.delay(1400,function(){window.location.href=t})})}(o)}}}]})();
+absurd = Absurd();
+absurd.component("SiteMap", {
+	sitemapWidth: 400,
+	html: '.sitemap',
+	css: {
+		'.sitemap': {
+			d: 'b',
+			wid: '0px',
+			ov: 'h',
+			right: 0,
+			pos: 'f',
+			hei: '100%',
+			'&.open': {
+				wid: '400px'
+			},
+			'.links': {
+				hei: 'auto'
+			},
+			'@media all and (max-width: 700px)': {
+				'&.open': {
+					wid: '100%'
+				}
+			}
+		}
+	},
+	sitemapOpen: function() {
+		this.dispatch('updateContentWidth', {isSiteMapOpen: true, diff: this.sitemapWidth});
+		var contentHeight = this.qs('.content', false).offsetHeight;
+		this.css['.sitemap'].hei = contentHeight + 'px';
+		this.css['.sitemap']['.links'].hei = (contentHeight - 128) + 'px';
+		this.populate().addClass('open');
+	},
+	sitemapClose: function() {
+		this.dispatch('updateContentWidth', {isSiteMapOpen: false, diff: this.sitemapWidth});
+		this.css['.sitemap'].wid = '0px';
+		this.populate().removeClass('open');
+	},
+	close: function(e) {
+		if(e) e.preventDefault();
+		this.sitemapClose();
+		SiteMapButton.open = false;
+	},
+	ready: function() {
+		this.populate();
+		this.wire('sitemapOpen');
+		this.wire('sitemapClose');
+	}
+})();
+
+var SiteMapButton = absurd.component("SiteMapButton", {
+	html: '.sitemap-button',
+	open: false,
+	clicked: function(e) {
+		e.preventDefault();
+		this.open = !this.open;
+		this.dispatch('sitemap' + (this.open ? 'Open' : 'Close'));
+	},
+	ready: function() {
+		this.populate();
+	}
+})();
+absurd.component("Content", {
+	css: {
+		'.content': {
+			wid: '100%',
+			hei: '100%',
+			'@media all and (max-width: 1000px)': {
+				wid: '100%'
+			}
+		}
+	},
+	updateContentWidth: function(options) {
+		var currentWidth = parseInt(this.getStyle('width', this.qs('.content', false)).replace('px', ''))
+		this.css['.content'].wid = (currentWidth - (options.isSiteMapOpen ? options.diff : -options.diff)) + 'px';
+		this.populate();
+	},
+	ready: function() {
+		this.wire('updateContentWidth');
+		this.populate();
+	}
+})();
+absurd.component('TryIt', {
+	css: {
+		'.content-container': {
+			maw: '100%'
+		},
+		'.doc-home': {
+			d: 'n'
+		}
+	},
+	ready: function() {
+		if(this.qs('.jsbin-widget')) {
+			this.populate();
+		}
+	}
+})();
+absurd.component('ContentFooter', {
+	html: '.footer-content',
+	css: {
+		'.footer-content': {
+			hei: '9px',
+			'.open': {
+				'-w-trs': 'all 1000ms',
+				'-wmso-trf': 'rotate(0)'
+			}
+		}
+	},
+	toggle: function(e) {
+		e.preventDefault();
+		if(!this.open) {
+			this.open = true;
+			this.css['.footer-content'].hei = '150px';
+			this.css['.footer-content']['.open']['-wmso-trf'] = 'rotate(180deg)';
+		} else {
+			this.open = false;
+			this.css['.footer-content'].hei = '9px';
+			this.css['.footer-content']['.open']['-wmso-trf'] = 'rotate(0)';
+		}
+		this.populate();
+	},
+	ready: function() {
+		this.populate();
+	}
+})();
+absurd.component('LandingVideo', {
+	html: '.landing .video-overlay',
+	video: {
+		'video[preload="auto" autoplay="true" loop="loop" muted="muted" volume="0" src="/public/video/cells.mp4"]': {
+			'source[src="/public/video/cells.webm" type="video/webm"]': '',
+			'source[src="/public/video/cells.mp4" type="video/mp4"]': ''
+		}
+	},
+	ready: ['is', function(is) {
+		if(is.appended() && document.body.clientWidth > 880) {
+			this.populate();
+			var self = this, body = self.qs('body', document);
+			this.compileHTML(this.video, function(err, videoHTML) {
+				var media = self.str2DOMElement(videoHTML);
+				body.insertBefore(media, body.firstChild);
+				self.addEventListener(media, 'playing', function() {
+					self.applyCSS({ 
+						'.landing .video-overlay, .landing video': {
+							transparent: 1
+						}
+					}, true);
+				});
+				// media.load();
+				// media.play();
+			});
+		}
+	}]
+})();
+
+absurd.component('LandingLogo', {
+	html: '.landing .logo',
+	ready: ['is', function(is) {
+		if(is.appended()) {
+			this.applyCSS({
+				moveto: '0/0'
+			});
+		}
+	}]
+})();
+
+absurd.component('Sections', {
+	html: '.landing',
+	switchTo: function(e, newSection) {
+		this.removeClass('selected', this.current);
+		this.addClass('waiting', this[newSection]);
+		this.delay(200, function() {
+			this.removeClass('waiting', this[newSection]);
+			this.addClass('selected', this[newSection]);
+			this.current = this[newSection];
+		});
+	},
+	ready: ['is', function(is) {
+		if(is.appended()) {
+			// sections
+			this.home = this.qs('.home');
+			this.superpowers = this.qs('.superpowers');
+			this.contribute = this.qs('.contribute');
+			this.author = this.qs('.author');
+			this.current = this.home;
+			this.populate().addClass('selected', this.current);
+			// inner pages transition
+			this.cover = this.qs('.cover');
+			var links = this.qsa('[data-transition-link]'), self = this;
+			for(var i=0; i<links.length; i++) {
+				var link = links[i];
+				(function(l) {
+					var href = l.getAttribute('href');
+					l.setAttribute('href', '#');
+					self.addEventListener(l, 'click', function(e) {
+						self.addClass('cover-open', self.cover);
+						self.delay(1400, function() {
+							window.location.href = href;
+						})
+					});
+				})(link);
+			}
+		}
+	}]
+})();
