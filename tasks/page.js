@@ -6,6 +6,12 @@ var path = require('path');
 var fs = require("fs");
 var marked = require('marked');
 var absurdVersion = require(__dirname + '/../node_modules/absurd/package.json').version;
+var sizes = {
+    absurd: Math.ceil(fs.statSync(__dirname + '/../node_modules/absurd/client-side/build/absurd.js').size / 1024),
+    absurdMin: Math.ceil(fs.statSync(__dirname + '/../node_modules/absurd/client-side/build/absurd.min.js').size / 1024),
+    organic: Math.ceil(fs.statSync(__dirname + '/../node_modules/absurd/client-side/build/absurd.organic.js').size / 1024),
+    organicMin: Math.ceil(fs.statSync(__dirname + '/../node_modules/absurd/client-side/build/absurd.organic.min.js').size / 1024)
+};
 
 marked.setOptions({
     renderer: new marked.Renderer(),
@@ -128,7 +134,8 @@ module.exports = function () {
             guide: getGuide(sitemap, fileURL),
             minify: false,
             url: fileURL,
-            markdownFile: markdownFile
+            markdownFile: markdownFile,
+            sizes: sizes
         }
 
         absurd.flush().morph("html").add(layoutHTML).compile(function(err, html) {
@@ -136,6 +143,9 @@ module.exports = function () {
             html = html.replace('<social>', socialHTML);
             html = html.replace('<sitemap>', partials.sitemap);
             html = html.replace('<version>', partials.version);
+            for(var key in sizes) {
+                html = html.replace('<size-' + key + '>', sizes[key]);
+            }
             fs.writeFileSync(fileRoot + '/' + htmlFile, html, {encoding: 'utf8'});
         }, partials);
 
