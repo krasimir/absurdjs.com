@@ -129,7 +129,7 @@ Very often you need to add a little hack and apply a CSS rule only for specific 
 	p a {
 		margin-top: 22px;
 	}
-	.android {
+	.android p a {
 		margin-top: 24px;
 	}
 
