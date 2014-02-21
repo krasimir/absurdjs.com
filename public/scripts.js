@@ -164,8 +164,8 @@ absurd.component('LandingLogo', {
 
 absurd.component('Sections', {
 	html: '.landing',
-	switchTo: function(e, newSection) {
-		this.removeClass('selected', this.current);
+	switchTo: function(newSection) {
+		this.current && this.removeClass('selected', this.current);
 		this.addClass('waiting', this[newSection]);
 		this.delay(200, function() {
 			this.removeClass('waiting', this[newSection]);
@@ -173,15 +173,32 @@ absurd.component('Sections', {
 			this.current = this[newSection];
 		});
 	},
-	ready: ['is', function(is) {
+	ready: ['is, router', function(is, router) {
 		if(is.appended()) {
+
+			this.populate();
+
 			// sections
 			this.home = this.qs('.home');
 			this.superpowers = this.qs('.superpowers');
 			this.contribute = this.qs('.contribute');
 			this.author = this.qs('.author');
-			this.current = this.home;
-			this.populate().addClass('selected', this.current);
+
+			// routes
+			router
+			.add(/contribute/, function() {
+				this.switchTo('contribute');
+			})
+			.add(/author/, function() {
+				this.switchTo('author');
+			})
+			.add(/superpowers/, function() {
+				this.switchTo('superpowers');
+			})
+			.add(function() {
+				this.switchTo('home');
+			}).listen().check();
+
 			// inner pages transition
 			this.cover = this.qs('.cover');
 			var links = this.qsa('[data-transition-link]'), self = this;
@@ -198,6 +215,7 @@ absurd.component('Sections', {
 					});
 				})(link);
 			}
+
 		}
 	}]
 })();

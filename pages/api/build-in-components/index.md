@@ -12,7 +12,7 @@ A helper component wrapping common tasks.
 
 ### appended ( <small class="prop-values">selector</small> )
 
-> It checks if there is a DOM element matching with passed selector
+> It checks if there is a DOM element matching the passed selector
 
 <example>
 <str text="No minification">
