@@ -176,13 +176,11 @@
 </blockquote>
 <pre><code class="language-javascript">absurd.component(&#39;MyComp&#39;, {
     constructor: function(router) {
-        .add(/about\/?$/, function(args) {
+        .add(/about\/?$/, function() {
             // matching: /about
-            // args = []
         })
-        .add(/products\/(.*)\/edit\/(.*)\/(.*)?$/, function(args) {
+        .add(/products\/(.*)\/edit\/(.*)\/(.*)?$/, function(id, a, b) {
             // matching: products/34/edit/a/b
-            // args = [&#39;34&#39;, &#39;a&#39;, &#39;b&#39;]
         })
         .add(function() {
             // default route

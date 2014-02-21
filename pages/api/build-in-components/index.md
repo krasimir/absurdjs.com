@@ -47,13 +47,11 @@ Class providing single page app routing. It supports hash based URLs and may use
 
     absurd.component('MyComp', {
         constructor: function(router) {
-            .add(/about\/?$/, function(args) {
+            .add(/about\/?$/, function() {
                 // matching: /about
-                // args = []
             })
-            .add(/products\/(.*)\/edit\/(.*)\/(.*)?$/, function(args) {
+            .add(/products\/(.*)\/edit\/(.*)\/(.*)?$/, function(id, a, b) {
                 // matching: products/34/edit/a/b
-                // args = ['34', 'a', 'b']
             })
             .add(function() {
                 // default route
