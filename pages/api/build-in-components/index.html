@@ -140,9 +140,9 @@
 
 <p>There are components which are integrated into AbsurdJS and you are able to inject them in every of the your component&#39;s functions.</p>
 <hr>
-<h2 id="is">is</h2>
+<h1 id="is">is</h1>
 <p>A helper component wrapping common tasks.</p>
-<h3 id="appended-small-class-prop-values-selector-small-">appended ( <small class="prop-values">selector</small> )</h3>
+<h2 id="appended-small-class-prop-values-selector-small-">appended ( <small class="prop-values">selector</small> )</h2>
 <blockquote>
 <p>It checks if there is a DOM element matching the passed selector</p>
 </blockquote>
@@ -166,6 +166,87 @@
     }]
 })();</code></pre></div>
 </div>
+
+<hr>
+<h1 id="router">router</h1>
+<p>Class providing single page app routing. It supports hash based URLs and may use the <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Manipulating_the_browser_history">History API</a>. A demo could be found <a href="http://absurdjs.com/tests/router/">here</a>.</p>
+<h2 id="add-small-class-prop-values-regex-handler-small-">add ( <small class="prop-values">regex, handler</small> )</h2>
+<blockquote>
+<p>Registering a new route.</p>
+</blockquote>
+<pre><code class="language-javascript">absurd.component(&#39;MyComp&#39;, {
+    constructor: function(router) {
+        .add(/about\/?$/, function(args) {
+            // matching: /about
+            // args = []
+        })
+        .add(/products\/(.*)\/edit\/(.*)\/(.*)?$/, function(args) {
+            // matching: products/34/edit/a/b
+            // args = [&#39;34&#39;, &#39;a&#39;, &#39;b&#39;]
+        })
+        .add(function() {
+            // default route
+        });
+    }
+})();
+</code></pre><h2 id="remove-small-class-prop-values-regex-handler-small-">remove ( <small class="prop-values">regex | handler</small> )</h2>
+<blockquote>
+<p>Deletes a registered route.</p>
+</blockquote>
+<pre><code class="language-javascript">absurd.component(&#39;MyComp&#39;, {
+    constructor: function(router) {
+        router.remove(/about/);
+    }
+})();
+</code></pre><h2 id="flush-">flush ( )</h2>
+<blockquote>
+<p>Removes all the added routes.</p>
+</blockquote>
+<pre><code class="language-javascript">absurd.component(&#39;MyComp&#39;, {
+    constructor: function(router) {
+        router.flush();
+    }
+})();
+</code></pre><h2 id="config-small-class-prop-values-options-small-">config ( <small class="prop-values">options</small> )</h2>
+<blockquote>
+<p>The <code class="language-javascript">options</code> is an object with two possible properties - <code class="language-javascript">mode</code> could be <code class="language-javascript">hash</code> (default) or <code class="language-javascript">history</code>, <code class="language-javascript">root</code> contains the root path of your application. Have in mind that if the History API is not supported <code class="language-javascript">mode</code> is always <code class="language-javascript">hash</code> even if you set <code class="language-javascript">history</code>. The <code class="language-javascript">root</code> option is required only if the router uses <code class="language-javascript">pushState</code> i.e. the History API.</p>
+</blockquote>
+<pre><code class="language-javascript">absurd.component(&#39;MyComp&#39;, {
+    constructor: function(router) {
+        router.config({ 
+            mode: &#39;history&#39;,
+            root: &#39;/single-page-app/test/&#39; 
+        });
+    }
+})();
+</code></pre><h2 id="listen-">listen ( )</h2>
+<blockquote>
+<p>Starts listening for changes in the URL. If this method is not called you should call <code class="language-javascript">check</code> manually.</p>
+</blockquote>
+<pre><code class="language-javascript">absurd.component(&#39;MyComp&#39;, {
+    constructor: function(router) {
+        router.listen();
+    }
+})();
+</code></pre><h2 id="check-">check ( )</h2>
+<blockquote>
+<p>It compares the current URL and if it is a new one and matches some of the registered routes it calls the handler. The method is called internally by the <code class="language-javascript">listen</code> method.</p>
+</blockquote>
+<pre><code class="language-javascript">absurd.component(&#39;MyComp&#39;, {
+    constructor: function(router) {
+        router.check();
+    }
+})();
+</code></pre><h2 id="navigate-small-class-prop-values-new-path-small-">navigate ( <small class="prop-values">new path</small> )</h2>
+<blockquote>
+<p>Changes the current URL.</p>
+</blockquote>
+<pre><code class="language-javascript">absurd.component(&#39;MyComp&#39;, {
+    constructor: function(router) {
+        router.navigate(&#39;/products/show/33&#39;);
+    }
+})();
+</code></pre>
                 <br />
                 <br />
                 <hr />

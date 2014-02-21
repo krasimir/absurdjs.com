@@ -197,7 +197,7 @@ absurd.component('Sections', {
 			})
 			.add(function() {
 				this.switchTo('home');
-			}).listen().check();
+			}).check().listen();
 
 			// inner pages transition
 			this.cover = this.qs('.cover');
