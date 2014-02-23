@@ -39,7 +39,7 @@ absurd.component('MyComp', {
 
 # router
 
-Class providing single page app routing. It supports hash based URLs and may use the [History API](https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Manipulating_the_browser_history). A demo could be found [here](http://absurdjs.com/tests/router/). Read about how this class is created in [A modern JavaScript router in 100 lines](http://krasimirtsonev.com/blog/article/A-modern-JavaScript-router-in-100-lines-history-api-pushState-hash-url).
+Class providing single page app routing. It supports hash based URLs and may use the [History API](https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Manipulating_the_browser_history). A demo could be found [here](http://absurdjs.com/tests/router/). Read about how this class is created in [A modern JavaScript router in 100 lines](http://krasimirtsonev.com/blog/article/A-modern-JavaScript-router-in-100-lines-history-api-pushState-hash-url). To be sure that everything works run the test suite [here](http://absurdjs.com/tests/?spec=Testing%20components%20(router)).
 
 ## add ( <small class="prop-values">regex, handler</small> )
 
@@ -119,5 +119,177 @@ Class providing single page app routing. It supports hash based URLs and may use
     absurd.component('MyComp', {
         constructor: function(router) {
             router.navigate('/products/show/33');
+        }
+    })();
+
+# ajax
+
+The class deals with GET and POST requests. It also handles the loading of external JSON files. To be sure that everything works run the test suite [here](http://absurdjs.com/tests/?spec=Testing%20components%20(ajax).
+
+## GET request
+
+    absurd.component('TestingAjax', {
+        constructor: function(ajax) {
+            ajax
+            .request('data/data.txt')
+            .done(function(data) {
+                // ...
+            })
+            .fail(function(xhr) {
+                // ...  
+            })
+            .always(function(xhr) {
+                // ...
+            })
+        }
+    })();
+
+## GET request with parameters
+
+    absurd.component('TestingAjax', {
+        constructor: function(ajax) {
+            ajax
+            .request({
+                url: 'data/data-get.php', 
+                data: { 
+                    a: 'AbsurdJS is a javascript library', 
+                    b: 'with super powers.'
+                }
+            })
+            .done(function(data) {
+                // ...
+            })
+            .fail(function(xhr) {
+                // ...  
+            })
+            .always(function(xhr) {
+                // ...
+            })
+        }
+    })();
+
+## POST request
+
+    absurd.component('TestingAjax', {
+        constructor: function(ajax) {
+            ajax
+            .request({
+                url: 'data/data-post.php', 
+                method: 'post'
+            })
+            .done(function(data) {
+                // ...
+            })
+            .fail(function(xhr) {
+                // ...  
+            })
+            .always(function(xhr) {
+                // ...
+            })
+        }
+    })();
+
+## POST request with parameters
+
+    absurd.component('TestingAjax', {
+        constructor: function(ajax) {
+            ajax
+            .request({
+                url: 'data/data-post.php', 
+                data: { 
+                    a: 'AbsurdJS is a javascript library', 
+                    b: 'with super powers.'
+                },
+                method: 'post'
+            })
+            .done(function(data) {
+                // ...
+            })
+            .fail(function(xhr) {
+                // ...  
+            })
+            .always(function(xhr) {
+                // ...
+            })
+        }
+    })();
+
+## PUT request
+
+    absurd.component('TestingAjax', {
+        constructor: function(ajax) {
+            ajax
+            .request({ 'data/data.php', method: 'put' })
+            .done(function(data) {
+                // ...
+            })
+            .fail(function(xhr) {
+                // ...  
+            })
+            .always(function(xhr) {
+                // ...
+            })
+        }
+    })();
+
+## DELETE request
+
+    absurd.component('TestingAjax', {
+        constructor: function(ajax) {
+            ajax
+            .request({ 'data/data.php', method: 'delete' })
+            .done(function(data) {
+                // ...
+            })
+            .fail(function(xhr) {
+                // ...  
+            })
+            .always(function(xhr) {
+                // ...
+            })
+        }
+    })();
+
+## Setting headers
+
+    absurd.component('TestingAjax', {
+        constructor: function(ajax) {
+            ajax
+            .request({
+                url: 'data/header.php', 
+                headers: { 
+                    'absurd-header': 'oh yeah'
+                }
+            })
+            .done(function(data) {
+                // ...
+            })
+            .fail(function(xhr) {
+                // ...  
+            })
+            .always(function(xhr) {
+                // ...
+            })
+        }
+    })();
+
+## Getting JSON
+
+    absurd.component('TestingAjax', {
+        constructor: function(ajax) {
+            ajax
+            .request({
+                url: 'data/data.json', 
+                json: true
+            })
+            .done(function(data) {
+                // ...
+            })
+            .fail(function(xhr) {
+                // ...  
+            })
+            .always(function(xhr) {
+                // ...
+            })
         }
     })();

@@ -35,7 +35,7 @@ gulp.task('css', function() {
 });
 
 gulp.task('watchers', function() {
-	gulp.watch(['pages/**/*.md', 'layout.html', 'pages/structure.json'], ['pages']);
+	gulp.watch(['pages/**/*.md', 'layout.html', 'social.html', 'pages/structure.json'], ['pages']);
 	gulp.watch('src/js/**/*.js', ['js']);
 	gulp.watch('src/css/**/*.*', ['css']);
 });

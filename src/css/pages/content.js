@@ -151,17 +151,10 @@ module.exports = function(api) {
 				}
 			},
 			'.social': {
-				'.twitter-share-button': {
-					wid: '80px !important'
-				},
-				'[id^=___plusone]': { 
-					width: '59px !important'
-				},
-				'.fb-like': {
-					moveto: '0/-5px'
-				},
-				'.github-stars': {
-					width: '86px !important'	
+				'.nets': {
+					d: 'ib',
+					fz: '21px',
+					moveto: '-7px/-3px'
 				}
 			},
 			'.jsbin-widget': {

@@ -183,6 +183,7 @@ absurd.component('Sections', {
 			this.superpowers = this.qs('.superpowers');
 			this.contribute = this.qs('.contribute');
 			this.author = this.qs('.author');
+			this.testing = this.qs('.testing');
 
 			// routes
 			router
@@ -194,6 +195,9 @@ absurd.component('Sections', {
 			})
 			.add(/superpowers/, function() {
 				this.switchTo('superpowers');
+			})
+			.add(/testing/, function() {
+				this.switchTo('testing');
 			})
 			.add(function() {
 				this.switchTo('home');

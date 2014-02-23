@@ -138,9 +138,11 @@ module.exports = function () {
             sizes: sizes
         }
 
+        var sHTML = socialHTML.replace(/\<url\>/g, partials.url);
+
         absurd.flush().morph("html").add(layoutHTML).compile(function(err, html) {
             html = html.replace('<content>', contentHTML);
-            html = html.replace('<social>', socialHTML);
+            html = html.replace('<social>', sHTML);
             html = html.replace('<sitemap>', partials.sitemap);
             html = html.replace('<version>', partials.version);
             for(var key in sizes) {

@@ -198,6 +198,37 @@ section.text-section {
   margin: 0 auto;
   color: #fff;
 }
+.landing section.text-section p a {
+  border-bottom: dotted 1px #fff;
+  transition: all 300ms;
+  -webkit-transition: all 300ms;
+  -moz-transition: all 300ms;
+  -ms-transition: all 300ms;
+  -o-transition: all 300ms;
+  color: #FFF;
+}
+.landing section.text-section p a:hover {
+  color: #999;
+}
+.landing section.text-section .paragraph {
+  background: #000;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  color: #fff;
+}
+.landing section.text-section .paragraph a {
+  border-bottom: dotted 1px #fff;
+  transition: all 300ms;
+  -webkit-transition: all 300ms;
+  -moz-transition: all 300ms;
+  -ms-transition: all 300ms;
+  -o-transition: all 300ms;
+  color: #FFF;
+}
+.landing section.text-section .paragraph a:hover {
+  color: #999;
+}
 .landing section.text-section .close {
   width: 52px;
   margin: 0 auto;
@@ -231,17 +262,21 @@ section.text-section {
   -o-transform: translate(0, -60px) rotateZ(90deg) scale(1.5, 1.5);
   color: #FF2227;
 }
-.landing section.text-section p a {
-  border-bottom: dotted 1px #fff;
-  transition: all 300ms;
-  -webkit-transition: all 300ms;
-  -moz-transition: all 300ms;
-  -ms-transition: all 300ms;
-  -o-transition: all 300ms;
-  color: #FFF;
+.landing section.text-section iframe {
+  transform: translate(7px,0px);
+  -webkit-transform: translate(7px,0px);
+  -ms-transform: translate(7px,0px);
 }
-.landing section.text-section p a:hover {
-  color: #999;
+iframe {
+}
+.landing section.text-section .nets {
+  margin: 10px 0 0 0;
+}
+.nets {
+}
+.landing section.text-section .nets a {
+  display: inline-block;
+  border-bottom: none;
 }
 section.home {
 }
@@ -588,30 +623,17 @@ table {
 }
 .social {
 }
-.content-container .social .twitter-share-button {
-  width: 80px !important;
-}
-.twitter-share-button {
-}
-.content-container .social [id^=___plusone] {
-  width: 59px !important;
-}
-.content-container .social .fb-like {
-  transform: translate(0px,-5px);
-  -webkit-transform: translate(0px,-5px);
-  -ms-transform: translate(0px,-5px);
-}
-.fb-like {
-}
-.content-container .social .github-stars {
-  width: 86px !important;
+.content-container .social .nets {
+  display: inline-block;
+  font-size: 21px;
+  transform: translate(-7px,-3px);
+  -webkit-transform: translate(-7px,-3px);
+  -ms-transform: translate(-7px,-3px);
 }
 .jsbin-widget {
 }
 .content-container .jsbin-widget iframe {
   height: 600px;
-}
-iframe {
 }
 .footer-content {
   position: fixed;

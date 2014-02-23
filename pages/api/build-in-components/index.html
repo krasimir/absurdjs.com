@@ -126,15 +126,21 @@
             <h1 id="build-in-components">Build-in components</h1>
 <div class="social">
 
-	<a href="https://twitter.com/share" class="twitter-share-button" data-via="KrasimirTsonev" data-hashtags="AbsurdJS">Tweet</a>
-	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+	<!--<a href="https://twitter.com/share" class="twitter-share-button" data-via="KrasimirTsonev" data-hashtags="AbsurdJS">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>-->
 
-	<div class="fb-like" data-width="30" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+	<!--<div class="fb-like" data-width="30" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>-->
 
 	<iframe src="http://ghbtns.com/github-btn.html?user=krasimir&repo=absurd&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20" class="github-stars"></iframe>
 
-	<script type="text/javascript" src="https://apis.google.com/js/platform.js"></script>
-	<div class="g-plusone" data-size="medium"></div>
+	<div class="nets">
+		<a href="https://www.facebook.com/sharer/sharer.php?u=http://absurdjs.com/pages/api/build-in-components" target="_blank" title="Facebook"><i class="fa fa-facebook-square"></i></a>
+		<a href="https://twitter.com/home?status=AbsurdJS%20-%20JavaScript%20library%20with%20superpowers%20http://absurdjs.com/pages/api/build-in-components" target="_blank" title="Twitter"><i class="fa fa-twitter-square"></i></a>
+		<a href="https://plus.google.com/share?url=http://absurdjs.com/pages/api/build-in-components" target="_blank" title="google+"><i class="fa fa-google-plus-square"></i></a>
+	</div>
+
+	<!--<script type="text/javascript" src="https://apis.google.com/js/platform.js"></script>
+	<div class="g-plusone" data-size="medium"></div>-->
 
 </div>
 
@@ -169,7 +175,7 @@
 
 <hr>
 <h1 id="router">router</h1>
-<p>Class providing single page app routing. It supports hash based URLs and may use the <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Manipulating_the_browser_history">History API</a>. A demo could be found <a href="http://absurdjs.com/tests/router/">here</a>. Read about how this class is created in <a href="http://krasimirtsonev.com/blog/article/A-modern-JavaScript-router-in-100-lines-history-api-pushState-hash-url">A modern JavaScript router in 100 lines</a>.</p>
+<p>Class providing single page app routing. It supports hash based URLs and may use the <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Manipulating_the_browser_history">History API</a>. A demo could be found <a href="http://absurdjs.com/tests/router/">here</a>. Read about how this class is created in <a href="http://krasimirtsonev.com/blog/article/A-modern-JavaScript-router-in-100-lines-history-api-pushState-hash-url">A modern JavaScript router in 100 lines</a>. To be sure that everything works run the test suite <a href="http://absurdjs.com/tests/?spec=Testing%20components%20(router">here</a>).</p>
 <h2 id="add-small-class-prop-values-regex-handler-small-">add ( <small class="prop-values">regex, handler</small> )</h2>
 <blockquote>
 <p>Registering a new route.</p>
@@ -242,6 +248,160 @@
 <pre><code class="language-javascript">absurd.component(&#39;MyComp&#39;, {
     constructor: function(router) {
         router.navigate(&#39;/products/show/33&#39;);
+    }
+})();
+</code></pre><h1 id="ajax">ajax</h1>
+<p>The class deals with GET and POST requests. It also handles the loading of external JSON files. To be sure that everything works run the test suite <a href="http://absurdjs.com/tests/?spec=Testing%20components%20(ajax">here</a>.</p>
+<h2 id="get-request">GET request</h2>
+<pre><code class="language-javascript">absurd.component(&#39;TestingAjax&#39;, {
+    constructor: function(ajax) {
+        ajax
+        .request(&#39;data/data.txt&#39;)
+        .done(function(data) {
+            // ...
+        })
+        .fail(function(xhr) {
+            // ...  
+        })
+        .always(function(xhr) {
+            // ...
+        })
+    }
+})();
+</code></pre><h2 id="get-request-with-parameters">GET request with parameters</h2>
+<pre><code class="language-javascript">absurd.component(&#39;TestingAjax&#39;, {
+    constructor: function(ajax) {
+        ajax
+        .request({
+            url: &#39;data/data-get.php&#39;, 
+            data: { 
+                a: &#39;AbsurdJS is a javascript library&#39;, 
+                b: &#39;with super powers.&#39;
+            }
+        })
+        .done(function(data) {
+            // ...
+        })
+        .fail(function(xhr) {
+            // ...  
+        })
+        .always(function(xhr) {
+            // ...
+        })
+    }
+})();
+</code></pre><h2 id="post-request">POST request</h2>
+<pre><code class="language-javascript">absurd.component(&#39;TestingAjax&#39;, {
+    constructor: function(ajax) {
+        ajax
+        .request({
+            url: &#39;data/data-post.php&#39;, 
+            method: &#39;post&#39;
+        })
+        .done(function(data) {
+            // ...
+        })
+        .fail(function(xhr) {
+            // ...  
+        })
+        .always(function(xhr) {
+            // ...
+        })
+    }
+})();
+</code></pre><h2 id="post-request-with-parameters">POST request with parameters</h2>
+<pre><code class="language-javascript">absurd.component(&#39;TestingAjax&#39;, {
+    constructor: function(ajax) {
+        ajax
+        .request({
+            url: &#39;data/data-post.php&#39;, 
+            data: { 
+                a: &#39;AbsurdJS is a javascript library&#39;, 
+                b: &#39;with super powers.&#39;
+            },
+            method: &#39;post&#39;
+        })
+        .done(function(data) {
+            // ...
+        })
+        .fail(function(xhr) {
+            // ...  
+        })
+        .always(function(xhr) {
+            // ...
+        })
+    }
+})();
+</code></pre><h2 id="put-request">PUT request</h2>
+<pre><code class="language-javascript">absurd.component(&#39;TestingAjax&#39;, {
+    constructor: function(ajax) {
+        ajax
+        .request({ &#39;data/data.php&#39;, method: &#39;put&#39; })
+        .done(function(data) {
+            // ...
+        })
+        .fail(function(xhr) {
+            // ...  
+        })
+        .always(function(xhr) {
+            // ...
+        })
+    }
+})();
+</code></pre><h2 id="delete-request">DELETE request</h2>
+<pre><code class="language-javascript">absurd.component(&#39;TestingAjax&#39;, {
+    constructor: function(ajax) {
+        ajax
+        .request({ &#39;data/data.php&#39;, method: &#39;delete&#39; })
+        .done(function(data) {
+            // ...
+        })
+        .fail(function(xhr) {
+            // ...  
+        })
+        .always(function(xhr) {
+            // ...
+        })
+    }
+})();
+</code></pre><h2 id="setting-headers">Setting headers</h2>
+<pre><code class="language-javascript">absurd.component(&#39;TestingAjax&#39;, {
+    constructor: function(ajax) {
+        ajax
+        .request({
+            url: &#39;data/header.php&#39;, 
+            headers: { 
+                &#39;absurd-header&#39;: &#39;oh yeah&#39;
+            }
+        })
+        .done(function(data) {
+            // ...
+        })
+        .fail(function(xhr) {
+            // ...  
+        })
+        .always(function(xhr) {
+            // ...
+        })
+    }
+})();
+</code></pre><h2 id="getting-json">Getting JSON</h2>
+<pre><code class="language-javascript">absurd.component(&#39;TestingAjax&#39;, {
+    constructor: function(ajax) {
+        ajax
+        .request({
+            url: &#39;data/data.json&#39;, 
+            json: true
+        })
+        .done(function(data) {
+            // ...
+        })
+        .fail(function(xhr) {
+            // ...  
+        })
+        .always(function(xhr) {
+            // ...
+        })
     }
 })();
 </code></pre>

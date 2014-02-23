@@ -97,12 +97,20 @@ var section = function() {
 					lh: '60px',
 					mar: '0 0 20px 0'
 				},
-				p: {
+				'p, .paragraph': {
 					bg: '#000',
 					color: '#fff',
 					pad: '20px',
 					maw: '600px',
-					m: 'au'
+					m: 'au',
+					a: {
+						color: '#FFF',
+						bdb: 'dotted 1px #fff',
+						'-wmso-trs': 'all 300ms',
+						'&:hover': {
+							color: '#999'
+						}
+					}
 				},
 				'.close': {
 					wid: '52px',
@@ -120,12 +128,14 @@ var section = function() {
 						'-wmo-trf': 'translate(0, -60px) rotateZ(90deg) scale(1.5, 1.5)'
 					}
 				},
-				'p a': {
-					color: '#FFF',
-					bdb: 'dotted 1px #fff',
-					'-wmso-trs': 'all 300ms',
-					'&:hover': {
-						color: '#999'
+				iframe: {
+					moveto: '7px/0'
+				},
+				'.nets': {
+					mar: '10px 0 0 0',
+					a: {
+						d: 'ib',
+						bdb: 'n'
 					}
 				}
 			},
