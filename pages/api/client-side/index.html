@@ -491,7 +491,152 @@ c.compileCSS({
 c.delay(1000, function() {
     console.log(this.__name); // MyComp
 });
-</code></pre><!-- -------------------------------------------------------------------- Events -- -->
+</code></pre><h3 id="val">val</h3>
+<p>Sometimes we need to extract data from the DOM. This could be value of a <code class="language-javascript">input</code> field, <code class="language-javascript">textarea</code> or just the text of a div. This method provides a mechanism for doing all this things.</p>
+<h4 id="getting-value-of-input-select-and-textarea-">Getting value of <code class="language-javascript">input</code>, <code class="language-javascript">select</code> and <code class="language-javascript">textarea</code></h4>
+<div class="example">
+<div class="col">
+<small>HTML:</small>
+<pre><code class="language-markup">&lt;form class=&quot;form&quot;&gt;
+    &lt;input type=&quot;text&quot; value=&quot;my text&quot; /&gt;
+    &lt;textarea&gt;Long text here&lt;/textarea&gt;
+    &lt;select&gt;
+        &lt;option value=&quot;A&quot;&gt;A&lt;/option&gt;
+        &lt;option value=&quot;B&quot; selected=&quot;selected&quot;&gt;B&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/form&gt;</code></pre></div>
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">absurd.component(&#39;TestingVal&#39;, {
+    html: &#39;.form&#39;,
+    ready: function() {
+        this.populate();
+        console.log(
+            this.val(&#39;[type=&quot;text&quot;]&#39;), // my text
+            this.val(&#39;textarea&#39;), // Long text here
+            this.val(&#39;select&#39;) // B
+        );
+    }
+})();</code></pre></div>
+</div>
+
+<p><small class="jsbin"><i class="fa fa-code"></i> <a href="http://jsbin.com/yipix/15/edit"></a></small></p>
+<h4 id="getting-value-of-check-or-radio-controls">Getting value of <code class="language-javascript">check</code> or <code class="language-javascript">radio</code> controls</h4>
+<div class="example">
+<div class="col">
+<small>HTML:</small>
+<pre><code class="language-markup">&lt;form class=&quot;form&quot;&gt;
+    &lt;input type=&quot;radio&quot; name=&quot;question&quot; value=&quot;A&quot; /&gt;
+    &lt;input type=&quot;radio&quot; name=&quot;question&quot; value=&quot;B&quot; checked/&gt;
+    &lt;input type=&quot;checkbox&quot; name=&quot;option&quot; value=&quot;A&quot; /&gt;
+    &lt;input type=&quot;checkbox&quot; name=&quot;option&quot; value=&quot;B&quot; /&gt;
+    &lt;input type=&quot;checkbox&quot; name=&quot;option&quot; value=&quot;C&quot; /&gt;
+    &lt;input type=&quot;checkbox&quot; name=&quot;option&quot; value=&quot;D&quot; checked/&gt;
+&lt;/form&gt;</code></pre></div>
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">absurd.component(&#39;TestingVal&#39;, {
+    html: &#39;.form&#39;,
+    ready: function() {
+        this.populate();
+        console.log(
+            this.val(&#39;[name=&quot;question&quot;]&#39;), // B
+            this.val(&#39;[name=&quot;option&quot;]&#39;), // D
+            this.val(&#39;[value=&quot;C&quot;]&#39;) // D
+        );
+    }
+})();</code></pre></div>
+</div>
+
+<p><small class="jsbin"><i class="fa fa-code"></i> <a href="http://jsbin.com/yipix/16/edit"></a></small></p>
+<h4 id="passing-a-dom-element">Passing a DOM element</h4>
+<div class="example">
+<div class="col">
+<small>HTML:</small>
+<pre><code class="language-markup">&lt;div id=&quot;content&quot;&gt;
+    &lt;h1&gt;Title&lt;/h1&gt;
+    &lt;p&gt;Paragraph&lt;/p&gt;
+&lt;/div&gt;</code></pre></div>
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">absurd.component(&#39;TestingVal&#39;, {
+    ready: function() {
+        console.log(
+            this.val(document.getElementById(&quot;content&quot;))
+            /<em>
+            Title
+            Paragraph
+            </em>/
+        );
+    }
+})();</code></pre></div>
+</div>
+
+<p><small class="jsbin"><i class="fa fa-code"></i> <a href="http://jsbin.com/yipix/22/edit"></a></small></p>
+<h4 id="scoping">Scoping</h4>
+<div class="example">
+<div class="col">
+<small>HTML:</small>
+<pre><code class="language-markup">&lt;div id=&quot;content&quot;&gt;
+    &lt;h1&gt;Title&lt;/h1&gt;
+    &lt;p&gt;Paragraph with &lt;small&gt;small text&lt;/small&gt;.&lt;/p&gt;
+&lt;/div&gt;</code></pre></div>
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">absurd.component(&#39;TestingVal&#39;, {
+    ready: function() {
+        var parent = document.querySelector(&quot;#content p&quot;); 
+        console.log(
+            this.val(&#39;small&#39;, parent) // small text
+        );
+    }
+})();</code></pre></div>
+</div>
+
+<p><small class="jsbin"><i class="fa fa-code"></i> <a href="http://jsbin.com/yipix/23/edit"></a></small></p>
+<h4 id="keeping-the-data-in-an-object">Keeping the data in an object</h4>
+<div class="example">
+<div class="col">
+<small>HTML:</small>
+<pre><code class="language-markup">&lt;div id=&quot;content&quot;&gt;
+    &lt;h1&gt;Title&lt;/h1&gt;
+    &lt;p&gt;Paragraph with &lt;small&gt;small text&lt;/small&gt;.&lt;/p&gt;
+    &lt;form method=&quot;post&quot;&gt;
+        &lt;input type=&quot;text&quot; name=&quot;username&quot; /&gt;
+        &lt;input type=&quot;submit&quot; /&gt;
+    &lt;/form&gt;
+    &lt;section class=&quot;info&quot;&gt;
+        &lt;p&gt;Description here&lt;/p&gt;
+    &lt;/section&gt;
+&lt;/div&gt;</code></pre></div>
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">absurd.component(&#39;TestingVal&#39;, {
+    ready: function() {
+        var parent = document.querySelector(&quot;#content&quot;); 
+        var value = this.val({
+            title: &#39;h1&#39;,
+            texts: {
+                paragraph: &#39;p&#39;,
+                info: &#39;.info p&#39;
+            }
+        }, parent);
+        console.log(value);
+        /<em>
+        {
+            texts: {
+                paragraph: &#39;Paragraph with small text.&#39;,
+                info: &#39;Description here&#39;
+            },
+            title: &#39;Title&#39;
+        }
+        </em>/
+    }
+})();</code></pre></div>
+</div>
+
+<p><small class="jsbin"><i class="fa fa-code"></i> <a href="http://jsbin.com/yipix/26/edit"></a></small></p>
+<!-- -------------------------------------------------------------------- Events -- -->
 
 <h2 id="events">Events</h2>
 <h3 id="populated">populated</h3>
