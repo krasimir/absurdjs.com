@@ -293,3 +293,160 @@ The class deals with GET and POST requests. It also handles the loading of exter
             })
         }
     })();
+
+# val
+
+Sometimes we need to extract data from the DOM. This could be value of a `input` field, `textarea` or just the text of a div. This method provides a mechanism for doing all this things.
+
+## Getting value of `input`, `select` and `textarea`
+
+<example>
+<html>
+&lt;form class="form">
+    &lt;input type="text" value="my text" />
+    &lt;textarea>Long text here&lt;/textarea>
+    &lt;select>
+        &lt;option value="A">A&lt;/option>
+        &lt;option value="B" selected="selected">B&lt;/option>
+    &lt;/select>
+&lt;/form>
+</html>
+<js>
+absurd.component('TestingVal', {
+    html: '.form',
+    ready: function() {
+        this.populate();
+        console.log(
+            this.val('[type="text"]'), // my text
+            this.val('textarea'), // Long text here
+            this.val('select') // B
+        );
+    }
+})();
+</js>
+</example>
+
+<small class="jsbin"><i class="fa fa-code"></i> [](http://jsbin.com/yipix/15/edit)</small>
+
+## Getting value of `check` or `radio` controls
+
+<example>
+<html>
+&lt;form class="form">
+    &lt;input type="radio" name="question" value="A" />
+    &lt;input type="radio" name="question" value="B" checked/>
+    &lt;input type="checkbox" name="option" value="A" />
+    &lt;input type="checkbox" name="option" value="B" />
+    &lt;input type="checkbox" name="option" value="C" />
+    &lt;input type="checkbox" name="option" value="D" checked/>
+&lt;/form>
+</html>
+<js>
+absurd.component('TestingVal', {
+    html: '.form',
+    ready: function() {
+        this.populate();
+        console.log(
+            this.val('[name="question"]'), // B
+            this.val('[name="option"]'), // D
+            this.val('[value="C"]') // D
+        );
+    }
+})();
+</js>
+</example>
+
+<small class="jsbin"><i class="fa fa-code"></i> [](http://jsbin.com/yipix/16/edit)</small>
+
+## Passing a DOM element
+
+<example>
+<html>
+&lt;div id="content">
+    &lt;h1>Title&lt;/h1>
+    &lt;p>Paragraph&lt;/p>
+&lt;/div>
+</html>
+<js>
+absurd.component('TestingVal', {
+    ready: function() {
+        console.log(
+            this.val(document.getElementById("content"))
+            /*
+            Title
+            Paragraph
+            */
+        );
+    }
+})();
+</js>
+</example>
+
+<small class="jsbin"><i class="fa fa-code"></i> [](http://jsbin.com/yipix/22/edit)</small>
+
+## Scoping
+
+<example>
+<html>
+&lt;div id="content">
+    &lt;h1>Title&lt;/h1>
+    &lt;p>Paragraph with &lt;small>small text&lt;/small>.&lt;/p>
+&lt;/div>
+</html>
+<js>
+absurd.component('TestingVal', {
+    ready: function() {
+        var parent = document.querySelector("#content p"); 
+        console.log(
+            this.val('small', parent) // small text
+        );
+    }
+})();
+</js>
+</example>
+
+<small class="jsbin"><i class="fa fa-code"></i> [](http://jsbin.com/yipix/23/edit)</small>
+
+## Keeping the data in an object
+
+<example>
+<html>
+&lt;div id="content">
+    &lt;h1>Title&lt;/h1>
+    &lt;p>Paragraph with &lt;small>small text&lt;/small>.&lt;/p>
+    &lt;form method="post">
+        &lt;input type="text" name="username" />
+        &lt;input type="submit" />
+    &lt;/form>
+    &lt;section class="info">
+        &lt;p>Description here&lt;/p>
+    &lt;/section>
+&lt;/div>
+</html>
+<js>
+absurd.component('TestingVal', {
+    ready: function() {
+        var parent = document.querySelector("#content"); 
+        var value = this.val({
+            title: 'h1',
+            texts: {
+                paragraph: 'p',
+                info: '.info p'
+            }
+        }, parent);
+        console.log(value);
+        /*
+        {
+            texts: {
+                paragraph: 'Paragraph with small text.',
+                info: 'Description here'
+            },
+            title: 'Title'
+        }
+        */
+    }
+})();
+</js>
+</example>
+
+<small class="jsbin"><i class="fa fa-code"></i> [](http://jsbin.com/yipix/26/edit)</small>
