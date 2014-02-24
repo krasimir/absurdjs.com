@@ -1,0 +1,5 @@
+#!/bin/sh
+
+rm -r ./node_modules/absurd
+npm install
+gulp

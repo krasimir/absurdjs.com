@@ -9,6 +9,13 @@ Every page is written in [Markdown](https://daringfireball.net/projects/markdown
 ## Compilation
 
 ```
+> rm -r ./node_modules/absurd
 > npm install
 > gulp
+```
+
+or
+
+```
+sh ./compile
 ```

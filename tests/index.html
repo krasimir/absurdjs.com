@@ -7,6 +7,9 @@
 		body {
 			background: #E3E3E3;
 		}
+		.form {
+			display: none;
+		}
 	</style>
 	<link rel="stylesheet" href="jasmine-1.3.1/jasmine.css">
 	<script src="../builds/absurd.organic.js"></script>
@@ -70,7 +73,29 @@
 		<p><% this.text %></p>
 		<small>small text</small>
 	</div>
-	
+
+	<div class="form">
+		<textarea class="textarea">blah in textarea</textarea>
+		<input type="radio" name="radio" value="blah1">
+		<input type="radio" name="radio" value="blah2">
+		<input type="checkbox" name="check-options" value="check1">
+		<input type="checkbox" name="check-options" value="check2">
+		<input type="checkbox" name="check-options" value="check3">
+		<select class="select">
+			<option value="A">A</option>
+			<option value="B" selected="selected">B</option>
+		</select>
+		<input type="text" value="blah" class="input" />
+		<div class="div">div blah</div>
+		<span class="span">I'm an inline</span>
+		<a class="link" href="#">I'm a link</a>
+		<p>A paragraph</p>
+		<section class="section">
+			<h1>Title here</h1>
+			<p>Very long text with <a href='#'>link</a> inside.</p>
+		</section>
+	</div>
+
 	<script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
