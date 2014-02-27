@@ -159,7 +159,7 @@ module.exports = function(api) {
 			},
 			'.jsbin-widget': {
 				iframe: {
-					hei: '600px'
+					hei: '700px'
 				}
 			}
 		}

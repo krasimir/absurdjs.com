@@ -6,6 +6,13 @@ There are components which are integrated into AbsurdJS and you are able to inje
 
 - - -
 
+* [is](#is)
+* [router](#router)
+* [ajax](#ajax)
+* [dom](#dom)
+
+- - -
+
 # is
 
 A helper component wrapping common tasks.
@@ -293,3 +300,278 @@ The class deals with GET and POST requests. It also handles the loading of exter
             })
         }
     })();
+
+# dom
+
+We are communicating with DOM elements all the time, getting or setting values. This module simplifies these processes.
+
+## Accessing a DOM element
+
+<example>
+<html>
+&lt;p class="content">Paragraph&lt;/p>
+</html>
+<js>
+absurd.component('TestingDOM', {
+    constructor: function(dom) {
+        var el = dom('.content').el;
+        console.log(el.outerHTML); 
+        // &lt;p class="content">Paragraph&lt;/p>
+    }
+})();
+</js>
+</example>
+
+<small class="jsbin"><i class="fa fa-code"></i> [](http://jsbin.com/yipix/34/edit)</small>
+
+## Accessing several DOM elements at once
+
+<example>
+<html>
+&lt;section>
+    &lt;h1>AbsurdJS&lt;/h1>
+    &lt;p>JavaScript library with super powers&lt;/p>
+    &lt;footer>
+        absurdjs.com
+        &lt;br />
+        &lt;small>version: 0.3&lt;/small>
+    &lt;/footer>
+&lt;/section>
+</html>
+<js>
+absurd.component('TestingDOM', {
+    constructor: function(dom) {
+        var els = dom({
+            title: 'h1',
+            text: 'p',
+            other: {
+                version: 'footer small'
+            }
+        }, 'section');
+        console.log(els.title.el.innerHTML);
+        // AbsurdJS
+        console.log(els.text.el.innerHTML);
+        // JavaScript library with super powers
+        console.log(els.other.version.el.innerHTML);
+        // version: 0.3
+    }
+})();
+</js>
+</example>
+
+<small class="jsbin"><i class="fa fa-code"></i> [](http://jsbin.com/yipix/46/edit)</small>
+
+## Scoping
+
+By default the `dom` function is querying the DOM tree from the current `document` object. However, if your component has a valid `html` property set up and you call `populate` before to use `dom` the scope is changed. For example:
+
+<example>
+<html>
+&lt;p class="content">A&lt;/p>
+&lt;section>
+    &lt;p class="content">B&lt;/p>
+&lt;/section>
+</html>
+<js>
+absurd.component('TestingDOM', {
+    html: 'section',
+    constructor: function(dom) {
+        this.populate();
+        var el = dom('.content').el;
+        console.log(el.outerHTML); 
+        // &lt;p class="content">B&lt;/p>
+    }
+})();
+</js>
+</example>
+
+<small class="jsbin"><i class="fa fa-code"></i> [](http://jsbin.com/yipix/40/edit)</small>
+
+Of course, if you want you may specify your own scope.
+
+<example>
+<html>
+&lt;p class="content">A&lt;/p>
+&lt;section>
+    &lt;p class="content">B&lt;/p>
+&lt;/section>
+&lt;section id='my-section'>
+    &lt;p class="content">C&lt;/p>
+&lt;/section>
+</html>
+<js>
+absurd.component('TestingDOM', {
+    constructor: function(dom) {
+        var el = dom('.content', '#my-section').el;
+        console.log(el.outerHTML); 
+        // &lt;p class="content">B&lt;/p>
+    }
+})();
+</js>
+</example>
+
+## Setting and getting value from a text field
+
+<example>
+<html>
+&lt;form>
+    &lt;input type="text" value="default text"/>
+&lt;/form>
+</html>
+<js>
+absurd.component('TestingDOM', {
+    constructor: function(dom) {
+        var input = dom('[type="text"]');
+        console.log(input.val()); // default text
+        input.val('absurdjs'); // sets a new value
+    }
+})();
+</js>
+</example>
+
+<small class="jsbin"><i class="fa fa-code"></i> [](http://jsbin.com/yipix/50/edit)</small>
+
+## Setting and getting value from a text area and select box
+
+<example>
+<html>
+&lt;form>
+    &lt;textarea>JavaScript is &lt;/textarea>
+    &lt;select>
+        &lt;option value="cool">cool&lt;/option>
+        &lt;option value="awesome" selected="selected">awesome&lt;/option>
+        &lt;option value="difficult">difficult&lt;/option>
+    &lt;/select>
+&lt;/form>
+</html>
+<js>
+absurd.component('TestingDOM', {
+    constructor: function(dom) {
+        var textarea = dom('textarea');
+        var select = dom('select');
+        console.log(textarea.val() + select.val());
+        // JavaScript is awesome
+        textarea.val('Coding is ');
+        select.val('difficult');
+        console.log(textarea.val() + select.val());
+        // Conding is difficult
+    }
+})();
+</js>
+</example>
+
+<small class="jsbin"><i class="fa fa-code"></i> [](http://jsbin.com/yipix/54/edit)</small>
+
+## Setting and getting value from a radio and check boxes
+
+<example>
+<html>
+&lt;form>
+    &lt;input type="radio" value="oA" name="options"> option A
+    &lt;input type="radio" value="oB" name="options" checked> option B
+    &lt;input type="checkbox" value="f1" name="features"> feature 1
+    &lt;input type="checkbox" value="f2" checked name="features"> feature 2
+    &lt;input type="checkbox" value="f3" checked name="features"> feature 2
+&lt;/form>
+</html>
+<js>
+absurd.component('TestingDOM', {
+    ready: function(dom) {
+        console.log(dom('[type="radio"]').val());
+        // oB
+        console.log(dom('[type="checkbox"]').val());
+        // ['f2', 'f3']
+    }
+})();
+</js>
+</example>
+
+<small class="jsbin"><i class="fa fa-code"></i> [](http://jsbin.com/yipix/60/edit)</small>
+
+## Setting and getting value from any other DOM element
+
+<example>
+<html>
+&lt;div class="content">
+    &lt;h1>AbsurdJS&lt;/h1>
+    &lt;div class="inner">
+        &lt;p>JavaScript library with super powers. Find the official web site &lt;a href="http://absurdjs.com">here&lt;/a>.&lt;/p>
+    &lt;/div>
+    &lt;footer>footer&lt;/footer>
+&lt;/div>
+</html>
+<js>
+absurd.component('TestingDOM', {
+    ready: function(dom) {
+        console.log(dom('h1').val());
+        // AbsurdJS
+        console.log(dom('.inner').val());
+        // JavaScript library with super powers.
+        // Find the official web site here.
+        console.log(dom('.inner a').val());
+        // here
+        
+        // setting new values
+        dom('.inner').val('New Text');
+        dom('h1').val('New Title');
+    }
+})();
+</js>
+</example>
+
+<small class="jsbin"><i class="fa fa-code"></i> [](http://jsbin.com/yipix/67/edit)</small>
+
+## Getting values of several elements at once
+
+<example>
+<html>
+&lt;form class="contacts">
+    Name:
+    &lt;input type="text" name="name" value="John" />
+    &lt;br />Your email:
+    &lt;input type="email" name="email"  value="j@j.com" />
+    &lt;br />Experience:
+    &lt;input type="radio" name="exp" value="l1" /> level 1
+    &lt;input type="radio" name="exp" value="l2" /> level 2
+    &lt;input type="radio" name="exp" value="l3" checked /> level 3
+    &lt;br />
+    &lt;div class="info">
+        Version: &lt;span class="ver">0.3&lt;/span>
+        Position: &lt;span class="pos">web&lt;/span>
+    &lt;/div>
+&lt;/form>
+</html>
+<js>
+absurd.component('TestingDOM', {
+    ready: function(dom) {
+        console.log(dom({
+            user: {
+                name: '[name="name"]',
+                mail: '[name="email"]',
+                exp: '[name="exp"]'
+            },
+            information: {
+                version: '.ver',
+                position: '.pos'
+            }
+        }, 'fomr.contacts').val());
+    }
+})();
+</js>
+</example>
+
+The result of the code above is the following object:
+
+    {
+        information: {
+            position: "web",
+            version: "0.3"
+        },
+        user: {
+            exp: "l3",
+            mail: "j@j.com",
+            name: "John"
+        }
+    }
+
+<small class="jsbin"><i class="fa fa-code"></i> [](http://jsbin.com/yipix/65/edit)</small>
