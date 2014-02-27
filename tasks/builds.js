@@ -48,7 +48,7 @@ module.exports = function () {
         var getTests = function(callback) {
             var source = __dirname + '/../node_modules/absurd/client-side/tests';
             var destination = __dirname + '/../tests';
-            var testsIndex = __dirname + '/../tests/index.html';
+            var testsIndex = __dirname + '/../tests/index.php';
             ncp(source, destination, function (err) {
                 var indexContent = fs.readFileSync(testsIndex);
                 indexContent = indexContent.toString().replace(/\/build/g, '/builds');
