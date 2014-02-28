@@ -797,144 +797,144 @@ span {
   margin: 0 10px 0 0;
 }
 @media all and (max-width: 880px) {
-.landing {
-  overflow: scroll;
-}
-.landing video {
-  display: none;
-}
-video {
-}
-.landing .video-overlay {
-  display: none;
-}
-.video-overlay {
-}
-.landing .logo {
-  position: relative;
-  width: 120px;
-  margin: 50px auto 50px auto;
-  filter: alpha(opacity=100);
-  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-  opacity: 1;
-  -moz-opacity: 1;
-  -khtml-opacity: 1;
-  transform: translate(0px,0px);
-  -webkit-transform: translate(0px,0px);
-  -ms-transform: translate(0px,0px);
-  left: auto;
-  bottom: auto;
-}
-.logo {
-}
-.landing .logo:hover {
-  transform: scale(1,1);
-  -webkit-transform: scale(1,1);
-  -ms-transform: scale(1,1);
-}
-.logo:hover {
-}
-.landing section.text-section h2 {
-  font-size: 30px;
-  background: #FFF;
-  padding: 10px 0 10px 0;
-  color: #000;
-}
-.landing section.text-section .close {
-  display: none;
-}
-.close {
-}
-.landing section.home .title {
-  text-align: center;
-  margin: 0 0 36px 0;
-}
-.title {
-}
-.landing section.home .title h1 {
-  font-size: 40px;
-  line-height: 40px;
-}
-h1 {
-}
-.landing section.home .links ul li {
-  text-align: center;
-}
-li {
-}
-a {
-}
-.landing section.home .links ul li a:hover {
-  border-bottom: none;
-  border-left: solid 1px #000;
-}
-a:hover {
-}
-.landing section.home .column {
-  float: none;
-  width: 100%;
-  padding: 0;
-}
-.column {
-}
-.landing section.waiting {
-  left: auto;
-}
-.landing section.selected {
-  left: auto;
-}
-.landing section {
-  position: relative;
-  margin: 30px auto;
-  max-width: 600px;
-  width: auto;
-  left: auto;
-  top: auto;
-}
+  .landing {
+    overflow: scroll;
+  }
+  .landing video {
+    display: none;
+  }
+  video {
+  }
+  .landing .video-overlay {
+    display: none;
+  }
+  .video-overlay {
+  }
+  .landing .logo {
+    position: relative;
+    width: 120px;
+    margin: 50px auto 50px auto;
+    filter: alpha(opacity=100);
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    transform: translate(0px,0px);
+    -webkit-transform: translate(0px,0px);
+    -ms-transform: translate(0px,0px);
+    left: auto;
+    bottom: auto;
+  }
+  .logo {
+  }
+  .landing .logo:hover {
+    transform: scale(1,1);
+    -webkit-transform: scale(1,1);
+    -ms-transform: scale(1,1);
+  }
+  .logo:hover {
+  }
+  .landing section.text-section h2 {
+    font-size: 30px;
+    background: #FFF;
+    padding: 10px 0 10px 0;
+    color: #000;
+  }
+  .landing section.text-section .close {
+    display: none;
+  }
+  .close {
+  }
+  .landing section.home .title {
+    text-align: center;
+    margin: 0 0 36px 0;
+  }
+  .title {
+  }
+  .landing section.home .title h1 {
+    font-size: 40px;
+    line-height: 40px;
+  }
+  h1 {
+  }
+  .landing section.home .links ul li {
+    text-align: center;
+  }
+  li {
+  }
+  a {
+  }
+  .landing section.home .links ul li a:hover {
+    border-bottom: none;
+    border-left: solid 1px #000;
+  }
+  a:hover {
+  }
+  .landing section.home .column {
+    float: none;
+    width: 100%;
+    padding: 0;
+  }
+  .column {
+  }
+  .landing section.waiting {
+    left: auto;
+  }
+  .landing section.selected {
+    left: auto;
+  }
+  .landing section {
+    position: relative;
+    margin: 30px auto;
+    max-width: 600px;
+    width: auto;
+    left: auto;
+    top: auto;
+  }
 }
 @media all and (max-width: 600px) {
-.content-container .example .col {
-  float: none;
-  width: 100%;
-}
-.col {
-}
+  .content-container .example .col {
+    float: none;
+    width: 100%;
+  }
+  .col {
+  }
 }
 @media all and (max-width: 820px) {
-.content-container .doc-home {
-  display: none;
-}
-.doc-home {
-}
-.content-container .page-edit {
-  display: none;
-}
-.page-edit {
-}
+  .content-container .doc-home {
+    display: none;
+  }
+  .doc-home {
+  }
+  .content-container .page-edit {
+    display: none;
+  }
+  .page-edit {
+  }
 }
 @media all and (max-width: 500px) {
-.footer-content {
-  position: relative;
-  height: auto;
-}
-.footer-content .open {
-  display: none;
-}
-.open {
-}
+  .footer-content {
+    position: relative;
+    height: auto;
+  }
+  .footer-content .open {
+    display: none;
+  }
+  .open {
+  }
 }
 @media all and (max-width: 590px) {
-.container {
-}
-.footer-content .container div {
-  width: 100%;
-  f: n;
-}
+  .container {
+  }
+  .footer-content .container div {
+    width: 100%;
+    f: n;
+  }
 }
 @media all and (max-width: 280px) {
-.content-nav ul li a span {
-  display: none;
-}
-span {
-}
+  .content-nav ul li a span {
+    display: none;
+  }
+  span {
+  }
 }

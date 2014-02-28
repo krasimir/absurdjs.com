@@ -276,7 +276,7 @@ section p {
   background: #999;
 }
 </code></pre><p>It&#39;s always nice to keep your code well structured and define those custom styles together with the main definitions.</p>
-<h2 id="using-external-objects">Using external objects</h2>
+<h2 id="using-an-array-as-value">Using an array as value</h2>
 <p>Very often you will compose the styles by using external modules or functions. Having this in mind you should know that you may use arrays. </p>
 <pre><code class="language-javascript">var a = {
     fontSize: &#39;12px&#39;
@@ -292,7 +292,59 @@ api.add({
   font-size: 12px;
   margin: 10px;
 }
-</code></pre>
+</code></pre><h2 id="using-classify-property">Using classify property</h2>
+<p>There are cases where you want to send an object as a value, but don&#39;t want to be compiled as a nested element. In such cases you may use the <code class="language-javascript">classify</code> property. For example:</p>
+<div class="example">
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">var px = function(value) {
+    return {
+        classify: true,
+        add: function(num) { 
+            value += num; return this; 
+        },
+        remove: function(num) { 
+            value -= num; return this; 
+        },
+        toString: function() { 
+            return value + &#39;px&#39;;
+        }
+    };
+};
+var size = function(w, h) {
+    return {
+        classify: true,
+        toJSON: function() {
+            return {
+                width: w + &#39;px&#39;,
+                height: h + &#39;px&#39;
+            };
+        }
+    };
+};
+absurd.add({
+    body: {
+        width: px(60).add(20).remove(10),
+        section: size(950, 200)
+    }
+}).compile(function(err, css) {
+    console.clear();
+    console.log(css);
+});</code></pre></div>
+<div class="col">
+<small>CSS:</small>
+<pre><code class="language-css">body {
+  width: 70px;
+}
+body section {
+  width: 950px;
+  height: 200px;
+}</code></pre></div>
+</div>    
+
+<p>AbsurdJS uses the <code class="language-javascript">toString</code> or <code class="language-javascript">toJSON</code> function of the passed object (if any) to retrieve the result.</p>
+<p><small class="jsbin"><i class="fa fa-code"></i> <a href="http://jsbin.com/paqegexe/13/edit?js,console"></a></small></p>
+
                 <br />
                 <br />
                 <hr />

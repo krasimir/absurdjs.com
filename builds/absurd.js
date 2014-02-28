@@ -1,4 +1,4 @@
-/* version: 0.3.13, born: 27-1-2014 16:17 */
+/* version: 0.3.134, born: 28-1-2014 18:30 */
 var Absurd = (function(w) {
 var lib = { 
     api: {},
@@ -1204,8 +1204,12 @@ lib.api.add = function(API) {
 
 		// processing props
 		for(var prop in props) {
+			// classify
+			if(props[prop] && typeof props[prop].classify != 'undefined' && props[prop].classify === true) {
+				props[prop] = typeof props[prop].toJSON != 'undefined' ? props[prop].toJSON() : props[prop].toString();
+			}
 			var type = typeof props[prop];
-			if(type !== 'object' && type !== 'function' && props[prop] !== false) {
+			if(type !== 'object' && type !== 'function' && props[prop] !== false && props[prop] !== true) {
 				if(checkAndExecutePlugin(selector, prop, props[prop], stylesheet, parentSelector) === false) {
 					// moving the selector to the top of the chain
 					if(_selector.indexOf("^") === 0) {
@@ -1780,15 +1784,16 @@ var newline = '\n',
 	},
 	transformUppercase = require("../../helpers/TransformUppercase");
 
-var toCSS = function(rules, options) {
+var toCSS = function(rules, options, indent) {
 	var css = '';
+	indent = indent || ['', '  '];
 	for(var selector in rules) {
 		// handling raw content
 		if(selector.indexOf("____raw") === 0) {
 			css += rules[selector][selector] + newline;
 		// handling normal styles
 		} else {
-			var entity = selector + ' {' + newline;
+			var entity = indent[0] + selector + ' {' + newline;
 			for(var prop in rules[selector]) {
 				var value = rules[selector][prop];
 				if(value === "") {
@@ -1796,12 +1801,12 @@ var toCSS = function(rules, options) {
 				}
 				prop = prop.replace(/^%(.*)+?%/, '');
 				if(options && options.keepCamelCase === true) {
-					entity += '  ' + prop + ': ' + value + ';' + newline;
+					entity += indent[1] + prop + ': ' + value + ';' + newline;
 				} else {
-					entity += '  ' + transformUppercase(prop) + ': ' + value + ';' + newline;
+					entity += indent[1] + transformUppercase(prop) + ': ' + value + ';' + newline;
 				}
 			}
-			entity += '}' + newline;
+			entity += indent[0] + '}' + newline;
 			css += entity;
 		}
 	}
@@ -1872,7 +1877,7 @@ lib.processors.css.CSS = function() {
 			if(stylesheet === "mainstream") {
 				css += toCSS(r, options);
 			} else {
-				css += stylesheet + " {" + newline + toCSS(r, options) + "}" + newline;
+				css += stylesheet + " {" + newline + toCSS(r, options, ['  ', '    ']) + "}" + newline;
 			}		
 		}
 		css = replaceDefined(css, options);

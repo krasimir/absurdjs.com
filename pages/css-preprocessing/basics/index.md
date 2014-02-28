@@ -169,7 +169,7 @@ The compiled CSS:
 
 It's always nice to keep your code well structured and define those custom styles together with the main definitions.
 
-## Using external objects
+## Using an array as value
 
 Very often you will compose the styles by using external modules or functions. Having this in mind you should know that you may use arrays. 
 
@@ -189,3 +189,59 @@ Produces:
 	  font-size: 12px;
 	  margin: 10px;
 	}
+
+## Using classify property
+
+There are cases where you want to send an object as a value, but don't want to be compiled as a nested element. In such cases you may use the `classify` property. For example:
+
+<example>
+<js>
+var px = function(value) {
+    return {
+        classify: true,
+        add: function(num) { 
+        	value += num; return this; 
+        },
+        remove: function(num) { 
+        	value -= num; return this; 
+        },
+        toString: function() { 
+        	return value + 'px';
+        }
+    };
+};
+var size = function(w, h) {
+    return {
+        classify: true,
+        toJSON: function() {
+            return {
+                width: w + 'px',
+                height: h + 'px'
+            };
+        }
+    };
+};
+absurd.add({
+    body: {
+        width: px(60).add(20).remove(10),
+        section: size(950, 200)
+    }
+}).compile(function(err, css) {
+    console.clear();
+    console.log(css);
+});
+</js>
+<css>
+body {
+  width: 70px;
+}
+body section {
+  width: 950px;
+  height: 200px;
+}
+</css>
+</example>	
+
+AbsurdJS uses the `toString` or `toJSON` function of the passed object (if any) to retrieve the result.
+
+<small class="jsbin"><i class="fa fa-code"></i> [](http://jsbin.com/paqegexe/13/edit?js,console)</small>
