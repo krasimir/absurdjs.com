@@ -6,10 +6,11 @@ There are components which are integrated into AbsurdJS and you are able to inje
 
 - - -
 
-* [is](#is)
-* [router](#router)
-* [ajax](#ajax)
-* [dom](#dom)
+* [is (Utility)](#is)
+* [router (Cross-browser router)](#router)
+* [ajax (Cross-browser Ajax)](#ajax)
+* [dom (DOM access)](#dom)
+* [mq (media queries)](#mq)
 
 - - -
 
@@ -575,3 +576,39 @@ The result of the code above is the following object:
     }
 
 <small class="jsbin"><i class="fa fa-code"></i> [](http://jsbin.com/yipix/65/edit)</small>
+
+# mq
+
+AbsurdJS provides an API for using Media Queries in JavaScript. It works with [`window.matchMedia`](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Testing_media_queries) by default but also has a polyfill if that feature is not supported by the browser.
+
+The mq method accepts three properties. The first one is your query, the second one is a callback function which is called once at the beginning and again on every match or mismatch. The last argument tells to Absurd to use the polyfill or not. You will usually leave it blank.
+
+    ready: function(mq) {
+        // the handler is called at least once 
+        // it is fired again if the query changes its status
+        mq('all and (min-width: 300px)', function(match) {
+            // match = true or false
+        });
+    }
+
+Here is a full example showing a div with text `Test` which becomes green or red depending on the browser's width.
+
+    absurd.component('MyComp', {
+        html: { div: 'Test' },
+        css: { div: { color: '#f00' }},    
+        ready: function(dom, mq) {
+            this.set('parent', dom('body').el).populate();
+            mq('all and (min-width: 300px)', function(match) {
+                if(match) { 
+                    this.css.div.color = '#0f0';
+                } else {
+                    this.css.div.color = '#f00';
+                }
+                this.populate();
+            });
+        }
+    })();
+
+<small class="jsbin"><i class="fa fa-code"></i> [](http://jsbin.com/paqegexe/22/edit?js,output)</small>
+
+> To see the result in the JSBin example drag the panels' divider to the left.

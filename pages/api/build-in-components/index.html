@@ -147,10 +147,11 @@
 <p>There are components which are integrated into AbsurdJS and you are able to inject them in every of the your component&#39;s functions.</p>
 <hr>
 <ul>
-<li><a href="#is">is</a></li>
-<li><a href="#router">router</a></li>
-<li><a href="#ajax">ajax</a></li>
-<li><a href="#dom">dom</a></li>
+<li><a href="#is">is (Utility)</a></li>
+<li><a href="#router">router (Cross-browser router)</a></li>
+<li><a href="#ajax">ajax (Cross-browser Ajax)</a></li>
+<li><a href="#dom">dom (DOM access)</a></li>
+<li><a href="#mq">mq (media queries)</a></li>
 </ul>
 <hr>
 <h1 id="is">is</h1>
@@ -664,6 +665,36 @@
     }
 }
 </code></pre><p><small class="jsbin"><i class="fa fa-code"></i> <a href="http://jsbin.com/yipix/65/edit"></a></small></p>
+<h1 id="mq">mq</h1>
+<p>AbsurdJS provides an API for using Media Queries in JavaScript. It works with <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Testing_media_queries"><code class="language-javascript">window.matchMedia</code></a> by default but also has a polyfill if that feature is not supported by the browser.</p>
+<p>The mq method accepts three properties. The first one is your query, the second one is a callback function which is called once at the beginning and again on every match or mismatch. The last argument tells to Absurd to use the polyfill or not. You will usually leave it blank.</p>
+<pre><code class="language-javascript">ready: function(mq) {
+    // the handler is called at least once 
+    // it is fired again if the query changes its status
+    mq(&#39;all and (min-width: 300px)&#39;, function(match) {
+        // match = true or false
+    });
+}
+</code></pre><p>Here is a full example showing a div with text <code class="language-javascript">Test</code> which becomes green or red depending on the browser&#39;s width.</p>
+<pre><code class="language-javascript">absurd.component(&#39;MyComp&#39;, {
+    html: { div: &#39;Test&#39; },
+    css: { div: { color: &#39;#f00&#39; }},    
+    ready: function(dom, mq) {
+        this.set(&#39;parent&#39;, dom(&#39;body&#39;).el).populate();
+        mq(&#39;all and (min-width: 300px)&#39;, function(match) {
+            if(match) { 
+                this.css.div.color = &#39;#0f0&#39;;
+            } else {
+                this.css.div.color = &#39;#f00&#39;;
+            }
+            this.populate();
+        });
+    }
+})();
+</code></pre><p><small class="jsbin"><i class="fa fa-code"></i> <a href="http://jsbin.com/paqegexe/22/edit?js,output"></a></small></p>
+<blockquote>
+<p>To see the result in the JSBin example drag the panels&#39; divider to the left.</p>
+</blockquote>
 
                 <br />
                 <br />
