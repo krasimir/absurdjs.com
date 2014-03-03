@@ -1,4 +1,4 @@
-/* version: 0.3.135, born: 2-2-2014 1:55 */
+/* version: 0.3.137, born: 3-2-2014 15:49 */
 var Absurd = (function(w) {
 var lib = { 
     api: {},
@@ -1282,70 +1282,76 @@ lib.api.add = function(API) {
 
 	var add = function(rules, stylesheet, opts) {
 
-		toRegister = [];
-		API.numOfAddedRules += 1;
+		try {
 
-		if(typeof stylesheet === 'object' && typeof opts === 'undefined') {
-			options = {
-				combineSelectors: typeof stylesheet.combineSelectors != 'undefined' ? stylesheet.combineSelectors : options.combineSelectors,
-				preventCombining: options.preventCombining.concat(stylesheet.preventCombining || [])
-			};
-			stylesheet = null;
-		}
-		if(typeof opts != 'undefined') {
-			options = {
-				combineSelectors: opts.combineSelectors || options.combineSelectors,
-				preventCombining: options.preventCombining.concat(opts.preventCombining || [])
-			};
-		}
+			toRegister = [];
+			API.numOfAddedRules += 1;
 
-		var typeOfPreprocessor = API.defaultProcessor.type, uid;
+			if(typeof stylesheet === 'object' && typeof opts === 'undefined') {
+				options = {
+					combineSelectors: typeof stylesheet.combineSelectors != 'undefined' ? stylesheet.combineSelectors : options.combineSelectors,
+					preventCombining: options.preventCombining.concat(stylesheet.preventCombining || [])
+				};
+				stylesheet = null;
+			}
+			if(typeof opts != 'undefined') {
+				options = {
+					combineSelectors: opts.combineSelectors || options.combineSelectors,
+					preventCombining: options.preventCombining.concat(opts.preventCombining || [])
+				};
+			}
 
-		for(var selector in rules) {
-			addRule(selector, rules[selector], stylesheet || "mainstream");
-		}
+			var typeOfPreprocessor = API.defaultProcessor.type, uid;
 
-		// looping through the rules for registering
-		for(var i=0; i<toRegister.length; i++) {
-			var stylesheet = toRegister[i].stylesheet,
-				selector = toRegister[i].selector,
-				props = toRegister[i].props,
-				allRules = API.getRules(stylesheet);
-			var pc = options && options.preventCombining ? '|' + options.preventCombining.join('|') : '';
-			var uid = pc.indexOf('|' + selector) >= 0 ? '~~' + API.numOfAddedRules + '~~' : '';
-			// overwrite already added value
-			var current = allRules[uid + selector] || {};
-			for(var propNew in props) {
-				var value = props[propNew];
-				propNew = uid + propNew;
-				if(typeof value != 'object') {
-					if(typeOfPreprocessor == "css") {
-						// appending values
-						if(value.toString().charAt(0) === "+") {
-							if(current && current[propNew]) {
-								current[propNew] = current[propNew] + ", " + value.substr(1, value.length-1);	
+			for(var selector in rules) {
+				addRule(selector, rules[selector], stylesheet || "mainstream");
+			}
+
+			// looping through the rules for registering
+			for(var i=0; i<toRegister.length; i++) {
+				var stylesheet = toRegister[i].stylesheet,
+					selector = toRegister[i].selector,
+					props = toRegister[i].props,
+					allRules = API.getRules(stylesheet);
+				var pc = options && options.preventCombining ? '|' + options.preventCombining.join('|') : '';
+				var uid = pc.indexOf('|' + selector) >= 0 ? '~~' + API.numOfAddedRules + '~~' : '';
+				// overwrite already added value
+				var current = allRules[uid + selector] || {};
+				for(var propNew in props) {
+					var value = props[propNew];
+					propNew = uid + propNew;
+					if(typeof value != 'object') {
+						if(typeOfPreprocessor == "css") {
+							// appending values
+							if(value.toString().charAt(0) === "+") {
+								if(current && current[propNew]) {
+									current[propNew] = current[propNew] + ", " + value.substr(1, value.length-1);	
+								} else {
+									current[propNew] = value.substr(1, value.length-1);	
+								}
+							} else if(value.toString().charAt(0) === ">") {
+								if(current && current[propNew]) {
+									current[propNew] = current[propNew] + " " + value.substr(1, value.length-1);	
+								} else {
+									current[propNew] = value.substr(1, value.length-1);	
+								}
 							} else {
-								current[propNew] = value.substr(1, value.length-1);	
-							}
-						} else if(value.toString().charAt(0) === ">") {
-							if(current && current[propNew]) {
-								current[propNew] = current[propNew] + " " + value.substr(1, value.length-1);	
-							} else {
-								current[propNew] = value.substr(1, value.length-1);	
+								current[propNew] = value;
 							}
 						} else {
 							current[propNew] = value;
 						}
-					} else {
-						current[propNew] = value;
+						
 					}
-					
 				}
+				allRules[uid + selector] = current;
 			}
-			allRules[uid + selector] = current;
-		}
 
 		return API;
+
+		} catch(err) {
+			throw new Error("Error adding: " + JSON.stringify(rules));
+		}
 	}
 	return add;
 }
@@ -1803,7 +1809,8 @@ var toCSS = function(rules, options, indent) {
 			css += rules[selector][selector] + newline;
 		// handling normal styles
 		} else {
-			var entity = indent[0] + selector.replace(/~~(.+)~~/, '') + ' {' + newline;
+			var entityStyle = indent[0] + selector.replace(/~~(.+)~~/, '') + ' {' + newline;
+			var entity = '';
 			for(var prop in rules[selector]) {
 				var value = rules[selector][prop];
 				if(value === "") {
@@ -1816,8 +1823,11 @@ var toCSS = function(rules, options, indent) {
 					entity += indent[1] + transformUppercase(prop) + ': ' + value + ';' + newline;
 				}
 			}
-			entity += indent[0] + '}' + newline;
-			css += entity;
+			if(entity != '') {
+				entityStyle += entity;
+				entityStyle += indent[0] + '}' + newline;
+				css += entityStyle;
+			}
 		}
 	}
 	return css;

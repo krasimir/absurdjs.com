@@ -1431,6 +1431,28 @@ describe("Should not modify the original object", function() {
 	});
 
 });
+describe("Should not print empty selectors", function() {
+
+	var api = require('../../index.js')();
+
+	it("should compile properly", function(done) {
+		var styles = {};
+		styles['.system'] = {
+			'&:before': {
+				position: 'absolute',
+				color: 'red',
+				content: 'SS',
+			},
+			'&-shields': {
+			}
+		};
+		api.add(styles).compile(function(err, css) {
+			expect(css).toBe('.system:before{position: absolute;color: red;content: SS;}');
+			done();
+		}, { minify: true });
+	});
+
+});
 describe("Should skip the processing of null values", function() {
 
 	var api = require('../../index.js')();
@@ -2945,6 +2967,28 @@ describe("Should allow setting styles with same names", function() {
 			expect(css).toBe('body p{color: rgb(0,0,0);color: rgba(0,0,0,0.5);color: rgba(0,0,0,0.1);color: rgba(0,0,0,0.1);}body section{width: 50%;background: #F00;background: 10% 20% 30%;background: 40% test 20%;}body section .left{width: 10%;%width: 20px;}');
 			done();
 		}, { minify: true });
+	});
+
+});
+describe("Should report errors properly", function() {
+
+	var api = require('../../index.js')();
+
+	it("should compile properly", function(done) {
+		try {
+			api.add({
+			    body: {
+			    	width: undefined,
+			    	padding: '20px'
+			    }
+			}).compile(function(err, css) {
+				console.log(css);			
+				done();
+			}, { minify: false });
+		} catch(err) {
+			expect(err.toString()).toBe('Error: Error adding: {"body":{"padding":"20px"}}');
+			done();
+		}
 	});
 
 });
