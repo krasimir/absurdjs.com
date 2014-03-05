@@ -21,5 +21,11 @@ Install AbsurdJS globally:
 <br />
 [absurd.organic.js <size-organic>KB](/builds/absurd.organic.js) ([minified version <size-organicMin>KB](/builds/absurd.organic.min.js))
 
+- - -
+
+Install the library via [Bower](http://bower.io/):
+
+	bower install absurd
+
 <br />
 <social>
