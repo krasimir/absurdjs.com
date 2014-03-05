@@ -1,4 +1,4 @@
-/* version: 0.3.138, born: 3-2-2014 18:19 */
+/* version: 0.3.140, born: 5-2-2014 20:57 */
 var Absurd = (function(w) {
 var lib = { 
     api: {},
@@ -1392,7 +1392,7 @@ lib.api.add = function(API) {
 		return API;
 
 		} catch(err) {
-			throw new Error("Error adding: " + JSON.stringify(rules));
+			throw new Error("Error adding: " + JSON.stringify({rules: rules, error: err.toString()}));
 		}
 	}
 	return add;

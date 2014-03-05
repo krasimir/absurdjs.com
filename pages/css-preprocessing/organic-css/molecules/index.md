@@ -2,6 +2,30 @@
 
 <social>
 
+The purpose of the molecules is to combine different properties and their values into a single definition. If you need to handle the vendor prefixes AbsurdJS provides another way. Check it out [here](/pages/css-preprocessing/basics/#browser-vendor-prefixes).
+
+- - -
+
+* [size](#size-small-class-prop-values-width-height-small-)
+* [cf](#cf-small-class-prop-values-all-before-after-small-)
+* [grid](#grid-small-class-prop-values-columns-selector-small-)
+* [moveto](#moveto-small-class-prop-values-x-y-z-small-)
+* [rotateto](#rotateto-small-class-prop-values-deg-small-)
+* [scaleto](#scaleto-small-class-prop-values-x-y-small-)
+* [animate](#animate-small-class-prop-values-string-object-array-small-)
+* [transparent](#transparent-small-class-prop-values-float-small-)
+* [gradient](#gradient-small-class-prop-values-color-color-color-deg-small-)
+* [blur](#blur-small-class-prop-values-number-small-)
+* [brightness](#brightness-small-class-prop-values-number-small-)
+* [contrast](#contrast-small-class-prop-values-number-small-)
+* [invert](#invert-small-class-prop-values-number-small-)
+* [saturate](#saturate-small-class-prop-values-number-small-)
+* [sepia](#sepia-small-class-prop-values-number-small-)
+* [calc](#calc-small-class-prop-values-property-expression-small-)
+* [dropshadow](#calc-small-class-prop-values-property-expression-small-)
+
+- - -
+
 <!-- ---------------------------------------------------------------- size -->
 ## size: <small class="prop-values">[width]/[height]</small>
 
@@ -353,6 +377,309 @@ div {
   opacity: 0.3;
   -moz-opacity: 0.3;
   -khtml-opacity: 0.3;
+}
+</css>
+</example>
+
+<!-- ---------------------------------------------------------------- gradient -->
+## gradient: <small class="prop-values">[color]/[color]/[color...]/[deg]</small>
+
+> Creating linear gradient.
+
+<example>
+<js>
+api.add({
+    div: {
+        gradient: '#F00/#00F'
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});
+</js>
+<css>
+div {
+  background: -webkit-linear-gradient(0deg, #F00 0%, #00F 100%);
+  background: -moz-linear-gradient(0deg, #F00 0%, #00F 100%);
+  background: -ms-linear-gradient(0deg, #F00 0%, #00F 100%);
+  background: -o-linear-gradient(0deg, #F00 0%, #00F 100%);
+  background: linear-gradient(0deg, #F00 0%, #00F 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF0000FF', endColorstr='#FFFF0000',GradientType=0);
+  -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF0000FF',endColorstr='#FFFF0000',GradientType=0);
+}
+</css>
+</example>
+
+> Creating linear gradient with multiple stops.
+
+<example>
+<js>
+api.add({
+    div: {
+        gradient: '#F00/#00F/#BADA55/#000'
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});
+</js>
+<css>
+div {
+  background: -webkit-linear-gradient(0deg, #F00 0%, #00F 33%, #BADA55 66%, #000 99%);
+  background: -moz-linear-gradient(0deg, #F00 0%, #00F 33%, #BADA55 66%, #000 99%);
+  background: -ms-linear-gradient(0deg, #F00 0%, #00F 33%, #BADA55 66%, #000 99%);
+  background: -o-linear-gradient(0deg, #F00 0%, #00F 33%, #BADA55 66%, #000 99%);
+  background: linear-gradient(0deg, #F00 0%, #00F 33%, #BADA55 66%, #000 99%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF000000', endColorstr='#FFFF0000',GradientType=0);
+  -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF000000',endColorstr='#FFFF0000',GradientType=0);
+}
+</css>
+</example>
+
+> Creating linear gradient by setting an angle.
+
+<example>
+<js>
+api.add({
+    div: {
+        gradient: '#BADA55/#000/50deg'
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});
+</js>
+<css>
+div {
+  background: -webkit-linear-gradient(50deg, #BADA55 0%, #000 100%);
+  background: -moz-linear-gradient(50deg, #BADA55 0%, #000 100%);
+  background: -ms-linear-gradient(50deg, #BADA55 0%, #000 100%);
+  background: -o-linear-gradient(50deg, #BADA55 0%, #000 100%);
+  background: linear-gradient(50deg, #BADA55 0%, #000 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFBADA55', endColorstr='#FF000000',GradientType=1);
+  -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFBADA55',endColorstr='#FF000000',GradientType=1);
+}
+</css>
+</example>
+
+> Creating linear gradient by setting an angle and determining the stops' positions.
+
+<example>
+<js>
+api.add({
+    div: {
+        gradient: '#BADA55/#000 10%/#999 20%/#FF0/50deg'
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});
+</js>
+<css>
+div {
+  background: -webkit-linear-gradient(50deg, #BADA55 0%, #000 10%, #999 20%, #FF0 99%);
+  background: -moz-linear-gradient(50deg, #BADA55 0%, #000 10%, #999 20%, #FF0 99%);
+  background: -ms-linear-gradient(50deg, #BADA55 0%, #000 10%, #999 20%, #FF0 99%);
+  background: -o-linear-gradient(50deg, #BADA55 0%, #000 10%, #999 20%, #FF0 99%);
+  background: linear-gradient(50deg, #BADA55 0%, #000 10%, #999 20%, #FF0 99%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFBADA55', endColorstr='#FFFFFF00',GradientType=1);
+  -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFBADA55',endColorstr='#FFFFFF00',GradientType=1);
+}
+</css>
+</example>
+
+<!-- ---------------------------------------------------------------- blur -->
+## blur: <small class="prop-values">[number]</small>
+
+> Adding blur.
+
+<example>
+<js>
+api.add({
+    div: {
+        blur: 20
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});
+</js>
+<css>
+div {
+  filter: blur(20px);
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -ms-filter: blur(20px);
+}
+</css>
+</example>
+
+<!-- ---------------------------------------------------------------- brightness -->
+## brightness: <small class="prop-values">[number]</small>
+
+> Brightness adjustment.
+
+<example>
+<js>
+api.add({
+    div: {
+        brightness: 20
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});
+</js>
+<css>
+div {
+  filter: brightness(20px);
+  -webkit-filter: brightness(20px);
+  -moz-filter: brightness(20px);
+  -ms-filter: brightness(20px);
+}
+</css>
+</example>
+
+<!-- ---------------------------------------------------------------- contrast -->
+## contrast: <small class="prop-values">[number]</small>
+
+> contrast adjustment.
+
+<example>
+<js>
+api.add({
+    div: {
+        contrast: 20
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});
+</js>
+<css>
+div {
+  filter: contrast(20px);
+  -webkit-filter: contrast(20px);
+  -moz-filter: contrast(20px);
+  -ms-filter: contrast(20px);
+}
+</css>
+</example>
+
+<!-- ---------------------------------------------------------------- invert -->
+## invert: <small class="prop-values">[number]</small>
+
+> invert adjustment.
+
+<example>
+<js>
+api.add({
+    div: {
+        invert: 20
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});
+</js>
+<css>
+div {
+  filter: invert(20px);
+  -webkit-filter: invert(20px);
+  -moz-filter: invert(20px);
+  -ms-filter: invert(20px);
+}
+</css>
+</example>
+
+<!-- ---------------------------------------------------------------- saturate -->
+## saturate: <small class="prop-values">[number]</small>
+
+> saturate adjustment.
+
+<example>
+<js>
+api.add({
+    div: {
+        saturate: 20
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});
+</js>
+<css>
+div {
+  filter: saturate(20px);
+  -webkit-filter: saturate(20px);
+  -moz-filter: saturate(20px);
+  -ms-filter: saturate(20px);
+}
+</css>
+</example>
+
+<!-- ---------------------------------------------------------------- sepia -->
+## sepia: <small class="prop-values">[number]</small>
+
+> sepia adjustment.
+
+<example>
+<js>
+api.add({
+    div: {
+        sepia: 20
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});
+</js>
+<css>
+div {
+  filter: sepia(20px);
+  -webkit-filter: sepia(20px);
+  -moz-filter: sepia(20px);
+  -ms-filter: sepia(20px);
+}
+</css>
+</example>
+
+<!-- ---------------------------------------------------------------- calc -->
+## calc: <small class="prop-values">[property]/[expression]</small>
+
+> Calculating a property.
+
+<example>
+<js>
+api.add({
+    div: {
+        calc: 'width/100% - 45px'
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});
+</js>
+<css>
+div {
+  -lh-property: 0;
+  width: -webkit-calc(100% - 45px);
+  width: -moz-calc(100% - 45px);
+  width: calc(100% - 45px);
+}
+</css>
+</example>
+
+<!-- ---------------------------------------------------------------- dropshadow -->
+## dropshadow: <small class="prop-values">[property]/[expression]</small>
+
+> Adding drop shadow.
+
+<example>
+<js>
+api.add({
+    div: {
+        dropshadow: '16px 16px 10px #000000'
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});
+</js>
+<css>
+div {
+  filter: drop-shadow(16px 16px 10px #000000);
+  -webkit-filter: drop-shadow(16px 16px 10px #000000);
+  -moz-filter: drop-shadow(16px 16px 10px #000000);
+  -ms-filter: drop-shadow(16px 16px 10px #000000);
 }
 </css>
 </example>

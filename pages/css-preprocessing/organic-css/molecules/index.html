@@ -144,6 +144,28 @@
 
 </div>
 
+<p>The purpose of the molecules is to combine different properties and their values into a single definition. If you need to handle the vendor prefixes AbsurdJS provides another way. Check it out <a href="/pages/css-preprocessing/basics/#browser-vendor-prefixes">here</a>.</p>
+<hr>
+<ul>
+<li><a href="#size-small-class-prop-values-width-height-small-">size</a></li>
+<li><a href="#cf-small-class-prop-values-all-before-after-small-">cf</a></li>
+<li><a href="#grid-small-class-prop-values-columns-selector-small-">grid</a></li>
+<li><a href="#moveto-small-class-prop-values-x-y-z-small-">moveto</a></li>
+<li><a href="#rotateto-small-class-prop-values-deg-small-">rotateto</a></li>
+<li><a href="#scaleto-small-class-prop-values-x-y-small-">scaleto</a></li>
+<li><a href="#animate-small-class-prop-values-string-object-array-small-">animate</a></li>
+<li><a href="#transparent-small-class-prop-values-float-small-">transparent</a></li>
+<li><a href="#gradient-small-class-prop-values-color-color-color-deg-small-">gradient</a></li>
+<li><a href="#blur-small-class-prop-values-number-small-">blur</a></li>
+<li><a href="#brightness-small-class-prop-values-number-small-">brightness</a></li>
+<li><a href="#contrast-small-class-prop-values-number-small-">contrast</a></li>
+<li><a href="#invert-small-class-prop-values-number-small-">invert</a></li>
+<li><a href="#saturate-small-class-prop-values-number-small-">saturate</a></li>
+<li><a href="#sepia-small-class-prop-values-number-small-">sepia</a></li>
+<li><a href="#calc-small-class-prop-values-property-expression-small-">calc</a></li>
+<li><a href="#calc-small-class-prop-values-property-expression-small-">dropshadow</a></li>
+</ul>
+<hr>
 <p><!-- ---------------------------------------------------------------- size --></p>
 <h2 id="size-small-class-prop-values-width-height-small-">size: <small class="prop-values">[width]/[height]</small></h2>
 <blockquote>
@@ -493,6 +515,312 @@ div {
   opacity: 0.3;
   -moz-opacity: 0.3;
   -khtml-opacity: 0.3;
+}</code></pre></div>
+</div>
+
+<p><!-- ---------------------------------------------------------------- gradient --></p>
+<h2 id="gradient-small-class-prop-values-color-color-color-deg-small-">gradient: <small class="prop-values">[color]/[color]/[color...]/[deg]</small></h2>
+<blockquote>
+<p>Creating linear gradient.</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">api.add({
+    div: {
+        gradient: &#39;#F00/#00F&#39;
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});</code></pre></div>
+<div class="col">
+<small>CSS:</small>
+<pre><code class="language-css">div {
+  background: -webkit-linear-gradient(0deg, #F00 0%, #00F 100%);
+  background: -moz-linear-gradient(0deg, #F00 0%, #00F 100%);
+  background: -ms-linear-gradient(0deg, #F00 0%, #00F 100%);
+  background: -o-linear-gradient(0deg, #F00 0%, #00F 100%);
+  background: linear-gradient(0deg, #F00 0%, #00F 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=&#39;#FF0000FF&#39;, endColorstr=&#39;#FFFF0000&#39;,GradientType=0);
+  -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=&#39;#FF0000FF&#39;,endColorstr=&#39;#FFFF0000&#39;,GradientType=0);
+}</code></pre></div>
+</div>
+
+<blockquote>
+<p>Creating linear gradient with multiple stops.</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">api.add({
+    div: {
+        gradient: &#39;#F00/#00F/#BADA55/#000&#39;
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});</code></pre></div>
+<div class="col">
+<small>CSS:</small>
+<pre><code class="language-css">div {
+  background: -webkit-linear-gradient(0deg, #F00 0%, #00F 33%, #BADA55 66%, #000 99%);
+  background: -moz-linear-gradient(0deg, #F00 0%, #00F 33%, #BADA55 66%, #000 99%);
+  background: -ms-linear-gradient(0deg, #F00 0%, #00F 33%, #BADA55 66%, #000 99%);
+  background: -o-linear-gradient(0deg, #F00 0%, #00F 33%, #BADA55 66%, #000 99%);
+  background: linear-gradient(0deg, #F00 0%, #00F 33%, #BADA55 66%, #000 99%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=&#39;#FF000000&#39;, endColorstr=&#39;#FFFF0000&#39;,GradientType=0);
+  -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=&#39;#FF000000&#39;,endColorstr=&#39;#FFFF0000&#39;,GradientType=0);
+}</code></pre></div>
+</div>
+
+<blockquote>
+<p>Creating linear gradient by setting an angle.</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">api.add({
+    div: {
+        gradient: &#39;#BADA55/#000/50deg&#39;
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});</code></pre></div>
+<div class="col">
+<small>CSS:</small>
+<pre><code class="language-css">div {
+  background: -webkit-linear-gradient(50deg, #BADA55 0%, #000 100%);
+  background: -moz-linear-gradient(50deg, #BADA55 0%, #000 100%);
+  background: -ms-linear-gradient(50deg, #BADA55 0%, #000 100%);
+  background: -o-linear-gradient(50deg, #BADA55 0%, #000 100%);
+  background: linear-gradient(50deg, #BADA55 0%, #000 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=&#39;#FFBADA55&#39;, endColorstr=&#39;#FF000000&#39;,GradientType=1);
+  -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=&#39;#FFBADA55&#39;,endColorstr=&#39;#FF000000&#39;,GradientType=1);
+}</code></pre></div>
+</div>
+
+<blockquote>
+<p>Creating linear gradient by setting an angle and determining the stops&#39; positions.</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">api.add({
+    div: {
+        gradient: &#39;#BADA55/#000 10%/#999 20%/#FF0/50deg&#39;
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});</code></pre></div>
+<div class="col">
+<small>CSS:</small>
+<pre><code class="language-css">div {
+  background: -webkit-linear-gradient(50deg, #BADA55 0%, #000 10%, #999 20%, #FF0 99%);
+  background: -moz-linear-gradient(50deg, #BADA55 0%, #000 10%, #999 20%, #FF0 99%);
+  background: -ms-linear-gradient(50deg, #BADA55 0%, #000 10%, #999 20%, #FF0 99%);
+  background: -o-linear-gradient(50deg, #BADA55 0%, #000 10%, #999 20%, #FF0 99%);
+  background: linear-gradient(50deg, #BADA55 0%, #000 10%, #999 20%, #FF0 99%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=&#39;#FFBADA55&#39;, endColorstr=&#39;#FFFFFF00&#39;,GradientType=1);
+  -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=&#39;#FFBADA55&#39;,endColorstr=&#39;#FFFFFF00&#39;,GradientType=1);
+}</code></pre></div>
+</div>
+
+<p><!-- ---------------------------------------------------------------- blur --></p>
+<h2 id="blur-small-class-prop-values-number-small-">blur: <small class="prop-values">[number]</small></h2>
+<blockquote>
+<p>Adding blur.</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">api.add({
+    div: {
+        blur: 20
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});</code></pre></div>
+<div class="col">
+<small>CSS:</small>
+<pre><code class="language-css">div {
+  filter: blur(20px);
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -ms-filter: blur(20px);
+}</code></pre></div>
+</div>
+
+<p><!-- ---------------------------------------------------------------- brightness --></p>
+<h2 id="brightness-small-class-prop-values-number-small-">brightness: <small class="prop-values">[number]</small></h2>
+<blockquote>
+<p>Brightness adjustment.</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">api.add({
+    div: {
+        brightness: 20
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});</code></pre></div>
+<div class="col">
+<small>CSS:</small>
+<pre><code class="language-css">div {
+  filter: brightness(20px);
+  -webkit-filter: brightness(20px);
+  -moz-filter: brightness(20px);
+  -ms-filter: brightness(20px);
+}</code></pre></div>
+</div>
+
+<p><!-- ---------------------------------------------------------------- contrast --></p>
+<h2 id="contrast-small-class-prop-values-number-small-">contrast: <small class="prop-values">[number]</small></h2>
+<blockquote>
+<p>contrast adjustment.</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">api.add({
+    div: {
+        contrast: 20
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});</code></pre></div>
+<div class="col">
+<small>CSS:</small>
+<pre><code class="language-css">div {
+  filter: contrast(20px);
+  -webkit-filter: contrast(20px);
+  -moz-filter: contrast(20px);
+  -ms-filter: contrast(20px);
+}</code></pre></div>
+</div>
+
+<p><!-- ---------------------------------------------------------------- invert --></p>
+<h2 id="invert-small-class-prop-values-number-small-">invert: <small class="prop-values">[number]</small></h2>
+<blockquote>
+<p>invert adjustment.</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">api.add({
+    div: {
+        invert: 20
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});</code></pre></div>
+<div class="col">
+<small>CSS:</small>
+<pre><code class="language-css">div {
+  filter: invert(20px);
+  -webkit-filter: invert(20px);
+  -moz-filter: invert(20px);
+  -ms-filter: invert(20px);
+}</code></pre></div>
+</div>
+
+<p><!-- ---------------------------------------------------------------- saturate --></p>
+<h2 id="saturate-small-class-prop-values-number-small-">saturate: <small class="prop-values">[number]</small></h2>
+<blockquote>
+<p>saturate adjustment.</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">api.add({
+    div: {
+        saturate: 20
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});</code></pre></div>
+<div class="col">
+<small>CSS:</small>
+<pre><code class="language-css">div {
+  filter: saturate(20px);
+  -webkit-filter: saturate(20px);
+  -moz-filter: saturate(20px);
+  -ms-filter: saturate(20px);
+}</code></pre></div>
+</div>
+
+<p><!-- ---------------------------------------------------------------- sepia --></p>
+<h2 id="sepia-small-class-prop-values-number-small-">sepia: <small class="prop-values">[number]</small></h2>
+<blockquote>
+<p>sepia adjustment.</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">api.add({
+    div: {
+        sepia: 20
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});</code></pre></div>
+<div class="col">
+<small>CSS:</small>
+<pre><code class="language-css">div {
+  filter: sepia(20px);
+  -webkit-filter: sepia(20px);
+  -moz-filter: sepia(20px);
+  -ms-filter: sepia(20px);
+}</code></pre></div>
+</div>
+
+<p><!-- ---------------------------------------------------------------- calc --></p>
+<h2 id="calc-small-class-prop-values-property-expression-small-">calc: <small class="prop-values">[property]/[expression]</small></h2>
+<blockquote>
+<p>Calculating a property.</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">api.add({
+    div: {
+        calc: &#39;width/100% - 45px&#39;
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});</code></pre></div>
+<div class="col">
+<small>CSS:</small>
+<pre><code class="language-css">div {
+  -lh-property: 0;
+  width: -webkit-calc(100% - 45px);
+  width: -moz-calc(100% - 45px);
+  width: calc(100% - 45px);
+}</code></pre></div>
+</div>
+
+<p><!-- ---------------------------------------------------------------- dropshadow --></p>
+<h2 id="dropshadow-small-class-prop-values-property-expression-small-">dropshadow: <small class="prop-values">[property]/[expression]</small></h2>
+<blockquote>
+<p>Adding drop shadow.</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">api.add({
+    div: {
+        dropshadow: &#39;16px 16px 10px #000000&#39;
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});</code></pre></div>
+<div class="col">
+<small>CSS:</small>
+<pre><code class="language-css">div {
+  filter: drop-shadow(16px 16px 10px #000000);
+  -webkit-filter: drop-shadow(16px 16px 10px #000000);
+  -moz-filter: drop-shadow(16px 16px 10px #000000);
+  -ms-filter: drop-shadow(16px 16px 10px #000000);
 }</code></pre></div>
 </div>
                 <br />

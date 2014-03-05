@@ -74,6 +74,8 @@ Of course you may skip some of the prefixes and use only some of them, like `-w-
 	transition: all 300ms;
 	-webkit-transition: all 300ms;
 
+For adding all the prefixes you may use just a single dash `-`.
+
 > The described functionality is part of [Organic](/pages/css-preprocessing/organic-css) framework. For the Node.js version of the library is added by default, but for the client-side port you need to include it additionally.
 
 ## Pseudo classes
