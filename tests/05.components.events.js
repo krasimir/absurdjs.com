@@ -252,7 +252,6 @@ describe("Testing components events", function() {
 		absurd.component('BindMethod1', {
 			constructor: function() {
 				a.on('bind-event', this.bind(this.updateHandler));
-				done();
 			},
 			updateHandler: function(data) {
 				expect(this.__name).toBe('BindMethod1');
@@ -261,6 +260,33 @@ describe("Testing components events", function() {
 			}
 		})();
 		a.doSomething();
+	});
+
+	it("should allow two events", function(done) {
+		absurd.components.register("TestingEvents", {
+			css: {
+				'#testing-events-form-2': {
+					display: 'none'
+				}
+			},
+			html: {
+				'form#testing-events-form-2': {
+					'input[type="text" data-absurd-event="keyup:handlerA:10, keydown:handlerB:20"]': ''
+				}
+			},
+			handlerA: function(e, index) {
+				expect(parseInt(index)).toBe(10);
+				fireEvent(this.input, "keydown");
+			},
+			handlerB: function(e, index) {
+				expect(parseInt(index)).toBe(20);
+				done();
+			},
+			populated: function(data) {
+				this.input = this.qs("input");
+				fireEvent(this.input, "keyup");		
+			}
+		})().set("parent", document.querySelector("body")).populate();
 	});
 
 });
