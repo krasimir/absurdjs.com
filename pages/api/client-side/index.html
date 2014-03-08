@@ -491,6 +491,25 @@ c.compileCSS({
 c.delay(1000, function() {
     console.log(this.__name); // MyComp
 });
+</code></pre><h3 id="bind-small-class-prop-values-function-scope-small-">bind ( <small class="prop-values">function, scope</small> )</h3>
+<blockquote>
+<p>It keeps the scope and passed arguments</p>
+</blockquote>
+<pre><code class="language-javascript">var a = absurd.component(&#39;BindMethod2&#39;, {
+    doSomething: function() {
+        this.dispatch(&#39;bind-event&#39;, { data: &#39;Test&#39; });
+    }
+})();
+absurd.component(&#39;BindMethod1&#39;, {
+    constructor: function() {
+        a.on(&#39;bind-event&#39;, this.bind(this.updateHandler));
+    },
+    updateHandler: function(data) {
+        console.log(this.__name); // BindMethod1
+        console.log(data.data); // Test
+    }
+})();
+a.doSomething();
 </code></pre><!-- -------------------------------------------------------------------- Events -- -->
 
 <h2 id="events">Events</h2>

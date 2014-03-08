@@ -204,6 +204,65 @@ describe("Testing components events", function() {
 		})().set('parent', document.querySelector('body')).populate();
 	});
 
+	it("should use events in a template loop", function(done) {
+		absurd.components.flush();
+		absurd.component('TestingEvents', {
+			html: {
+				'.content-events': [
+					'<% for(var i=0; i<this.data.length; i++) { %>',
+					'<div class="text" data-absurd-event="click:remove:<% i %>">label <% this.data[i] %></div>',
+					'<% } %>'
+				]
+			},
+			data: [1, 2, 3],
+			remove: function(e, index) {
+				expect(parseInt(index)).toBe(2);
+				done();
+			},
+			constructor: function() {
+				this.populate();
+				fireEvent(this.qsa(".text")[2], "click");
+			}
+		})();
+	});
+
+	it("should use events in a template loop with HTML markup", function(done) {
+		absurd.components.flush();
+		absurd.component('TestingEvents', {
+			html: '.content-events',
+			data: [1, 2, 3],
+			remove: function(e, index) {
+				expect(parseInt(index)).toBe(2);
+				done();
+			},
+			constructor: function() {
+				this.populate();
+				fireEvent(this.qsa(".text")[2], "click");
+			}
+		})();
+	});
+
+	it("should use bind method", function(done) {
+		absurd.components.flush();
+		var a = absurd.component('BindMethod2', {
+			doSomething: function() {
+				this.dispatch('bind-event', { data: 'Test' });
+			}
+		})();
+		absurd.component('BindMethod1', {
+			constructor: function() {
+				a.on('bind-event', this.bind(this.updateHandler));
+				done();
+			},
+			updateHandler: function(data) {
+				expect(this.__name).toBe('BindMethod1');
+				expect(data.data).toBe('Test');
+				done();
+			}
+		})();
+		a.doSomething();
+	});
+
 });
 
 var absurd = Absurd();

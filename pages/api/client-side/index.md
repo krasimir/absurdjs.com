@@ -388,6 +388,26 @@ end
 	    console.log(this.__name); // MyComp
 	});
 
+### bind ( <small class="prop-values">function, scope</small> )
+
+> It keeps the scope and passed arguments
+
+	var a = absurd.component('BindMethod2', {
+	    doSomething: function() {
+	        this.dispatch('bind-event', { data: 'Test' });
+	    }
+	})();
+	absurd.component('BindMethod1', {
+	    constructor: function() {
+	        a.on('bind-event', this.bind(this.updateHandler));
+	    },
+	    updateHandler: function(data) {
+	        console.log(this.__name); // BindMethod1
+	        console.log(data.data); // Test
+	    }
+	})();
+	a.doSomething();
+
 <!-- -------------------------------------------------------------------- Events -- -->
 
 ## Events
