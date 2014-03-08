@@ -190,6 +190,7 @@
 </blockquote>
 <pre><code class="language-javascript">absurd.component(&#39;MyComp&#39;, {
     constructor: function(router) {
+        router
         .add(/about\/?$/, function() {
             // matching: /about
         })
