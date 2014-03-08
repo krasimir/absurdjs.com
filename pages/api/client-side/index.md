@@ -388,7 +388,7 @@ end
 	    console.log(this.__name); // MyComp
 	});
 
-### bind ( <small class="prop-values">function, scope</small> )
+### bind ( <small class="prop-values">function, scope, arguments</small> )
 
 > It keeps the scope and passed arguments
 
