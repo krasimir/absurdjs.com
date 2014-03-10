@@ -43,7 +43,17 @@ absurd.component('MyComp', {
 </str>
 </example>
 
-- - -
+## hidden ( <small class="prop-values">element</small> )
+
+> It checks if the element is visible. If the method is called without parameters AbsurdJS uses the current component's element.
+
+    absurd.component('MyComp', {
+        constructor: function(is) {
+            if(is.hidden()) {
+                console.log('Yes, the element is hidden.');
+            }
+        }
+    })();
 
 # router
 

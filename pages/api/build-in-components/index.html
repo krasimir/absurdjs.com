@@ -181,8 +181,18 @@
 })();</code></pre></div>
 </div>
 
-<hr>
-<h1 id="router">router</h1>
+<h2 id="hidden-small-class-prop-values-element-small-">hidden ( <small class="prop-values">element</small> )</h2>
+<blockquote>
+<p>It checks if the element is visible. If the method is called without parameters AbsurdJS uses the current component&#39;s element.</p>
+</blockquote>
+<pre><code class="language-javascript">absurd.component(&#39;MyComp&#39;, {
+    constructor: function(is) {
+        if(is.hidden()) {
+            console.log(&#39;Yes, the element is hidden.&#39;);
+        }
+    }
+})();
+</code></pre><h1 id="router">router</h1>
 <p>Class providing single page app routing. It supports hash based URLs and may use the <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Manipulating_the_browser_history">History API</a>. A demo could be found <a href="http://absurdjs.com/tests/router/">here</a>. Read about how this class is created in <a href="http://krasimirtsonev.com/blog/article/A-modern-JavaScript-router-in-100-lines-history-api-pushState-hash-url">A modern JavaScript router in 100 lines</a>. To be sure that everything works run the test suite <a href="http://absurdjs.com/tests/?spec=Testing%20components%20(router">here</a>).</p>
 <h2 id="add-small-class-prop-values-regex-handler-small-">add ( <small class="prop-values">regex, handler</small> )</h2>
 <blockquote>

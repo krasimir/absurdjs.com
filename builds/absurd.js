@@ -1,4 +1,4 @@
-/* version: 0.3.144, born: 8-2-2014 15:35 */
+/* version: 0.3.145, born: 10-2-2014 16:20 */
 var Absurd = (function(w) {
 var lib = { 
     api: {},
@@ -612,6 +612,10 @@ absurd.di.register('is', {
 	appended: function(selector) {
 		if(typeof selector == 'undefined') selector = this.host.html;
 		return qs(selector) ? true : false;
+	},
+	hidden: function(el) {
+		el = el || this.host.el;
+		return el.offsetParent === null;
 	}
 });
 absurd.di.register('router', {
@@ -663,7 +667,7 @@ absurd.di.register('router', {
 		this.root = options && options.root ? '/' + this.clearSlashes(options.root) + '/' : '/';
 		return this;
 	},
-	listen: function() {
+	listen: function(loopInterval) {
 		var self = this;
 		var current = self.getFragment();
 		var fn = function() {
@@ -673,7 +677,7 @@ absurd.di.register('router', {
 			}
 		}
 		clearInterval(this.interval);
-		this.interval = setInterval(fn, 50);
+		this.interval = setInterval(fn, loopInterval || 50);
 		return this;
 	},
 	check: function(f) {
