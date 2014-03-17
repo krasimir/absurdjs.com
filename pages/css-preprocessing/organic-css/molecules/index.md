@@ -23,6 +23,7 @@ The purpose of the molecules is to combine different properties and their values
 * [sepia](#sepia-small-class-prop-values-number-small-)
 * [calc](#calc-small-class-prop-values-property-expression-small-)
 * [dropshadow](#calc-small-class-prop-values-property-expression-small-)
+* [trsform](#trsform-small-class-prop-values-transformations-small-)
 
 - - -
 
@@ -680,6 +681,32 @@ div {
   -webkit-filter: drop-shadow(16px 16px 10px #000000);
   -moz-filter: drop-shadow(16px 16px 10px #000000);
   -ms-filter: drop-shadow(16px 16px 10px #000000);
+}
+</css>
+</example>
+
+<!-- ---------------------------------------------------------------- trsform -->
+## trsform: <small class="prop-values">transformations</small>
+
+> Alias to `transform` property. Sets the needed browser prefixes.
+
+<example>
+<js>
+api.add({
+    section: {
+        trsform: 'scale(1.2, 1.2) rotate(30deg)'
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});
+</js>
+<css>
+section {
+  transform: scale(1.2, 1.2) rotate(30deg);
+  -webkit-transform: scale(1.2, 1.2) rotate(30deg);
+  -moz-transform: scale(1.2, 1.2) rotate(30deg);
+  -ms-transform: scale(1.2, 1.2) rotate(30deg);
+  -o-transform: scale(1.2, 1.2) rotate(30deg);
 }
 </css>
 </example>

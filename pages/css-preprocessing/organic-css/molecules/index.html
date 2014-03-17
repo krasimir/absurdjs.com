@@ -164,6 +164,7 @@
 <li><a href="#sepia-small-class-prop-values-number-small-">sepia</a></li>
 <li><a href="#calc-small-class-prop-values-property-expression-small-">calc</a></li>
 <li><a href="#calc-small-class-prop-values-property-expression-small-">dropshadow</a></li>
+<li><a href="#trsform-small-class-prop-values-transformations-small-">trsform</a></li>
 </ul>
 <hr>
 <p><!-- ---------------------------------------------------------------- size --></p>
@@ -821,6 +822,32 @@ div {
   -webkit-filter: drop-shadow(16px 16px 10px #000000);
   -moz-filter: drop-shadow(16px 16px 10px #000000);
   -ms-filter: drop-shadow(16px 16px 10px #000000);
+}</code></pre></div>
+</div>
+
+<p><!-- ---------------------------------------------------------------- trsform --></p>
+<h2 id="trsform-small-class-prop-values-transformations-small-">trsform: <small class="prop-values">transformations</small></h2>
+<blockquote>
+<p>Alias to <code class="language-javascript">transform</code> property. Sets the needed browser prefixes.</p>
+</blockquote>
+<div class="example">
+<div class="col">
+<small>JavaScript:</small>
+<pre><code class="language-javascript">api.add({
+    section: {
+        trsform: &#39;scale(1.2, 1.2) rotate(30deg)&#39;
+    }
+}).compile(function(err, css) {
+    console.log(css);
+});</code></pre></div>
+<div class="col">
+<small>CSS:</small>
+<pre><code class="language-css">section {
+  transform: scale(1.2, 1.2) rotate(30deg);
+  -webkit-transform: scale(1.2, 1.2) rotate(30deg);
+  -moz-transform: scale(1.2, 1.2) rotate(30deg);
+  -ms-transform: scale(1.2, 1.2) rotate(30deg);
+  -o-transform: scale(1.2, 1.2) rotate(30deg);
 }</code></pre></div>
 </div>
                 <br />
