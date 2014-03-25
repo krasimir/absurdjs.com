@@ -59,6 +59,9 @@ Use this approach if you want to integrate AbsurdJS into your Node.js app.
 	// keep the camel case of the properties
 	absurd -s [source file] -k true
 
+	// prevent combining of selectors
+	absurd -s [source file] -c false
+
 Here are two examples uses all the options:
 
 	# as css parser

@@ -188,6 +188,9 @@ absurd -s [source file] -t html
 
 // keep the camel case of the properties
 absurd -s [source file] -k true
+
+// prevent combining of selectors
+absurd -s [source file] -c false
 </code></pre><p>Here are two examples uses all the options:</p>
 <pre><code class="language-javascript"># as css parser
 node ./index.js -s ./tests/data/css/index.js -o ./tests/data/result/res.css -w ./tests/data/**/*.js -m true
