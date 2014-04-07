@@ -24,6 +24,14 @@
 	    ]);
 	}
 
+## importCSS ( <small class="prop-values">string</small> )
+
+> Send a string containing valid CSS code.
+
+	module.exports = function(api) {
+	    api.importCSS('body { margin: 0; font-size: 20px; }');
+	}
+
 ## storage ( <small class="prop-values">key, value</small> )
 
 <example>
