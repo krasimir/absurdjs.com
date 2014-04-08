@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Client-side components / AbsurdJS - JavaScript library with superpowers</title>
+    <title>Export to JSON / AbsurdJS - JavaScript library with superpowers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/public/styles.css">
     <link href='http://fonts.googleapis.com/css?family=Average+Sans' rel='stylesheet' type='text/css'>
@@ -69,9 +69,9 @@
                         </li>
                         <li><a href="/pages/html-preprocessing">HTML preprocessing</a>
                         </li>
-                        <li><a href="/pages/export-to-json">Export to JSON</a>
+                        <li><a href="/pages/export-to-json" class="active">Export to JSON</a>
                         </li>
-                        <li><a href="/pages/client-side-components" class="active">Client-side components</a>
+                        <li><a href="/pages/client-side-components">Client-side components</a>
                         </li>
                         <li>
                             <ul>
@@ -123,9 +123,9 @@
                 </li>
             </ul>
         </nav>
-        <div class="content-container"><a href="/pages/documentation" class="doc-home" title="Documentation's Index"><i class="fa fa-arrow-circle-o-left"></i></a><a href="https://github.com/krasimir/absurdjs.com/tree/master\pages\client-side-components\index.md" class="page-edit" title="Edit this page"
+        <div class="content-container"><a href="/pages/documentation" class="doc-home" title="Documentation's Index"><i class="fa fa-arrow-circle-o-left"></i></a><a href="https://github.com/krasimir/absurdjs.com/tree/master\pages\export-to-json\index.md" class="page-edit" title="Edit this page"
             target="_blank"><i class="fa fa-edit"></i></a>
-            <h1 id="client-side-components">Client-side components</h1>
+            <h1 id="exporting-to-json">Exporting to JSON</h1>
 <div class="social">
 
 	<!--<a href="https://twitter.com/share" class="twitter-share-button" data-via="KrasimirTsonev" data-hashtags="AbsurdJS">Tweet</a>
@@ -136,9 +136,9 @@
 	<iframe src="http://ghbtns.com/github-btn.html?user=krasimir&repo=absurd&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20" class="github-stars"></iframe>
 
 	<div class="nets">
-		<a href="https://www.facebook.com/sharer/sharer.php?u=http://absurdjs.com/pages/client-side-components" target="_blank" title="Facebook"><i class="fa fa-facebook-square"></i></a>
-		<a href="https://twitter.com/home?status=AbsurdJS%20-%20JavaScript%20library%20with%20superpowers%20http://absurdjs.com/pages/client-side-components" target="_blank" title="Twitter"><i class="fa fa-twitter-square"></i></a>
-		<a href="https://plus.google.com/share?url=http://absurdjs.com/pages/client-side-components" target="_blank" title="google+"><i class="fa fa-google-plus-square"></i></a>
+		<a href="https://www.facebook.com/sharer/sharer.php?u=http://absurdjs.com/pages/export-to-json" target="_blank" title="Facebook"><i class="fa fa-facebook-square"></i></a>
+		<a href="https://twitter.com/home?status=AbsurdJS%20-%20JavaScript%20library%20with%20superpowers%20http://absurdjs.com/pages/export-to-json" target="_blank" title="Twitter"><i class="fa fa-twitter-square"></i></a>
+		<a href="https://plus.google.com/share?url=http://absurdjs.com/pages/export-to-json" target="_blank" title="google+"><i class="fa fa-google-plus-square"></i></a>
 	</div>
 
 	<!--<script type="text/javascript" src="https://apis.google.com/js/platform.js"></script>
@@ -146,57 +146,55 @@
 
 </div>
 
-<p>The web development nowadays is all about managing HTML, CSS and JavaScript. AbsurdJS is a JavaScript library and could produce <a href="/pages/css-preprocessing/">CSS</a> and <a href="/pages/html-preprocessing/">HTML</a>. And because it is ported for a client-side usage it was normal to form some kind of web components. Components which are trully build with JavaScript. No external CSS files or HTML templates.</p>
-<pre><code class="language-javascript">var absurd = Absurd();
-var ComponentClass = absurd.component(&quot;ComponentName&quot;, {
-    css: {
-        &#39;.component&#39;: {
-            h1: { color: &#39;#F00&#39; }
-        }
+<p>You may need to export the created styles to a single JSON object. Here is how to do it:</p>
+<pre><code class="language-javascript">api
+.morph(&#39;jsonify&#39;)
+.add({
+    body: {
+        p: { fz: &#39;20px&#39;},
+        a: { ted: &#39;n&#39;}
     },
-    html: {
-        &#39;.component&#39;: {
-            h1: &#39;&lt;% this.name %&gt;&#39;
-        }
-    },
-    constructor: function(name) {
-          this.name = name;
-          this.set(&#39;parent&#39;, this.qs(&#39;body&#39;)).populate();
+    &#39;@media all and (max-width: 330px)&#39;: {
+        p: { fz: &#39;22px&#39; }
     }
-});
-var comp = ComponentClass(&quot;AbsurdJS&quot;);
-</code></pre><p><code class="language-javascript">absurd.component</code> API defines a class, which you later could create instances from. The entry point of every component is its <code class="language-javascript">.constructor</code> method. In the example above we set a local variable <code class="language-javascript">name</code> which is used in the HTML template of the component. <code class="language-javascript">this.set(&#39;parent&#39;, ...)</code> tells to AbsurdJS what will be the parent DOM element and <code class="language-javascript">this.qs</code> is just an alias to <code class="language-javascript">document.querySelector</code>. <code class="language-javascript">populate</code> is the only one long method. It checks for <code class="language-javascript">css</code> and <code class="language-javascript">html</code> properties and launches the proper preprocessors. As a result your page contains a new <code class="language-javascript">&lt;style&gt;</code> tag and a new <code class="language-javascript">&lt;div class=&quot;component&quot;&gt;</code> element into the DOM.</p>
-<div class="example">
-<div class="col">
-<small>HTML:</small>
-<pre><code class="language-markup">&lt;style id=&quot;ComponentName-css&quot; type=&quot;text/css&quot;&gt;
-.component h1 {
-    color: #F00;
-}
-&lt;/style&gt;</code></pre></div>
-<div class="col">
-<small>HTML:</small>
-<pre><code class="language-markup">&lt;div class=&quot;component&quot;&gt;
-    &lt;h1&gt;AbsurdJS&lt;/h1&gt;
-&lt;/div&gt;</code></pre></div>
-</div>
+})
+.compile(function(err, json) {
+    console.log(json);
+    /*
 
-<p>Here is a JSBin to play with:</p>
-<p><a class="jsbin-embed" href="http://jsbin.com/juwap/4/embed?js,output">JS Bin</a><script src="http://static.jsbin.com/js/embed.js"></script></p>
-<p>The main goal of AbsurdJS components are to implement things which you already know and use. At the same time acts as an utility, as a helper and not as a framework. For example, every component is actually an event dispatcher, there is dependency injector implemented. You could use the build-in Router or the HTTP request module. What you should remember is that it is up to you to bootstrap the components and wire them into a complete application. Frameworks like Angular, Knockout or Ember provide enormous list of features and if you want to use a framework then you better check them. However, if you need a custom solution or you want to extend the already started project AbsurdJS is suitable for you. It is a minimalistic collection of helpful JavaScript snippets which main purpose is to avoid all those <em>magical</em> moments.</p>
+    {
+        &quot;body&quot;:{
+            &quot;p&quot;:{
+                &quot;fz&quot;:&quot;20px&quot;
+            },
+            &quot;a&quot;:{
+                &quot;ted&quot;:&quot;n&quot;
+            }
+        },
+        &quot;@media all and (max-width: 330px)&quot;:{
+            &quot;p&quot;:{
+                &quot;fz&quot;:&quot;22px&quot;
+            }
+        }
+    }
+
+    */
+    done();
+});
+</code></pre><p>If you combine the code above with <a href="/pages/api/core/#importcss-small-class-prop-values-string-small-"><code class="language-javascript">importCSS</code></a> function you will be able to convert plain CSS to JSON.</p>
 
                 <br />
                 <br />
                 <hr />
-                <div class="guide"><a href="/pages/export-to-json"><i class="fa fa-arrow-circle-o-left"></i> Export to JSON</a><a href="/pages/client-side-components/definition">Definition <i class="fa fa-arrow-circle-o-right"></i></a>
+                <div class="guide"><a href="/pages/html-preprocessing"><i class="fa fa-arrow-circle-o-left"></i> HTML preprocessing</a><a href="/pages/client-side-components">Client-side components <i class="fa fa-arrow-circle-o-right"></i></a>
                 </div>
                 <hr />
                 <div id="disqus_thread"></div>
                 <script type="text/javascript">
                     var disqus_shortname = 'absurdjs';
-                    var disqus_identifier = "/pages/client-side-components";
-                    var disqus_url = "http://absurdjs.com/pages/client-side-components";
-                    var disqus_title = "/pages/client-side-components";
+                    var disqus_identifier = "/pages/export-to-json";
+                    var disqus_url = "http://absurdjs.com/pages/export-to-json";
+                    var disqus_title = "/pages/export-to-json";
                     (function() {
                         var dsq = document.createElement('script');
                         dsq.type = 'text/javascript';

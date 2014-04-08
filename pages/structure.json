@@ -16,6 +16,7 @@
 			]}
 		]},
 		{ "name": "HTML preprocessing", "path": "/pages/html-preprocessing"},
+		{ "name": "Export to JSON", "path": "/pages/export-to-json"},
 		{ "name": "Client-side components", "path": "/pages/client-side-components", "childs": [
 			{ "name": "Definition", "path": "/pages/client-side-components/definition"},
 			{ "name": "CSS compilation", "path": "/pages/client-side-components/css-compilation"},

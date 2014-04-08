@@ -130,7 +130,7 @@ api.compile(function(err, result) {
 
 ## morph ( <small class="prop-values">type</small> )
 
-> `type` could be `html` or `component`. Check out [HTML preprocessing](/pages/html-preprocessing) for more information.
+> `type` could be `html`, `component` or `jsonify`. Check out [HTML preprocessing](/pages/html-preprocessing) for more information.
 
 <example>
 <str text="HTML preprocessing">
