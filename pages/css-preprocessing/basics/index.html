@@ -347,6 +347,24 @@ body section {
 
 <p>AbsurdJS uses the <code class="language-javascript">toString</code> or <code class="language-javascript">toJSON</code> function of the passed object (if any) to retrieve the result.</p>
 <p><small class="jsbin"><i class="fa fa-code"></i> <a href="http://jsbin.com/paqegexe/13/edit?js,console"></a></small></p>
+<h2 id="compile-multiple-versions-of-same-property">Compile multiple versions of same property</h2>
+<p>Sometimes you may need to add one property several times. In such cases use the following syntax:</p>
+<pre><code class="language-javascript">api.add({
+    header: {
+        background: &quot;#F00&quot;,
+        &quot;%%background&quot;: &quot;#0F0&quot;,
+        &quot;%ver1%background&quot;: &quot;#00F&quot;,
+        &quot;%ver2%background&quot;: &quot;#BADA55&quot;
+    }
+});
+</code></pre><p>The result is:</p>
+<pre><code class="language-javascript">header {
+    background: #F00;
+    background: #0F0;
+    background: #00F;
+    background: #BADA55;
+}
+</code></pre><p>AbsurdJS just removes the <code class="language-javascript">%</code> letters and everything between them.</p>
 
                 <br />
                 <br />

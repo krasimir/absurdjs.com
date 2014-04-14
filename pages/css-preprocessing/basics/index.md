@@ -247,3 +247,27 @@ body section {
 AbsurdJS uses the `toString` or `toJSON` function of the passed object (if any) to retrieve the result.
 
 <small class="jsbin"><i class="fa fa-code"></i> [](http://jsbin.com/paqegexe/13/edit?js,console)</small>
+
+## Compile multiple versions of same property
+
+Sometimes you may need to add one property several times. In such cases use the following syntax:
+
+	api.add({
+	    header: {
+	        background: "#F00",
+	        "%%background": "#0F0",
+	        "%ver1%background": "#00F",
+	        "%ver2%background": "#BADA55"
+	    }
+	});
+
+The result is:
+
+	header {
+		background: #F00;
+		background: #0F0;
+		background: #00F;
+		background: #BADA55;
+	}
+
+AbsurdJS just removes the `%` letters and everything between them.
