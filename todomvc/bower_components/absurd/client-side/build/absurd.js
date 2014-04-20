@@ -1,4 +1,4 @@
-/* version: 0.3.16, born: 20-3-2014 23:31 */
+/* version: 0.3.145, born: 10-2-2014 16:20 */
 var Absurd = (function(w) {
 var lib = { 
     api: {},
@@ -41,8 +41,6 @@ var require = function(v) {
         return lib.helpers.Prefixes;
     } else if(v == __dirname + '/../../../../') {
         return Absurd;
-    } else if(v == '../helpers/CSSParse') {
-        return lib.helpers.CSSParse;
     } else {
         return function() {}
     }
@@ -980,45 +978,6 @@ var client = function() {
 			if(_api.callHooks("import", arguments)) return _api;
 			return _api; 
 		}
-		_api.handlecss = function(parsed, path) {
-			var plugins = _api.getPlugins();
-			if(parsed && parsed.type === 'stylesheet' && parsed.stylesheet && parsed.stylesheet.rules) {
-				var rules = parsed.stylesheet.rules;
-				for(var i=0; rule=rules[i]; i++) {
-					switch(rule.type) {
-						case "rule": _api.handlecssrule(rule); break;
-						case "import": _api.handlecssimport(rule, path); break;
-						default:
-							if(plugins[rule.type]) {
-								plugins[rule.type](_api, rule);
-							}
-						break;
-					}
-				}
-			}
-			return _api;
-		}
-		_api.handlecssimport = function(rule, cssPath) {
-			return _api;
-		}
-		_api.handlecssrule = function(rule, stylesheet) {		
-			var absurdObj = {}, absurdProps = {};
-			if(rule.declarations && rule.declarations.length > 0) {
-				for(var i=0; decl=rule.declarations[i]; i++) {
-					if(decl.type === "declaration") {
-						absurdProps[decl.property] = decl.value;
-					}
-				}
-				// absurdObj[rule.selectors.join(", ")] = absurdProps;
-				if(rule.selectors && rule.selectors.length > 0) {
-					for(var i=0; selector=rule.selectors[i]; i++) {
-						absurdObj[selector] = extend({}, absurdProps);
-					}
-				}
-				_api.add(absurdObj, stylesheet);
-			}
-			return _api;
-		}
 
 		// hooks
 		_api.addHook = function(method, callback) {
@@ -1135,13 +1094,12 @@ var client = function() {
 				api: _api
 			};
 			options = extend(defaultOptions, options || {});
-			var res = options.processor(
+			options.processor(
 				_api.getRules(),
 				callback || function() {},
 				options
 			);
 			_api.flush();
-			return res;
 		}
 
 		// registering api methods
@@ -1276,11 +1234,6 @@ lib.api.add = function(API) {
 		if(props === null || typeof props === 'undefined' || props === false) return;
 		if(!parentSelector && !selector) selector = '';
 
-		// classify
-		if(typeof props.classify != 'undefined' && props.classify === true) {
-			props = typeof props.toJSON != 'undefined' ? props.toJSON() : props.toString();
-		}
-
 		// multiple selectors
 		if(/, ?/g.test(selector) && options.combineSelectors) {
 			var parts = selector.replace(/, /g, ',').split(',');
@@ -1387,11 +1340,6 @@ lib.api.add = function(API) {
 
 	var add = function(rules, stylesheet, opts) {
 
-		if(API.jsonify) {
-			extend(API.getRules(stylesheet || 'mainstream'), rules);
-			return API;
-		}
-
 		try {
 
 			toRegister = [];
@@ -1469,7 +1417,7 @@ var extend = require("../helpers/Extend");
 
 lib.api.compile = function(api) {
 	return function() {
-		var path = null, callback = function() {}, options = null;
+		var path = null, callback = null, options = null;
 		for(var i=0; i<arguments.length; i++) {
 			switch(typeof arguments[i]) {
 				case "function": callback = arguments[i]; break;
@@ -1487,7 +1435,7 @@ lib.api.compile = function(api) {
 		};
 		options = extend(_defaultOptions, options || {});
 
-		return options.processor(
+		options.processor(
 			api.getRules(),
 			function(err, result) {
 				if(path != null) {
@@ -1508,7 +1456,6 @@ lib.api.compile = function(api) {
 		
 	}
 }
-
 lib.api.compileFile = function(api) {
 	return api.compile;
 }
@@ -1546,18 +1493,6 @@ lib.api.define = function(api) {
 lib.api.hook = function(api) {
 	return function(method, callback) {
 		api.addHook(method, callback);
-		return api;
-	}
-}
-lib.api.importCSS = function(api) {
-	var CSSParse = require("../helpers/CSSParse");
-	return function(cssData) {
-		try {
-			var parsed = CSSParse(cssData);
-			api.handlecss(parsed, '');
-		} catch(err) {
-			console.log("Error in the CSS:  '" + cssData + "'", err, err.stack);
-		}
 		return api;
 	}
 }
@@ -1602,9 +1537,6 @@ var metamorphosis = {
 			}
 			return true;
 		});	
-	},
-	jsonify: function(api) {
-		api.jsonify = true;
 	}
 }
 lib.api.morph = function(api) {
@@ -1684,550 +1616,6 @@ lib.api.storage = function(API) {
 		return API;
 	}
 	return storage;
-}
-// Module by visionmedia
-// https://github.com/reworkcss/css-parse
-//
-// http://www.w3.org/TR/CSS21/grammar.html
-// https://github.com/visionmedia/css-parse/pull/49#issuecomment-30088027
-var commentre = /\/\*[^*]*\*+([^/*][^*]*\*+)*\//g
-
-lib.helpers.CSSParse = function(css, options){
-  options = options || {};
-  options.position = options.position === false ? false : true;
-
-  /**
-   * Positional.
-   */
-
-  var lineno = 1;
-  var column = 1;
-
-  /**
-   * Update lineno and column based on `str`.
-   */
-
-  function updatePosition(str) {
-    var lines = str.match(/\n/g);
-    if (lines) lineno += lines.length;
-    var i = str.lastIndexOf('\n');
-    column = ~i ? str.length - i : column + str.length;
-  }
-
-  /**
-   * Mark position and patch `node.position`.
-   */
-
-  function position() {
-    var start = { line: lineno, column: column };
-    if (!options.position) return positionNoop;
-
-    return function(node){
-      node.position = new Position(start);
-      whitespace();
-      return node;
-    };
-  }
-
-  /**
-   * Store position information for a node
-   */
-
-  function Position(start) {
-    this.start = start;
-    this.end = { line: lineno, column: column };
-    this.source = options.source;
-  }
-
-  /**
-   * Non-enumerable source string
-   */
-
-  Position.prototype.content = css;
-
-  /**
-   * Return `node`.
-   */
-
-  function positionNoop(node) {
-    whitespace();
-    return node;
-  }
-
-  /**
-   * Error `msg`.
-   */
-
-  function error(msg) {
-    var err = new Error(msg + ' near line ' + lineno + ':' + column);
-    err.filename = options.source;
-    err.line = lineno;
-    err.column = column;
-    err.source = css;
-    throw err;
-  }
-
-  /**
-   * Parse stylesheet.
-   */
-
-  function stylesheet() {
-    return {
-      type: 'stylesheet',
-      stylesheet: {
-        rules: rules()
-      }
-    };
-  }
-
-  /**
-   * Opening brace.
-   */
-
-  function open() {
-    return match(/^{\s*/);
-  }
-
-  /**
-   * Closing brace.
-   */
-
-  function close() {
-    return match(/^}/);
-  }
-
-  /**
-   * Parse ruleset.
-   */
-
-  function rules() {
-    var node;
-    var rules = [];
-    whitespace();
-    comments(rules);
-    while (css.length && css.charAt(0) != '}' && (node = atrule() || rule())) {
-      rules.push(node);
-      comments(rules);
-    }
-    return rules;
-  }
-
-  /**
-   * Match `re` and return captures.
-   */
-
-  function match(re) {
-    var m = re.exec(css);
-    if (!m) return;
-    var str = m[0];
-    updatePosition(str);
-    css = css.slice(str.length);
-    return m;
-  }
-
-  /**
-   * Parse whitespace.
-   */
-
-  function whitespace() {
-    match(/^\s*/);
-  }
-
-  /**
-   * Parse comments;
-   */
-
-  function comments(rules) {
-    var c;
-    rules = rules || [];
-    while (c = comment()) rules.push(c);
-    return rules;
-  }
-
-  /**
-   * Parse comment.
-   */
-
-  function comment() {
-    var pos = position();
-    if ('/' != css.charAt(0) || '*' != css.charAt(1)) return;
-
-    var i = 2;
-    while ("" != css.charAt(i) && ('*' != css.charAt(i) || '/' != css.charAt(i + 1))) ++i;
-    i += 2;
-
-    if ("" === css.charAt(i-1)) {
-      return error('End of comment missing');
-    }
-
-    var str = css.slice(2, i - 2);
-    column += 2;
-    updatePosition(str);
-    css = css.slice(i);
-    column += 2;
-
-    return pos({
-      type: 'comment',
-      comment: str
-    });
-  }
-
-  /**
-   * Parse selector.
-   */
-
-  function selector() {
-    var m = match(/^([^{]+)/);
-    if (!m) return;
-    /* @fix Remove all comments from selectors
-     * http://ostermiller.org/findcomment.html */
-    return trim(m[0]).replace(/\/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*\/+/g, '').split(/\s*,\s*/);
-  }
-
-  /**
-   * Parse declaration.
-   */
-
-  function declaration() {
-    var pos = position();
-
-    // prop
-    var prop = match(/^(\*?[-#\/\*\w]+(\[[0-9a-z_-]+\])?)\s*/);
-    if (!prop) return;
-    prop = trim(prop[0]);
-
-    // :
-    if (!match(/^:\s*/)) return error("property missing ':'");
-
-    // val
-    var val = match(/^((?:'(?:\\'|.)*?'|"(?:\\"|.)*?"|\([^\)]*?\)|[^};])+)/);
-    if (!val) return error('property missing value');
-
-    var ret = pos({
-      type: 'declaration',
-      property: prop.replace(commentre, ''),
-      value: trim(val[0]).replace(commentre, '')
-    });
-
-    // ;
-    match(/^[;\s]*/);
-
-    return ret;
-  }
-
-  /**
-   * Parse declarations.
-   */
-
-  function declarations() {
-    var decls = [];
-
-    if (!open()) return error("missing '{'");
-    comments(decls);
-
-    // declarations
-    var decl;
-    while (decl = declaration()) {
-      decls.push(decl);
-      comments(decls);
-    }
-
-    if (!close()) return error("missing '}'");
-    return decls;
-  }
-
-  /**
-   * Parse keyframe.
-   */
-
-  function keyframe() {
-    var m;
-    var vals = [];
-    var pos = position();
-
-    while (m = match(/^((\d+\.\d+|\.\d+|\d+)%?|[a-z]+)\s*/)) {
-      vals.push(m[1]);
-      match(/^,\s*/);
-    }
-
-    if (!vals.length) return;
-
-    return pos({
-      type: 'keyframe',
-      values: vals,
-      declarations: declarations()
-    });
-  }
-
-  /**
-   * Parse keyframes.
-   */
-
-  function atkeyframes() {
-    var pos = position();
-    var m = match(/^@([-\w]+)?keyframes */);
-
-    if (!m) return;
-    var vendor = m[1];
-
-    // identifier
-    var m = match(/^([-\w]+)\s*/);
-    if (!m) return error("@keyframes missing name");
-    var name = m[1];
-
-    if (!open()) return error("@keyframes missing '{'");
-
-    var frame;
-    var frames = comments();
-    while (frame = keyframe()) {
-      frames.push(frame);
-      frames = frames.concat(comments());
-    }
-
-    if (!close()) return error("@keyframes missing '}'");
-
-    return pos({
-      type: 'keyframes',
-      name: name,
-      vendor: vendor,
-      keyframes: frames
-    });
-  }
-
-  /**
-   * Parse supports.
-   */
-
-  function atsupports() {
-    var pos = position();
-    var m = match(/^@supports *([^{]+)/);
-
-    if (!m) return;
-    var supports = trim(m[1]);
-
-    if (!open()) return error("@supports missing '{'");
-
-    var style = comments().concat(rules());
-
-    if (!close()) return error("@supports missing '}'");
-
-    return pos({
-      type: 'supports',
-      supports: supports,
-      rules: style
-    });
-  }
-
-  /**
-   * Parse host.
-   */
-
-  function athost() {
-    var pos = position();
-    var m = match(/^@host */);
-
-    if (!m) return;
-
-    if (!open()) return error("@host missing '{'");
-
-    var style = comments().concat(rules());
-
-    if (!close()) return error("@host missing '}'");
-
-    return pos({
-      type: 'host',
-      rules: style
-    });
-  }
-
-  /**
-   * Parse media.
-   */
-
-  function atmedia() {
-    var pos = position();
-    var m = match(/^@media *([^{]+)/);
-
-    if (!m) return;
-    var media = trim(m[1]);
-
-    if (!open()) return error("@media missing '{'");
-
-    var style = comments().concat(rules());
-
-    if (!close()) return error("@media missing '}'");
-
-    return pos({
-      type: 'media',
-      media: media,
-      rules: style
-    });
-  }
-
-  /**
-   * Parse paged media.
-   */
-
-  function atpage() {
-    var pos = position();
-    var m = match(/^@page */);
-    if (!m) return;
-
-    var sel = selector() || [];
-
-    if (!open()) return error("@page missing '{'");
-    var decls = comments();
-
-    // declarations
-    var decl;
-    while (decl = declaration()) {
-      decls.push(decl);
-      decls = decls.concat(comments());
-    }
-
-    if (!close()) return error("@page missing '}'");
-
-    return pos({
-      type: 'page',
-      selectors: sel,
-      declarations: decls
-    });
-  }
-
-  /**
-   * Parse document.
-   */
-
-  function atdocument() {
-    var pos = position();
-    var m = match(/^@([-\w]+)?document *([^{]+)/);
-    if (!m) return;
-
-    var vendor = trim(m[1]);
-    var doc = trim(m[2]);
-
-    if (!open()) return error("@document missing '{'");
-
-    var style = comments().concat(rules());
-
-    if (!close()) return error("@document missing '}'");
-
-    return pos({
-      type: 'document',
-      document: doc,
-      vendor: vendor,
-      rules: style
-    });
-  }
-
-  /**
-   * Parse font-face.
-   */
-
-  function atfontface() {
-    var pos = position();
-    var m = match(/^@font-face */);
-    if (!m) return;
-
-    if (!open()) return error("@font-face missing '{'");
-    var decls = comments();
-
-    // declarations
-    var decl;
-    while (decl = declaration()) {
-      decls.push(decl);
-      decls = decls.concat(comments());
-    }
-
-    if (!close()) return error("@font-face missing '}'");
-
-    return pos({
-      type: 'font-face',
-      declarations: decls
-    });
-  }
-
-  /**
-   * Parse import
-   */
-
-  var atimport = _compileAtrule('import');
-
-  /**
-   * Parse charset
-   */
-
-  var atcharset = _compileAtrule('charset');
-
-  /**
-   * Parse namespace
-   */
-
-  var atnamespace = _compileAtrule('namespace');
-
-  /**
-   * Parse non-block at-rules
-   */
-
-
-  function _compileAtrule(name) {
-    var re = new RegExp('^@' + name + ' *([^;\\n]+);');
-    return function() {
-      var pos = position();
-      var m = match(re);
-      if (!m) return;
-      var ret = { type: name };
-      ret[name] = m[1].trim();
-      return pos(ret);
-    }
-  }
-
-  /**
-   * Parse at rule.
-   */
-
-  function atrule() {
-    if (css[0] != '@') return;
-
-    return atkeyframes()
-      || atmedia()
-      || atsupports()
-      || atimport()
-      || atcharset()
-      || atnamespace()
-      || atdocument()
-      || atpage()
-      || athost()
-      || atfontface();
-  }
-
-  /**
-   * Parse rule.
-   */
-
-  function rule() {
-    var pos = position();
-    var sel = selector();
-
-    if (!sel) return error('selector missing');
-    comments();
-
-    return pos({
-      type: 'rule',
-      selectors: sel,
-      declarations: declarations()
-    });
-  }
-
-  return stylesheet();
-};
-
-/**
- * Trim `str`.
- */
-
-function trim(str) {
-  return str ? str.replace(/^\s+|\s+$/g, '') : '';
 }
 lib.helpers.Clone = function clone(item) {
     if (!item) { return item; } // null, undefined values check
@@ -2468,8 +1856,7 @@ var newline = '\n',
 		minify: false,
 		keepCamelCase: false
 	},
-	transformUppercase = require("../../helpers/TransformUppercase"),
-	extend = require("../../helpers/Extend");
+	transformUppercase = require("../../helpers/TransformUppercase");
 
 var toCSS = function(rules, options, indent) {
 	var css = '';
@@ -2487,8 +1874,7 @@ var toCSS = function(rules, options, indent) {
 				if(value === "") {
 					value = '""';
 				}
-				prop = prop.replace(/~~(.+)~~/, '');
-				prop = prop.replace(/^%(.*)+?%/, '');
+				prop = prop.replace(/^%(.*)+?%/, '').replace(/~~(.+)~~/, '');
 				if(options && options.keepCamelCase === true) {
 					entity += indent[1] + prop + ': ' + value + ';' + newline;
 				} else {
@@ -2503,30 +1889,6 @@ var toCSS = function(rules, options, indent) {
 		}
 	}
 	return css;
-}
-
-var toJSON = function(rules, options) {
-	var result = {};
-	for(var stylesheet in rules) {
-		var styles = rules[stylesheet];
-		if(stylesheet == 'mainstream') {
-			for(var selector in styles) {
-				result[selector] = {}
-				for(var prop in styles[selector]) {
-					result[selector][prop] = styles[selector][prop];
-				}
-			}			
-		} else if(stylesheet.indexOf('@media') >= 0) {
-			result[stylesheet] = {};
-			for(var selector in styles) {
-				result[stylesheet][selector] = {}
-				for(var prop in styles[selector]) {
-					result[stylesheet][selector][prop] = styles[selector][prop];
-				}
-			}
-		}
-	}
-	return result;
 }
 
 // combining selectors
@@ -2626,11 +1988,6 @@ var replaceDefined = function(css, options) {
 lib.processors.css.CSS = function() {
 	var processor = function(rules, callback, options) {
 		options = options || defaultOptions;
-		if(options.api && options.api.jsonify) {
-			var json = toJSON(rules, options);
-			callback(null, json);
-			return json;
-		}
 		var css = '';
 		for(var stylesheet in rules) {
 			var r = rules[stylesheet];
@@ -2703,23 +2060,14 @@ lib.processors.css.plugins.keyframes = function() {
 					}
 				}
 			}
-			if(api.jsonify) {
-				var r = {};
-				r.keyframes = {
-					name: value.name,
-					frames: frames
-				}
-				api.add(r);
-			} else {
-				var absurd = require(__dirname + '/../../../../')();
-				absurd.add(frames).compile(function(err, css) {
-					var content = '@keyframes ' + value.name + " {\n";
-					content += css;
-					content += "}";
-					content = content + "\n" + content.replace("@keyframes", "@-webkit-keyframes");
-					api.raw(content);
-				}, {combineSelectors: false});	
-			}			
+			var absurd = require(__dirname + '/../../../../')();
+			absurd.add(frames).compile(function(err, css) {
+				var content = '@keyframes ' + value.name + " {\n";
+				content += css;
+				content += "}";
+				content = content + "\n" + content.replace("@keyframes", "@-webkit-keyframes");
+				api.raw(content);
+			}, {combineSelectors: false});
 		}
 	}
 }
@@ -2728,26 +2076,20 @@ lib.processors.css.plugins.media = function() {
 		var processor = require(__dirname + "/../CSS.js")();
 		if(typeof value === "object") {
 			var content = '@media ' + value.media + " {\n";
-			var rules = {}, json = {};
+			var rules = {};
 			for(var i=0; rule=value.rules[i]; i++) {				
 				var r = rules[rule.selectors.toString()] = {};
-				var rjson = json[rule.selectors.toString()] = {};
 				if(rule.type === "rule") {
 					for(var j=0; declaration=rule.declarations[j]; j++) {
 						if(declaration.type === "declaration") {
 							r[declaration.property] = declaration.value;
-							rjson[declaration.property] = declaration.value;
 						}
 					}
 				}
 			}
 			content += processor({mainstream: rules});
 			content += "}";
-			if(api.jsonify) {
-				api.add(json, '@media ' + value.media);
-			} else {
-				api.raw(content);
-			}
+			api.raw(content);
 		}
 	}
 }
@@ -2840,7 +2182,7 @@ var process = function(tagName, obj) {
 		attrs += " " + tagAnalized.attrs;
 	}
 
-	if(typeof obj === "string" || obj === null) {
+	if(typeof obj === "string") {
 		return packTag(tagName, attrs, obj);
 	}
 
@@ -2928,7 +2270,7 @@ var packTag = function(tagName, attrs, childs) {
 		return childs;
 	}
 	tagName = tagName == '' ? 'div' : tagName;
-	if(childs !== null) {
+	if(childs !== '') {
 		html += '<' + prepareProperty(tagName, passedOptions) + attrs + '>' + newline + childs + newline + '</' + prepareProperty(tagName, passedOptions) + '>';
 	} else {
 		html += '<' + prepareProperty(tagName, passedOptions) + attrs + '/>';
@@ -3034,11 +2376,7 @@ lib.processors.html.helpers.PropAnalyzer = function(prop) {
 	return res;
 }
 lib.processors.html.helpers.TemplateEngine = function(html, options) {
-	var re = /<%(.+?)%>/g, 
-		reExp = /(^( )?(var|if|for|else|switch|case|break|{|}|;))(.*)?/g, 
-		code = 'with(obj) { var r=[];\n', 
-		cursor = 0, 
-		result;
+	var re = /<%(.+?)%>/g, reExp = /(^( )?(var|if|for|else|switch|case|break|{|}|;))(.*)?/g, code = 'var r=[];\n', cursor = 0, result;
 	var add = function(line, js) {
 		js? (code += line.match(reExp) ? line + '\n' : 'r.push(' + line + ');\n') :
 			(code += line != '' ? 'r.push("' + line.replace(/"/g, '\\"') + '");\n' : '');
@@ -3049,8 +2387,8 @@ lib.processors.html.helpers.TemplateEngine = function(html, options) {
 		cursor = match.index + match[0].length;
 	}
 	add(html.substr(cursor, html.length - cursor));
-	code = (code + 'return r.join(""); }').replace(/[\r\t\n]/g, '');
-	try { result = new Function('obj', code).apply(options, [options]); }
+	code = (code + 'return r.join("");').replace(/[\r\t\n]/g, '');
+	try { result = new Function(code).apply(options); }
 	catch(err) { console.error("'" + err.message + "'", " in \n\nCode:\n", code, "\n"); }
 	return result;
 };
