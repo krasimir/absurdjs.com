@@ -297,6 +297,19 @@ pre {
   position: relative;
   color: #FFF;
 }
+.landing section.home .home-links {
+  margin: 20px 0 0 0 ;
+}
+.landing section.home .home-links p {
+  display: inline;
+  background: #000;
+  font-size: 20px;
+  line-height: 24px;
+  color: #FFF;
+}
+.landing section.home .home-links p a {
+  color: #FFF;
+}
 .landing section.home .links {
   padding: 0 0 0 40px;
   transform: translate(0px,-10px);

@@ -204,6 +204,19 @@ var home = function() {
 				}
 			}
 		},
+		'.home-links': {
+			mar: '20px 0 0 0 ',
+			p: {
+				d: 'i',
+				bg: '#000',
+				color: '#FFF',
+				fz: '20px',
+				lh: '24px',
+				a: {
+					color: '#FFF'
+				}
+			},
+		},
 		'.links': {
 			pad: '0 0 0 40px',
 			moveto: '0/-10px',
