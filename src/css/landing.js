@@ -39,35 +39,18 @@ var video = function() {
 
 /************************************************************* Logo */
 var logo = function() {
-	var wid = 60;
+	var wid = 120;
 	var r = {
 		'.logo': {
 			d: 'b',
 			wid: wid + 'px',
 			pos: 'a',
-			left: '50%',
-			bottom: '40px',
-			ml: '-' + Math.ceil(wid/2) + 'px',
-			moveto: '0/300px',
-			transparent: 0.4,
-			'-wmso-trs': 'all 1000ms',
-			'&:hover': {
-				scaleto: '1.2/1.2',
-				transparent: 1
-			}
+			top: '244px',
+			left: '361px'
 		}
 	}
 	r['.logo'][noVideoBreakpoint] = {
-		pos: 'r',
-		wid: (wid * 2) + 'px',
-		mar: '50px auto 50px auto',
-		transparent: 1,
-		moveto: '0/0',
-		left: 'auto',
-		bottom: 'auto',
-		'&:hover': {
-			scaleto: '1/1'
-		}
+		d: 'n'
 	}
 	return r;
 }
@@ -191,6 +174,7 @@ var home = function() {
 	var r = {
 		grid: '2/.column',
 		'.title': {
+			pos: 'r',
 			ta: 'r',
 			h1: {
 				fz: '60px',
@@ -205,7 +189,7 @@ var home = function() {
 			}
 		},
 		'.home-links': {
-			mar: '20px 0 0 0 ',
+			mar: '37px 145px 0 0',
 			p: {
 				d: 'i',
 				bg: '#000',
@@ -213,7 +197,11 @@ var home = function() {
 				fz: '20px',
 				lh: '24px',
 				a: {
-					color: '#FFF'
+					color: '#FFF',
+					'-wmo-trs': 'all 200ms',
+					'&:hover': {
+						color: '#F00'
+					}
 				}
 			},
 		},
@@ -258,6 +246,7 @@ var home = function() {
 	r['.column'] = {};
 	r['.column'][noVideoBreakpoint] = { fl: 'n', wid: '100%', pad: 0 };
 	r['.title'][noVideoBreakpoint] = { ta: 'c', mar: '0 0 36px 0', h1: { fz: '40px', lh: '40px'} };
+	r['.home-links'][noVideoBreakpoint] = { margin: '37px 0 0 0' };
 	r['.links'].ul.li[noVideoBreakpoint] = { 
 		ta: 'c',
 		a: {

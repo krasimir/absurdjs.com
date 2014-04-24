@@ -27,17 +27,6 @@ absurd.component('LandingVideo', {
 	}]
 })();
 
-absurd.component('LandingLogo', {
-	html: '.landing .logo',
-	ready: ['is', function(is) {
-		if(is.appended()) {
-			this.applyCSS({
-				moveto: '0/0'
-			});
-		}
-	}]
-})();
-
 absurd.component('Sections', {
 	html: '.landing',
 	switchTo: function(newSection) {

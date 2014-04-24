@@ -123,34 +123,10 @@ pre {
 }
 .landing .logo {
   display: block;
-  width: 60px;
+  width: 120px;
   position: absolute;
-  margin-left: -30px;
-  transform: translate(0px,300px);
-  -webkit-transform: translate(0px,300px);
-  -ms-transform: translate(0px,300px);
-  filter: alpha(opacity=40);
-  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
-  opacity: 0.4;
-  -moz-opacity: 0.4;
-  -khtml-opacity: 0.4;
-  transition: all 1000ms;
-  -webkit-transition: all 1000ms;
-  -moz-transition: all 1000ms;
-  -ms-transition: all 1000ms;
-  -o-transition: all 1000ms;
-  left: 50%;
-  bottom: 40px;
-}
-.landing .logo:hover {
-  transform: scale(1.2,1.2);
-  -webkit-transform: scale(1.2,1.2);
-  -ms-transform: scale(1.2,1.2);
-  filter: alpha(opacity=100);
-  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-  opacity: 1;
-  -moz-opacity: 1;
-  -khtml-opacity: 1;
+  top: 244px;
+  left: 361px;
 }
 .landing section {
   position: absolute;
@@ -284,6 +260,7 @@ pre {
   width: 50.00%;
 }
 .landing section.home .title {
+  position: relative;
   text-align: right;
 }
 .landing section.home .title h1 {
@@ -298,7 +275,7 @@ pre {
   color: #FFF;
 }
 .landing section.home .home-links {
-  margin: 20px 0 0 0 ;
+  margin: 37px 145px 0 0;
 }
 .landing section.home .home-links p {
   display: inline;
@@ -308,7 +285,14 @@ pre {
   color: #FFF;
 }
 .landing section.home .home-links p a {
+  transition: all 200ms;
+  -webkit-transition: all 200ms;
+  -moz-transition: all 200ms;
+  -o-transition: all 200ms;
   color: #FFF;
+}
+.landing section.home .home-links p a:hover {
+  color: #F00;
 }
 .landing section.home .links {
   padding: 0 0 0 40px;
@@ -744,24 +728,7 @@ pre {
     display: none;
   }
   .landing .logo {
-    position: relative;
-    width: 120px;
-    margin: 50px auto 50px auto;
-    filter: alpha(opacity=100);
-    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-    opacity: 1;
-    -moz-opacity: 1;
-    -khtml-opacity: 1;
-    transform: translate(0px,0px);
-    -webkit-transform: translate(0px,0px);
-    -ms-transform: translate(0px,0px);
-    left: auto;
-    bottom: auto;
-  }
-  .landing .logo:hover {
-    transform: scale(1,1);
-    -webkit-transform: scale(1,1);
-    -ms-transform: scale(1,1);
+    display: none;
   }
   .landing section.text-section h2 {
     font-size: 30px;
@@ -779,6 +746,9 @@ pre {
   .landing section.home .title h1 {
     font-size: 40px;
     line-height: 40px;
+  }
+  .landing section.home .home-links {
+    margin: 37px 0 0 0;
   }
   .landing section.home .links ul li {
     text-align: center;
