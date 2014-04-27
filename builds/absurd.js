@@ -1,4 +1,4 @@
-/* version: 0.3.17, born: 21-3-2014 9:29 */
+/* version: 0.3.19, born: 27-3-2014 12:56 */
 var Absurd = (function(w) {
 var lib = { 
     api: {},
@@ -1492,7 +1492,11 @@ lib.api.compile = function(api) {
 			function(err, result) {
 				if(path != null) {
 					try {
-						fs.writeFile(path, result, function (err) {
+						var fileContent = result;
+						if('object' === typeof fileContent) {
+							fileContent = JSON.stringify(fileContent);
+						}
+						fs.writeFile(path, fileContent, function (err) {
 							callback(err, result);
 						});
 					} catch(err) {
