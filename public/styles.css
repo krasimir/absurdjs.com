@@ -556,6 +556,9 @@ pre {
 .content-container .jsbin-widget iframe {
   height: 700px;
 }
+.tryit-templates {
+  display: none;
+}
 .footer-content {
   position: fixed;
   height: 9px;

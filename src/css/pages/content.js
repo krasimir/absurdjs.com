@@ -162,6 +162,9 @@ module.exports = function(api) {
 					hei: '700px'
 				}
 			}
+		},
+		'.tryit-templates': {
+			d: 'n'
 		}
 	});
 }

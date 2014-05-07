@@ -18,3 +18,17 @@ absurd.component('TryIt', {
 		}
 	}
 })();
+
+absurd.component('TryItTempaltes', {
+	html: '[data-absurd-component="tryit-templates"]',
+	css: { '.tryit-templates': { d: 'b' } },
+	templates: [
+		{ url: 'http://jsbin.com/paqegexe/199/edit?js,output', label: 'CSS preprocessing' },
+		{ url: 'http://jsbin.com/paqegexe/203/edit?js,output', label: 'HTML preprocessing' },
+		{ url: 'http://jsbin.com/paqegexe/204/edit?js,output', label: 'Template engine' },
+		{ url: 'http://jsbin.com/paqegexe/4/edit?js,output', label: 'Client-side component' }
+	],
+	ready: function() {
+		this.populate();
+	}
+})();
