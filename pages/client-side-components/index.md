@@ -2,7 +2,7 @@
 
 <social>
 
-The web development nowadays is all about managing HTML, CSS and JavaScript. AbsurdJS is a JavaScript library and could produce [CSS](/pages/css-preprocessing/) and [HTML](/pages/html-preprocessing/). And because it is ported for a client-side usage it was normal to form some kind of web components. Components which are trully build with JavaScript. No external CSS files or HTML templates.
+The web development nowadays is all about managing HTML, CSS and JavaScript. AbsurdJS is a JavaScript library and could produce [CSS](/pages/css-preprocessing/) and [HTML](/pages/html-preprocessing/). And because it is ported for a client-side usage it was normal to form some kind of web components. Components which are truly built with JavaScript. No external CSS files or HTML templates.
 
 	var absurd = Absurd();
 	var ComponentClass = absurd.component("ComponentName", {
