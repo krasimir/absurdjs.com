@@ -1,4 +1,4 @@
-/* version: 0.3.22, born: 17-4-2014 16:16 */
+/* version: 0.3.24, born: 17-4-2014 23:16 */
 var Absurd = (function(w) {
 var lib = { 
     api: {},
@@ -31,7 +31,7 @@ var require = function(v) {
         return lib.processors.html.helpers.PropAnalyzer;
     } else if(v == '../../helpers/TransformUppercase') {
         return lib.helpers.TransformUppercase;
-    } else if(v == './helpers/TemplateEngine') {
+    } else if(v == './helpers/TemplateEngine' || v == '../html/helpers/TemplateEngine') {
         return lib.processors.html.helpers.TemplateEngine;
     } else if(v == '../helpers/Extend') {
         return lib.helpers.Extend;
@@ -278,7 +278,7 @@ api.get = function(key) {
 var CSS = false;
 api.__handleCSS = function(next) {
 	if(this.css) {
-		absurd.flush().add(this.css).compile(function(err, css) {
+		absurd.flush().morph('dynamic-css').add(this.css).compile(function(err, css) {
 			if(!CSS) {
 				var style = createNode(
 					'style', [
@@ -294,7 +294,7 @@ api.__handleCSS = function(next) {
 				CSS.element.innerHTML = css;
 			}
 			next();
-		});
+		}, this);
 	} else {
 		next();
 	}
@@ -1615,6 +1615,9 @@ var metamorphosis = {
 	},
 	jsonify: function(api) {
 		api.jsonify = true;
+	},
+	'dynamic-css': function(api) {
+		api.dynamicCSS = true;
 	}
 }
 lib.api.morph = function(api) {
@@ -2651,6 +2654,10 @@ lib.processors.css.CSS = function() {
 			}		
 		}
 		css = replaceDefined(css, options);
+		// Dynamic CSS
+		if(options && options.api && options.api.dynamicCSS) {
+			css = require("../html/helpers/TemplateEngine")(css, options);
+		}
 		// Minification
 		if(options.minify) {
 			css = minimize(css);

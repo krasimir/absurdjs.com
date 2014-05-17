@@ -271,3 +271,23 @@ The result is:
 	}
 
 AbsurdJS just removes the `%` letters and everything between them.
+
+## Writing JavaScript expressions inside your CSS
+
+Instead of adding logic in the JavaScript part we are able to write expressions directly into the CSS definitions.
+
+	api.morph('dynamic-css').add({
+	    '.content <% elClass %>': {
+	    	width: '<% w %>',
+	    	padding: '20px'
+	    }
+	}).compile(function(err, css) {
+		
+	}, { w: '300px', elClass: '.black' });
+
+The result is:
+
+	.content .black {
+		width: 300px;
+		padding: 20px;
+	}

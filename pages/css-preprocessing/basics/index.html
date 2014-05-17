@@ -365,7 +365,22 @@ body section {
     background: #BADA55;
 }
 </code></pre><p>AbsurdJS just removes the <code class="language-javascript">%</code> letters and everything between them.</p>
+<h2 id="writing-javascript-expressions-inside-your-css">Writing JavaScript expressions inside your CSS</h2>
+<p>Instead of adding logic in the JavaScript part we are able to write expressions directly into the CSS definitions.</p>
+<pre><code class="language-javascript">api.morph(&#39;dynamic-css&#39;).add({
+    &#39;.content &lt;% elClass %&gt;&#39;: {
+        width: &#39;&lt;% w %&gt;&#39;,
+        padding: &#39;20px&#39;
+    }
+}).compile(function(err, css) {
 
+}, { w: &#39;300px&#39;, elClass: &#39;.black&#39; });
+</code></pre><p>The result is:</p>
+<pre><code class="language-javascript">.content .black {
+    width: 300px;
+    padding: 20px;
+}
+</code></pre>
                 <br />
                 <br />
                 <hr />
