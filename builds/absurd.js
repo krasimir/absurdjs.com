@@ -1,4 +1,4 @@
-/* version: 0.3.24, born: 17-4-2014 23:16 */
+/* version: 0.3.26, born: 21-6-2014 0:54 */
 var Absurd = (function(w) {
 var lib = { 
     api: {},
@@ -1430,7 +1430,7 @@ lib.api.add = function(API) {
 					props = toRegister[i].props,
 					allRules = API.getRules(stylesheet);
 				var pc = options && options.preventCombining ? '|' + options.preventCombining.join('|') : '';
-				var uid = pc.indexOf('|' + selector) >= 0 ? '~~' + API.numOfAddedRules + '~~' : '';
+				var uid = pc.indexOf('|' + selector.replace(/^%(.*)?%/, '')) >= 0 ? '~~' + (selector.match(/^%(.*)?%/) ? API.numOfAddedRules++ : API.numOfAddedRules) + '~~' : '';
 				// overwrite already added value
 				var current = allRules[uid + selector] || {};
 				for(var propNew in props) {
@@ -2493,7 +2493,7 @@ var toCSS = function(rules, options, indent) {
 			css += rules[selector][selector] + newline;
 		// handling normal styles
 		} else {
-			var entityStyle = indent[0] + selector.replace(/~~(.+)~~/, '').replace(/^%(.*)+?%/, '') + ' {' + newline;
+			var entityStyle = indent[0] + selector.replace(/~~(.+)~~/, '').replace(/^%(.*)?%/, '') + ' {' + newline;
 			var entity = '';
 			for(var prop in rules[selector]) {
 				var value = rules[selector][prop];
@@ -2567,7 +2567,7 @@ var combineSelectors = function(rules, preventCombining) {
 		if(map[i].combine === true && map[i].selector !== false) {
 			for(var j=i+1;j<map.length; j++) {
 				if(map[i].prop === map[j].prop && map[i].value === map[j].value) {
-					map[i].selector += ', ' + map[j].selector;
+					map[i].selector += ', ' + map[j].selector.replace(/~~(.+)~~/, '').replace(/^%(.*)+?%/, '');
 					map[j].selector = false; // marking for removal
 				}
 			}
@@ -2670,6 +2670,7 @@ lib.processors.css.CSS = function() {
 	processor.type = "css";
 	return processor;
 }
+
 lib.processors.css.plugins.charset = function() {	
 	return function(api, charsetValue) {
 		if(typeof charsetValue === "string") {
