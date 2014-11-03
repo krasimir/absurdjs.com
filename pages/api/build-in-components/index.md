@@ -566,7 +566,7 @@ absurd.component('TestingDOM', {
                 version: '.ver',
                 position: '.pos'
             }
-        }, 'fomr.contacts').val());
+        }, 'form.contacts').val());
     }
 })();
 </js>
