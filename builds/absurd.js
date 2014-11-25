@@ -1,4 +1,4 @@
-/* version: 0.3.31, born: 2-8-2014 0:4 */
+/* version: 0.3.33, born: 26-11-2014 0:13 */
 var Absurd = (function(w) {
 var lib = { 
     api: {},
@@ -569,9 +569,10 @@ var isPopulateInProgress = false;
 api.populate = function(options) {
 	if(isPopulateInProgress) return;
 	isPopulateInProgress = true;
+	var empty = function(next) { next(); return this; };
 	queue([
-		api.__handleCSS,
-		api.__handleHTML,
+		options && options.css === false ? empty : api.__handleCSS,
+		options && options.html === false ? empty : api.__handleHTML,
 		api.__append, 
 		api.__handleEvents,
 		api.__handleAsyncFunctions,
@@ -1303,8 +1304,11 @@ lib.api.add = function(API) {
 
 		// if array is passed
 		if(typeof props.length !== 'undefined' && typeof props === "object") {
-			for(var i=0; i<props.length, prop=props[i]; i++) {
-				addRule(selector, prop, stylesheet, parentSelector);
+			for(var i=0; i<props.length; i++) {
+				prop=props[i];
+				if(prop) {
+					addRule(selector, prop, stylesheet, parentSelector);
+				}
 			}
 			return;
 		}
@@ -1471,6 +1475,7 @@ lib.api.add = function(API) {
 	}
 	return add;
 }
+
 var extend = require("../helpers/Extend");
 
 lib.api.compile = function(api) {
