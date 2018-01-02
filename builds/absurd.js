@@ -1,4 +1,4 @@
-/* version: 0.3.4, born: 28-3-2015 15:40 */
+/* version: 0.3.7, born: 20-10-2016 9:44 */
 var Absurd = (function(w) {
 var lib = { 
     api: {},
@@ -3061,7 +3061,8 @@ lib.processors.html.helpers.TemplateEngine = function(html, options) {
 		reExp = /(^( )?(var|if|for|else|switch|case|break|{|}|;))(.*)?/g, 
 		code = 'with(obj) { var r=[];\n', 
 		cursor = 0, 
-		result;
+		result,
+	    	match;
 	var add = function(line, js) {
 		js? (code += line.match(reExp) ? line + '\n' : 'r.push(' + line + ');\n') :
 			(code += line != '' ? 'r.push("' + line.replace(/"/g, '\\"') + '");\n' : '');
@@ -3072,10 +3073,11 @@ lib.processors.html.helpers.TemplateEngine = function(html, options) {
 		cursor = match.index + match[0].length;
 	}
 	add(html.substr(cursor, html.length - cursor));
-	code = (code + 'return r.join(""); }').replace(/[\r\t\n]/g, '');
+	code = (code + 'return r.join(""); }').replace(/[\r\t\n]/g, ' ');
 	try { result = new Function('obj', code).apply(options, [options]); }
 	catch(err) { console.error("'" + err.message + "'", " in \n\nCode:\n", code, "\n"); }
 	return result;
-};
+}
+;
 return client();
 })(window);
